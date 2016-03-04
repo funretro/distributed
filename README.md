@@ -33,6 +33,10 @@ Learn more about retrospectives at [funretrospectives.com](http://funretrospecti
 3. Run ```gulp```
 4. Point your browser to [http://localhost:4000/](http://localhost:4000/) or open index.html
 
+##Continuous Integration
+
+https://snap-ci.com/funretro/distributed/branch/master
+
 ## Running the tests
 
 1. Run ```gulp test```
