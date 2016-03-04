@@ -42,34 +42,6 @@ angular
         return !localStorage.getItem('funretro1') && $scope.userId !== '';
       };
 
-      $scope.droppedEvent = function(dragEl, dropEl) {
-        if(dragEl !== dropEl) {
-          $scope.dragEl = dragEl;
-          $scope.dropEl = dropEl;
-
-          utils.openDialogMergeCards($scope);
-        }
-      };
-
-      $scope.dropped = function(dragEl, dropEl) {
-        var drag = $('#' + dragEl);
-        var drop = $('#' + dropEl);
-
-        var dropMessageRef = firebaseService.getMessageRef($scope.userId, drop.attr('messageId'));
-        var dragMessageRef = firebaseService.getMessageRef($scope.userId, drag.attr('messageId'));
-
-        dropMessageRef.once('value', function(dropMessage) {
-          dragMessageRef.once('value', function(dragMessage) {
-            dropMessageRef.update({
-              text: dropMessage.val().text + ' | ' + dragMessage.val().text
-            });
-
-            dragMessageRef.remove();
-            utils.closeAll();
-          });
-        });
-      };
-
       $scope.boardNameChanged = function() {
         $scope.newBoard.name = $scope.newBoard.name.replace(/\s+/g,'');
       };

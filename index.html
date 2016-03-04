@@ -46,7 +46,7 @@
                     <a class="blue" ng-click="editing=false;">Cancel</a>
                   </div>
               </div>
-              <li id="{{ message.$id }}" enter-click class="message" ng-class="{'flip': isEditing}" ng-repeat="message in messages | filter: {type: {id: type.id}} | orderBy: sortField:getSortOrder()">
+              <li ng-controller="MessageCtrl" id="{{ message.$id }}" enter-click class="message" ng-class="{'flip': isEditing}" ng-repeat="message in messages | filter: {type: {id: type.id}} | orderBy: sortField:getSortOrder()">
                 <div messageId="{{ message.$id }}" x-lvl-draggable="true" x-lvl-drop-target="true" x-on-drop="droppedEvent(dragEl, dropEl)">
                   <div class="front">
                       <div class="message-body">
@@ -162,7 +162,7 @@ It is time to gather data, talk about the positive stuff, recognize people and s
   <script type="text/ng-template" id="mergeCards">
     <h1>Merge cards</h1>
     <p>Are you sure you want to merge these two cards?</strong></p>
-    <button class="delete-button" ng-click="dropped(dragEl, dropEl)">Merge</button>
+    <button ng-controller="MessageCtrl" class="delete-button" ng-click="dropped(dragEl, dropEl)">Merge</button>
     <a ng-click="utils.closeAll()">Cancel</a>
   </script>
   <script>
