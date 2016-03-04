@@ -110,16 +110,6 @@ angular
         });
       };
 
-      $scope.toggleVote = function(key, votes) {
-        if(!localStorage.getItem(key)) {
-          messagesRef.child(key).update({ votes: votes + 1, date: firebaseService.getServerTimestamp() });
-          localStorage.setItem(key, 1);
-         } else {
-           messagesRef.child(key).update({ votes: votes - 1, date: firebaseService.getServerTimestamp() });
-           localStorage.removeItem(key);
-         }
-      };
-
       $scope.addNewColumn = function(name) {
         $scope.board.columns[utils.getNextId($scope.board) - 1] = {
           value: name,
