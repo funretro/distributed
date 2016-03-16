@@ -1,4 +1,4 @@
-button {
+button, .button {
   font-family: 'Roboto', sans-serif;
   border: 0px;
   cursor: pointer;
@@ -13,6 +13,7 @@ button {
   border-bottom: 2px solid $dark-blue;
   outline: none;
   border-radius: 2px;
+  width: auto;
 
   &.first {
     background: $purple;

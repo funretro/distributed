@@ -55,19 +55,28 @@
     display: inline-block;
   }
 
+  button, .button {
+    font-size: 16px;
+  }
+
+  .second {
+    height: 40px;
+    vertical-align: top;
+    width: 120px;
+  }
+
   button {
     margin: 0 auto;
     display: block;
     width: 160px;
-      font-size: 16px;
-      height: 47px;
-      margin-top: 60px;
-      background: $purple;
-      border-bottom: 3px solid $light-purple;
+    height: 47px;
+    margin-top: 60px;
+    background: $purple;
+    border-bottom: 3px solid $light-purple;
 
-      &.alone {
-        margin: 0 auto;
-      }
+    &.alone {
+      margin: 0 auto;
+    }
   }
 
   ul {
