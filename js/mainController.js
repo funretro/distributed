@@ -6,7 +6,7 @@ angular
       $scope.messageTypes = utils.messageTypes;
       $scope.utils = utils;
       $scope.newBoard = { name: '' };
-      $scope.userId = $window.location.hash.substring(1);
+      $scope.userId = $window.location.hash.substring(1) || '';
       $scope.sortField = '$id';
 
       function getBoardAndMessages(userData) {
@@ -27,7 +27,7 @@ angular
         $scope.loading = false;
       }
 
-      if($scope.userId) {
+      if($scope.userId !== '') {
         var messagesRef = firebaseService.getMessagesRef($scope.userId);
         auth.logUser($scope.userId, getBoardAndMessages);
       } else {
