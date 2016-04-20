@@ -35,19 +35,19 @@
   }
 
   p {
-      width: 40%;
-      margin: 0 auto;
-      line-height: 1.8em;
-      font-size: 18px;
-      display: inline-block;
-      vertical-align: top;
-      margin-top: 30px;
-      margin-left: 40px;
+    width: 40%;
+    margin: 0 auto;
+    line-height: 1.8em;
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 30px;
+    margin-left: 40px;
 
-      &.left {
-        margin-left: 0;
-        margin-right: 40px;
-      }
+    &.left {
+      margin-left: 0;
+      margin-right: 40px;
+    }
   }
 
   img {

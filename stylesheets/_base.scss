@@ -6,6 +6,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 /* END Regular */
 
 /* BEGIN Bold */
@@ -16,8 +17,8 @@
   font-weight: normal;
   font-style: normal;
 }
-/* END Bold */
 
+/* END Bold */
 
 body {
   font-size: 14px;
@@ -165,7 +166,6 @@ ul {
   width: 12.8281px;
 }
 
-
 .fa-pencil:hover {
   color: $darkest-gray;
   opacity: 0.5;
@@ -231,7 +231,7 @@ input[type="text"] {
 }
 
 blockquote {
-  font-family: 'PT Serif',serif;
+  font-family: 'PT Serif', serif;
   font-style: italic;
   margin: 0;
 
@@ -281,9 +281,28 @@ blockquote {
   color: white;
   font-size: 18px;
 
+  @include media-query($tablet) {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    left: 0;
+    overflow-y: scroll;
+  }
+
+  @include media-query($phone) {
+    height: 100vh;
+    top: 0;
+  }
+
   .feature {
     display: inline-block;
     width: 48%;
+    margin-top: 20px;
+
+    @include media-query($phone) {
+      display: block;
+      width: 100%;
+    }
   }
 
   .title {
@@ -291,6 +310,10 @@ blockquote {
     font-weight: bold;
     color: $light-purple;
     display: inline-block;
+
+    @include media-query($phone) {
+      font-size: 1.5em;
+    }
   }
 
   button {
@@ -312,10 +335,6 @@ blockquote {
     color: $dark-gray;
   }
 
-  .margin-top {
-    margin-top: 20px;
-  }
-
   img {
     width: 280px;
     border: 1px solid $lightest-gray;
@@ -333,6 +352,12 @@ blockquote {
     right: 5px;
     color: $dark-gray;
     cursor: pointer;
+
+    @include media-query($phone) {
+      font-size: 1.5em;
+      padding-left: 15px;
+      padding-bottom: 15px;
+    }
   }
 }
 

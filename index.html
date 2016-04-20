@@ -1,6 +1,8 @@
 <html ng-app="fireideaz">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title ng-bind="'Fun Retrospectives &mdash; ' + boardId">Fun Retrospectives</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -88,7 +90,7 @@
     <div ng-show="showNotification()" class="overlay" ng-cloak></div>
     <div ng-show="showNotification()" class="feature-notification" ng-cloak>
       <i class="fa fa-times" ng-click="seeNotification()"></i>
-      <span class="title">We're happy to announce new features!</span> <br><br> 
+      <span class="title">We're happy to announce new features!</span>
       <span class='feature'>
         <h3>Merge cards</h3>
         <img src="img/merge.png" />
@@ -97,7 +99,7 @@
         <h3>Set the context</h3>
         <img src="img/image1.png" />
       </span>
-      <span class='feature margin-top'>
+      <span class='feature'>
         <h3>Prime Directive</h3>
         <img src="img/image2.png" />
       </span>
