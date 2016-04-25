@@ -50,6 +50,16 @@ angular
         return $scope.sortField === 'votes' ? true : false;
       };
 
+      $scope.toggleVote = function(key, votes) {
+        if(!localStorage.getItem(key)) {
+          messagesRef.child(key).update({ votes: votes + 1, date: firebaseService.getServerTimestamp() });
+          localStorage.setItem(key, 1);
+         } else {
+           messagesRef.child(key).update({ votes: votes - 1, date: firebaseService.getServerTimestamp() });
+           localStorage.removeItem(key);
+         }
+      };
+
       $scope.createNewBoard = function() {
         $scope.loading = true;
         utils.closeAll();
