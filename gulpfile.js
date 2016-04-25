@@ -30,11 +30,10 @@ gulp.task('livereload', function() {
   tinylr.listen(35729);
 });
 
-var minifyCSS = function () {
+var bundleVendorCSS = function () {
   gulp.src(['stylesheets/vendor/*.css'])
-  .pipe(concatCss('main.css'))
+  .pipe(concatCss('vendor.css'))
   .pipe(gulp.dest('dist'))
-  .pipe(gp_rename('vendor.css'))
   .pipe(uglifycss())
   .pipe(gulp.dest('dist'));
 };
@@ -48,11 +47,13 @@ var processSass = function() {
 };
 
 
-var minifyJS = function () {
-  gulp.src(['!js/vendor/angular-mocks.js', 'node_modules/angular/angular.min.js', 'js/vendor/*.js'])
+var bundleVendorJS = function() {
+ gulp.src(['!js/vendor/angular-mocks.js', 'node_modules/angular/angular.min.js', 'js/vendor/*.js'])
   .pipe(gp_concat('vendor.js'))
   .pipe(gulp.dest('dist'));
+};
 
+var minifyJS = function () {
   gulp.src(['js/*.js'])
   .pipe(gp_concat('main.js'))
   .pipe(gulp.dest('dist'))
@@ -62,15 +63,15 @@ var minifyJS = function () {
 };
 
 gulp.task('build', function() {
+  bundleVendorCSS();
+  bundleVendorJS();
   processSass();
-  minifyCSS();
   minifyJS();
 });
 
 gulp.task('watch', function (cb) {
   watch('dist/*', notifyLiveReload);
   watch('stylesheets/*.scss', sass);
-  watch('stylesheets/vendor/*.css', minifyCSS);
   watch('js/**/*.js', minifyJS);
 });
 
@@ -95,9 +96,9 @@ gulp.task('testci', function (done) {
 });
 
 gulp.task('copy', function(){
-  gulp.src('node_modules/roboto-fontface/fonts/*Regular.*')
+  gulp.src('node_modules/roboto-fontface/fonts/*{Regular,Bold}.*')
   .pipe(gulp.dest('dist/fonts'));
-  gulp.src('node_modules/roboto-fontface/fonts/*Bold.*')
+  gulp.src('node_modules/font-awesome/fonts/*.{woff,woff2,eot,svg,ttf}')
   .pipe(gulp.dest('dist/fonts'));
   gulp.src('img/*')
   .pipe(gulp.dest('dist/img'));
