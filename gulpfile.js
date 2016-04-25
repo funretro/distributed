@@ -49,7 +49,11 @@ var processSass = function() {
 
 
 var minifyJS = function () {
-  gulp.src(['!js/vendor/angular-mocks.js','js/vendor/*.js', 'js/*.js'])
+  gulp.src(['!js/vendor/angular-mocks.js', 'node_modules/angular/angular.min.js', 'js/vendor/*.js'])
+  .pipe(gp_concat('vendor.js'))
+  .pipe(gulp.dest('dist'));
+
+  gulp.src(['js/*.js'])
   .pipe(gp_concat('main.js'))
   .pipe(gulp.dest('dist'))
   .pipe(gp_rename('main.js'))
