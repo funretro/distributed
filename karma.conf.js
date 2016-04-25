@@ -7,6 +7,7 @@ module.exports = function(config) {
     files: [
       'js/vendor/angular.min.js',
       'js/vendor/angular-mocks.js',
+      'js/vendor/angular-sanitize.min.js',
       'js/vendor/angularfire.min.js',
       'js/vendor/firebase.js',
       'js/vendor/lvl-uuid.js',
