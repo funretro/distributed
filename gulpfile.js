@@ -15,7 +15,7 @@ watch = require('gulp-watch');
 gulp.task('express', function() {
   var app = express();
   app.use(connectlivereload({ port: 35729 }));
-  app.use(express.static(__dirname));
+  app.use(express.static('./dist'));
   app.listen(4000, '0.0.0.0');
 });
 
@@ -68,9 +68,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('watch', function (cb) {
-  watch('*.html', notifyLiveReload);
   watch('dist/*', notifyLiveReload);
-
   watch('stylesheets/*.scss', sass);
   watch('stylesheets/vendor/*.css', minifyCSS);
   watch('js/**/*.js', minifyJS);
@@ -101,6 +99,12 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist/fonts'));
   gulp.src('node_modules/roboto-fontface/fonts/*Bold.*')
   .pipe(gulp.dest('dist/fonts'));
+  gulp.src('img/*')
+  .pipe(gulp.dest('dist/img'));
+  gulp.src('favicon.ico')
+  .pipe(gulp.dest('dist'));
+  gulp.src('index.html')
+  .pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', ['build', 'copy', 'express', 'livereload', 'watch']);
