@@ -26,7 +26,7 @@
               <option value="votes">Votes</option>
             </select>
             <button class="delete-button" ng-click="utils.openDialogDeleteCards(this)">Delete cards</button>
-            <button id="copy-board" ng-click="utils.openDialogCopyBoard(this)">Copy board</button>
+            <button id="copy-board" ng-click="utils.openDialogCopyBoard(this)">Export board</button>
             <button ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
             <button class="first" ng-click="utils.openDialogBoard(this)">New board</button>
             <iframe src="https://ghbtns.com/github-btn.html?user=funretro&repo=distributed&type=star&count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
@@ -171,7 +171,7 @@ It is time to gather data, talk about the positive stuff, recognize people and s
     <a ng-click="utils.closeAll()">Cancel</a>
   </script>
   <script type="text/ng-template" id="copyBoard">
-    <h1>Copy Board</h1>
+    <h1>Export Board</h1>
     <p>Select cards text with mouse and copy it</p>
     <p ng-bind-html="getBoardText()"></p>
     <button ng-click="utils.closeAll()">Close</button>
