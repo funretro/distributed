@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "angular": "^1.4.7",
+    "angular-sanitize": "^1.5.5",
     "express": "^4.13.3",
     "font-awesome": "^4.6.1"
   }
