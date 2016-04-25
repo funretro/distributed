@@ -236,6 +236,8 @@ input[type="text"] {
 }
 
 .ngdialog.bigDialog {
+  padding-top: 60px;
+
   .ngdialog-content {
     width: 700px !important;
   }
