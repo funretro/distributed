@@ -22,6 +22,11 @@ button, .button {
     cursor: not-allowed;
     opacity: .65;
   }
+
+  &.delete-button {
+    background: #df3e3e;
+    border-color: darken(#df3e3e, 15%);
+  }
 }
 
 header button:hover {
@@ -53,7 +58,6 @@ header button:hover {
   bottom: 13px;
   border-bottom: 0;
 }
-
 
 .message button {
   position: absolute;

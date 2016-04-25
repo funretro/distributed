@@ -90,7 +90,7 @@ angular
     function openDialogDeleteCards(scope) {
       ngDialog.open({
         template: 'deleteCards',
-        className: 'ngdialog-theme-plain',
+        className: 'ngdialog-theme-plain danger',
         scope: scope
       });
     }

@@ -157,7 +157,11 @@ angular
           var clipboard = '';
 
           $($scope.board.columns).each(function(index, column) {
-            clipboard += '<br /><strong>' + column.value + '</strong><br />';
+            if(index === 0) {
+                clipboard += '<strong>' + column.value + '</strong><br />';
+            } else {
+              clipboard += '<br /><strong>' + column.value + '</strong><br />';
+            }
 
             $($scope.messages).each(function(index2, message) {
               if(message.type.id === column.id) {

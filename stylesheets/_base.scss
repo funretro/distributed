@@ -241,7 +241,7 @@ input[type="text"] {
   }
 }
 
-.delete-button {
+.ngdialog .delete-button {
   margin-left: 0;
 }
 
@@ -370,6 +370,19 @@ blockquote {
     color: $dark-gray;
     cursor: pointer;
   }
+}
+
+.danger p.header {
+  position: relative;
+  top: -15px;
+  left: -15px;
+  width: 350px;
+  padding: 10px 17px !important;
+  margin: 0;
+  margin-bottom: -10px;
+  font-size: 1.3em;
+  color: white !important;
+  background: #df3e3e;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
