@@ -144,6 +144,34 @@ angular
         }).then(addMessageCallback);
       };
 
+      $scope.deleteCards = function() {
+        $($scope.messages).each(function(index, message) {
+          $scope.messages.$remove(message);
+        });
+
+        utils.closeAll();
+      };
+
+      $scope.getBoardText = function() {
+        if($scope.board) {
+          var clipboard = '';
+
+          $($scope.board.columns).each(function(index, column) {
+            clipboard += '<br /><strong>' + column.value + '</strong><br />';
+
+            $($scope.messages).each(function(index2, message) {
+              if(message.type.id === column.id) {
+                clipboard += '- ' + message.text + ' (' + message.votes + ' votes) <br />';
+              }
+            });
+          });
+
+          return clipboard;
+        }
+
+        else return '';
+      };
+
       angular.element($window).bind('hashchange', function () {
         $scope.loading = true;
         $scope.userId = $window.location.hash.substring(1) || '';

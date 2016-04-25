@@ -1,19 +1,17 @@
 button, .button {
+  width: auto;
+  padding: 5px 8px;
+  margin-left: 10px;
+  overflow: hidden;
   font-family: 'Roboto', sans-serif;
-  border: 0px;
+  color: white;
   cursor: pointer;
   background: $light-teal;
-  color: white;
-  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-  -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-  transform: translate3d(0px, 0px, 0px);
-  overflow: hidden;
-  margin-left: 10px;
-  padding: 5px 8px;
+  border: 0;
   border-bottom: 2px solid $dark-blue;
-  outline: none;
   border-radius: 2px;
-  width: auto;
+  outline: none;
+  transform: translate3d(0px, 0px, 0px);
 
   &.first {
     background: $purple;
@@ -22,54 +20,53 @@ button, .button {
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.65;
+    opacity: .65;
   }
-
 }
 
 header button:hover {
-  border-bottom: 0;
   position: relative;
   top: 2px;
   margin-bottom: 2px;
+  border-bottom: 0;
 }
 
 .ngdialog-content button {
-  vertical-align: top;
-  font-size: 1em;
   height: 28px;
+  font-size: 1em;
+  vertical-align: top;
 }
 
 .ngdialog-content a {
-  color: $light-teal;
   margin-left: 10px;
   font-size: 1em;
+  color: $light-teal;
 }
 
 .ngdialog-content button:hover, .editing-column button:hover {
-  border-bottom: 0;
   position: relative;
   top: 1px;
+  border-bottom: 0;
 }
 
 .message button:hover {
-  border-bottom: 0;
   bottom: 13px;
+  border-bottom: 0;
 }
 
 
 .message button {
-  height: 20px;
-  padding: 0px;
   position: absolute;
   bottom: 14px;
   left: 14px;
-  outline: none;
   width: 43px;
-  background: $green;
+  height: 20px;
+  padding: 0;
   margin-left: 0;
+  font-size: .7em;
   line-height: 2em;
-  font-size: 0.7em;
+  background: $green;
+  outline: none;
 }
 
 .success-button, .message button {

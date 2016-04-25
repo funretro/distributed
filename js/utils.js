@@ -23,10 +23,10 @@ angular
     var messageTypes = [{
       id: 1,
       value: "Went well"
-    }, { 
+    }, {
       id: 2,
       value: "To improve"
-    }, { 
+    }, {
       id: 3,
       value: "Action items"
     }];
@@ -39,41 +39,57 @@ angular
       return board.columns[board.columns.length -1].id + 1;
     }
 
-    function openDialogColumn(element) {
+    function openDialogColumn(scope) {
       ngDialog.open({
         template: 'addNewColumn',
         className: 'ngdialog-theme-plain',
-        scope: element
+        scope: scope
       });
     }
 
-    function openDialogBoard(element) {
+    function openDialogBoard(scope) {
       ngDialog.open({
         template: 'addNewBoard',
         className: 'ngdialog-theme-plain',
-        scope: element
+        scope: scope
       });
     }
 
-    function openDialogDeleteCard(element) {
+    function openDialogDeleteCard(scope) {
       ngDialog.open({
         template: 'deleteCard',
         className: 'ngdialog-theme-plain',
-        scope: element
+        scope: scope
       });
     }
 
-    function openDialogDeleteColumn(element) {
+    function openDialogDeleteColumn(scope) {
       ngDialog.open({
         template: 'deleteColumn',
         className: 'ngdialog-theme-plain',
-        scope: element
+        scope: scope
       });
     }
 
     function openDialogMergeCards(scope) {
       ngDialog.open({
         template: 'mergeCards',
+        className: 'ngdialog-theme-plain',
+        scope: scope
+      });
+    }
+
+    function openDialogCopyBoard(scope) {
+      ngDialog.open({
+        template: 'copyBoard',
+        className: 'ngdialog-theme-plain bigDialog',
+        scope: scope
+      });
+    }
+
+    function openDialogDeleteCards(scope) {
+      ngDialog.open({
+        template: 'deleteCards',
         className: 'ngdialog-theme-plain',
         scope: scope
       });
@@ -108,6 +124,8 @@ angular
       openDialogDeleteCard: openDialogDeleteCard,
       openDialogDeleteColumn: openDialogDeleteColumn,
       openDialogMergeCards: openDialogMergeCards,
+      openDialogCopyBoard: openDialogCopyBoard,
+      openDialogDeleteCards: openDialogDeleteCards,
       closeAll: closeAll,
       toObject: toObject
     };
