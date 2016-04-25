@@ -12,6 +12,7 @@ module.exports = function(config) {
       'js/vendor/lvl-uuid.js',
       'js/vendor/lvl-drag-drop.js',
       'js/vendor/ngDialog.min.js',
+      'js/vendor/sanitize.js',
       'js/*.js',
       'test/*Test.js',
     ],
@@ -34,7 +35,7 @@ module.exports = function(config) {
     colors: true,
 
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
     autoWatch: true,
     browsers: ['PhantomJS'],
     singleRun: false,
