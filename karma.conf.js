@@ -5,7 +5,7 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai', 'sinon'],
 
     files: [
-      'js/vendor/angular.min.js',
+      'node_modules/angular/angular.min.js',
       'js/vendor/angular-mocks.js',
       'js/vendor/angularfire.min.js',
       'js/vendor/firebase.js',

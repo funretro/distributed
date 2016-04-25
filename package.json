@@ -35,6 +35,7 @@
     "tiny-lr": "latest"
   },
   "dependencies": {
+    "angular": "^1.4.7",
     "express": "^4.13.3"
   }
 }
