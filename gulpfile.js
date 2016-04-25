@@ -20,45 +20,56 @@ gulp.task('express', function() {
 });
 
 var tinylr;
-gulp.task('livereload', function() {
-  tinylr = require('tiny-lr')();
-  tinylr.listen(35729);
-});
 
 function notifyLiveReload(event) {
   tinylr.changed({ body: { files: [path.relative(__dirname, event.path)]}});
 }
 
+gulp.task('livereload', function() {
+  tinylr = require('tiny-lr')();
+  tinylr.listen(35729);
+});
+
+var minifyCSS = function () {
+  gulp.src(['stylesheets/vendor/*.css'])
+  .pipe(concatCss('main.css'))
+  .pipe(gulp.dest('dist'))
+  .pipe(gp_rename('vendor.css'))
+  .pipe(uglifycss())
+  .pipe(gulp.dest('dist'));
+};
+
+var processSass = function() {
+  gulp.src(['stylesheets/main.scss'])
+  .pipe(sass().on('error', sass.logError))
+  .pipe(gp_rename('main.css'))
+  .pipe(uglifycss())
+  .pipe(gulp.dest('dist'));
+};
+
+
+var minifyJS = function () {
+  gulp.src(['!js/vendor/angular-mocks.js','js/vendor/*.js', 'js/*.js'])
+  .pipe(gp_concat('main.js'))
+  .pipe(gulp.dest('dist'))
+  .pipe(gp_rename('main.js'))
+  .pipe(gp_uglify())
+  .pipe(gulp.dest('dist'));
+};
+
+gulp.task('build', function() {
+  processSass();
+  minifyCSS();
+  minifyJS();
+});
+
 gulp.task('watch', function (cb) {
   watch('*.html', notifyLiveReload);
-  watch('dist/*.css', notifyLiveReload);
-  watch('dist/*.js', notifyLiveReload);
+  watch('dist/*', notifyLiveReload);
 
-  watch('stylesheets/vendor/*.css', function () {
-    gulp.src(['stylesheets/vendor/*.css'])
-    .pipe(concatCss('main.css'))
-    .pipe(gulp.dest('dist'))
-    .pipe(gp_rename('vendor.css'))
-    .pipe(uglifycss())
-    .pipe(gulp.dest('dist'));
-  });
-
-  watch('stylesheets/*.scss', function() {
-    gulp.src(['stylesheets/main.scss'])
-      .pipe(sass())
-      .pipe(gp_rename('main.css'))
-      .pipe(uglifycss())
-      .pipe(gulp.dest('dist'));
-  });
-
-  watch('js/**/*.js', function () {
-    gulp.src(['!js/vendor/angular-mocks.js','js/vendor/*.js', 'js/*.js', 'js/directives/*.js'])
-    .pipe(gp_concat('main.js'))
-    .pipe(gulp.dest('dist'))
-    .pipe(gp_rename('main.js'))
-    .pipe(gp_uglify())
-    .pipe(gulp.dest('dist'));
-  });
+  watch('stylesheets/*.scss', sass);
+  watch('stylesheets/vendor/*.css', minifyCSS);
+  watch('js/**/*.js', minifyJS);
 });
 
 gulp.task('lint', function() {
@@ -88,4 +99,4 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist/fonts'));
 });
 
-gulp.task('default', ['copy', 'express', 'livereload', 'watch']);
+gulp.task('default', ['build', 'copy', 'express', 'livereload', 'watch']);
