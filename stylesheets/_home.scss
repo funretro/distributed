@@ -1,9 +1,9 @@
 .home {
   section {
-    text-align: center;
-    margin: 0;
     padding: 60px;
+    margin: 0;
     font-size: 16px;
+    text-align: center;
 
     &.step {
       padding: 80px;
@@ -24,9 +24,9 @@
   }
 
   h1 {
-    font-size: 3em;
-    margin-left: 0;
     margin-top: 0;
+    margin-left: 0;
+    font-size: 3em;
 
     img {
       width: 35px;
@@ -35,24 +35,24 @@
   }
 
   p {
+    display: inline-block;
     width: 40%;
     margin: 0 auto;
-    line-height: 1.8em;
-    font-size: 18px;
-    display: inline-block;
-    vertical-align: top;
     margin-top: 30px;
     margin-left: 40px;
+    font-size: 18px;
+    line-height: 1.8em;
+    vertical-align: top;
 
     &.left {
-      margin-left: 0;
       margin-right: 40px;
+      margin-left: 0;
     }
   }
 
   img {
-    width: 400px;
     display: inline-block;
+    width: 400px;
   }
 
   button, .button {
@@ -60,16 +60,16 @@
   }
 
   .second {
+    width: 120px;
     height: 40px;
     vertical-align: top;
-    width: 120px;
   }
 
   button {
-    margin: 0 auto;
     display: block;
     width: 160px;
     height: 47px;
+    margin: 0 auto;
     margin-top: 60px;
     background: $purple;
     border-bottom: 3px solid $light-purple;
@@ -80,20 +80,20 @@
   }
 
   ul {
-    line-height: 1.4em;
     display: inline-block;
-    list-style: none;
-    font-size: 16px;
     margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.4em;
+    list-style: none;
   }
 
   h2 {
+    display: block;
+    max-width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 1.5em;
     font-size: 2.7em;
     font-weight: 100;
-    margin-bottom: 1.5em;
-    margin-top: 0;
-    display: block;
-    margin-right: 0;
-    max-width: 100%;
   }
 }

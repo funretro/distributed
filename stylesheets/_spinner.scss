@@ -1,66 +1,69 @@
 .spinner {
-  padding: 200px 0;
-  text-align: center;
-  font-size: 10px;
   position: fixed;
   top: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  padding: 200px 0;
+  font-size: 10px;
+  text-align: center;
 }
 
 .overlay {
-  padding: 200px 0;
-  text-align: center;
-  font-size: 10px;
   position: fixed;
   top: 0;
-  background-color: $dark-gray;
-  opacity: 0.7;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  padding: 200px 0;
+  font-size: 10px;
+  text-align: center;
+  background-color: $dark-gray;
+  opacity: .7;
 }
 
 .spinner > .rect {
-  background-color: $dark-gray;
-  height: 50px;
-  width: 6px;
   display: inline-block;
-  
+  width: 6px;
+  height: 50px;
+  background-color: $dark-gray;
   -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
-  animation: stretchdelay 1.2s infinite ease-in-out;
+          animation: stretchdelay 1.2s infinite ease-in-out;
 }
 
 .spinner .rect2 {
   -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
+          animation-delay: -1.1s;
 }
 
 .spinner .rect3 {
   -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+          animation-delay: -1.0s;
 }
 
 .spinner .rect4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
+  -webkit-animation-delay: -.9s;
+          animation-delay: -.9s;
 }
 
 .spinner .rect5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s;
+  -webkit-animation-delay: -.8s;
+          animation-delay: -.8s;
 }
 
 @-webkit-keyframes stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(.4);
+  }
+  20% {
+    -webkit-transform: scaleY(1.0);
+  }
 }
 
 @keyframes stretchdelay {
-  0%, 40%, 100% { 
-    transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4);
-  }  20% { 
-    transform: scaleY(1.0);
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(.4);
+            transform: scaleY(.4);
+  }  20% {
     -webkit-transform: scaleY(1.0);
+            transform: scaleY(1.0);
   }
 }

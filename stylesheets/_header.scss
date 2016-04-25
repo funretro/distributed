@@ -1,33 +1,34 @@
 header {
-  background-color: $teal;
-  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-  border-radius: 0px;
   z-index: 5;
-  width: 100%;
   display: -webkit-box;
   display: flex;
-  min-height: 47px;
-  padding-left: 15px;
-  padding-right: 15px;
   display: block;
+  width: 100%;
+  min-height: 47px;
+  box-sizing: border-box;
+  padding-right: 15px;
+  padding-left: 15px;
   color: white;
+  background-color: $teal;
+  border-radius: 0;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .12), 0 1px 4px rgba(0, 0, 0, .24);
+  transition: all 450ms cubic-bezier(.23, 1, .32, 1) 0ms;
+
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   h1 {
     float: left;
     margin: 0;
-    margin-top: 0.45em;
+    margin-top: .45em;
+    font-family: "RobotoBold";
     font-size: 1.82em;
     line-height: 1em;
-    font-family: "RobotoBold";
   }
 
   span {
     float: right;
-    margin: 0.9em 0;
-    font-size: 0.9em;
+    margin: .9em 0;
+    font-size: .9em;
   }
 
   label {
@@ -36,40 +37,40 @@ header {
 
   .prime {
     float: none;
-    font-size: 14px;
     margin-right: 10px;
+    font-size: 14px;
 
     span {
-      opacity: 0;
       position: absolute;
-      text-align: left;
-      padding: 10px 15px;
-      color: #f9f9f9;
       z-index: 999;
-      word-wrap: break-word;
-      pointer-events: none;
+      width: 300px;
+      height: 130px;
+      padding: 10px 15px;
       margin-top: 30px;
       margin-left: -222px;
       font-size: 13px;
-      width: 300px;
-      height: 130px;
       line-height: 1.3em;
+      color: #f9f9f9;
+      text-align: left;
+      text-shadow: none;
+      word-wrap: break-word;
+      pointer-events: none;
       background-color: $grey;
       border-radius: 4px;
-      text-shadow: none;
+      opacity: 0;
 
       &:before {
-        content: '';
         position: absolute;
         top: -15px;
         left: 162px;
-        margin-top: 0;
         width: 0;
         height: 0;
-        border-left: 8px solid transparent;
+        margin-top: 0;
+        content: '';
+        border-top: 8px solid transparent;
         border-right: 8px solid transparent;
         border-bottom: 8px solid $grey;
-        border-top: 8px solid transparent;
+        border-left: 8px solid transparent;
       }
     }
 
@@ -80,8 +81,8 @@ header {
     }
 
     i {
-      color: $yellow;
       margin-right: 4px;
+      color: $yellow;
     }
   }
 }

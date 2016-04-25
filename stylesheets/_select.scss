@@ -1,18 +1,18 @@
 select {
   @include appearance(none);
   width: 105px;
-  border: 1px solid $lightest-gray;
-  background-position: 100% center;
-  background-color: #FFF;
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOC4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzAgMzgiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMwIDM4IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IHk9Ii0wLjEiIGZpbGw9IiNGM0YzRjMiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzOC4xIi8+DQo8cGF0aCBmaWxsPSIjNkE4ODlEIiBkPSJNMTUsMjMuNGw2LTguOUg5TDE1LDIzLjR6Ii8+DQo8L3N2Zz4NCg==);
-  background-repeat: no-repeat;
+  height: 25px;
   padding: 0 7px;
+  margin-left: 5px;
   font-size: 12px;
   line-height: normal;
-  border-radius: 0;
-  height: 25px;
-  outline: 0;
-  cursor: pointer;
   vertical-align: top;
-  margin-left: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOC4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzAgMzgiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMwIDM4IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IHk9Ii0wLjEiIGZpbGw9IiNGM0YzRjMiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzOC4xIi8+DQo8cGF0aCBmaWxsPSIjNkE4ODlEIiBkPSJNMTUsMjMuNGw2LTguOUg5TDE1LDIzLjR6Ii8+DQo8L3N2Zz4NCg==);
+  background-repeat: no-repeat;
+  background-position: 100% center;
+  border: 1px solid $lightest-gray;
+  border-radius: 0;
+  outline: 0;
 }

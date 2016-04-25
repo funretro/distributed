@@ -1,27 +1,27 @@
 #mc_embed_signup_scroll {
-	margin-top: 70px;
+  margin-top: 70px;
 
-	h3 {
-		color: $light-grey;
-	}
+  h3 {
+    color: $light-grey;
+  }
 
-	.email {
-		width: 300px;
-		height: 40px;
-		font-size: 16px;
+  .email {
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
 
-		&.valid {
-			outline: none;
-			border: 3px solid $green;
-		}
+    &.valid {
+      border: 3px solid $green;
+      outline: none;
+    }
 
-		&.mce_inline_error {
-			outline: none;
-			border: 3px solid $red;
-		}
-	}
+    &.mce_inline_error {
+      border: 3px solid $red;
+      outline: none;
+    }
+  }
 
-	#mce-responses, .mce_inline_error:not(.email) {
-		display: none !important;
-	}
+  #mce-responses, .mce_inline_error:not(.email) {
+    display: none !important;
+  }
 }
