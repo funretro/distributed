@@ -390,3 +390,11 @@ blockquote {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+.copy-text {
+  padding: 15px;
+  margin: 20px 0;
+  background: #eee;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
