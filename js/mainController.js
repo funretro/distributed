@@ -161,20 +161,19 @@ angular
         if($scope.board) {
           var clipboard = '';
 
-          $($scope.board.columns).each(function(index, column) {
-            if(index === 0) {
-                clipboard += '<strong>' + column.value + '</strong><br />';
-            } else {
-              clipboard += '<br /><strong>' + column.value + '</strong><br />';
-            }
-
-            var filteredArray = $filter('orderBy')($scope.messages, $scope.sortField, $scope.getSortOrder());
-            $(filteredArray).each(function(index2, message) {
-              if(message.type.id === column.id) {
-                clipboard += '- ' + message.text + ' (' + message.votes + ' votes) <br />';
-              }
-            });
-          });
+	  $($scope.board.columns).each(function(index, column) {
+	    if(index === 0) {
+		clipboard += '<strong>' + column.value + '</strong><br />';
+	    } else {
+	      clipboard += '<br /><strong>' + column.value + '</strong><br />';
+	    }
+	    var filteredArray = $filter('orderBy')($scope.messages, $scope.sortField, $scope.getSortOrder());
+	    $(filteredArray).each(function(index2, message) {
+	      if(message.type.id === column.id) {
+		clipboard += '- ' + message.text + ' (' + message.votes + ' votes) <br />';
+	      }
+	    });
+	  });
 
           return clipboard;
         }
