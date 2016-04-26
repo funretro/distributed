@@ -167,6 +167,7 @@ angular
 	    } else {
 	      clipboard += '<br /><strong>' + column.value + '</strong><br />';
 	    }
+
 	    var filteredArray = $filter('orderBy')($scope.messages, $scope.sortField, $scope.getSortOrder());
 	    $(filteredArray).each(function(index2, message) {
 	      if(message.type.id === column.id) {
