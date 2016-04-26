@@ -48,7 +48,7 @@ var processSass = function() {
 
 
 var bundleVendorJS = function() {
- gulp.src(['!js/vendor/angular-mocks.js', 'node_modules/angular*/angular*.min.js', 'js/vendor/*.js'])
+  gulp.src(['!js/vendor/angular-mocks.js', 'node_modules/angular*/**/angular*.min.js', 'node_modules/ng-dialog/**/ngDialog*.min.js', 'js/vendor/*.js'])
   .pipe(gp_concat('vendor.js'))
   .pipe(gulp.dest('dist'));
 };

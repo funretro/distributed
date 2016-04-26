@@ -7,11 +7,11 @@ module.exports = function(config) {
     files: [
       'node_modules/angular/angular.min.js',
       'js/vendor/angular-mocks.js',
-      'js/vendor/angularfire.min.js',
+      'node_modules/angularfire/dist/angularfire.min.js',
       'js/vendor/firebase.js',
       'js/vendor/lvl-uuid.js',
       'js/vendor/lvl-drag-drop.js',
-      'js/vendor/ngDialog.min.js',
+      'node_modules/ng-dialog/js/ngDialog.min.js',
       'node_modules/angular-sanitize/angular-sanitize.min.js',
       'js/*.js',
       'test/*Test.js',
