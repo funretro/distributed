@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title ng-bind="'Fun Retrospectives &mdash; ' + boardId">Fun Retrospectives</title>
+    <title ng-bind="'Fun Retro &mdash; ' + boardId">Fun Retro</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="dist/vendor.css">
@@ -12,26 +12,32 @@
   </head>
   <body ng-controller="MainCtrl">
     <header ng-show="userId !== ''">
-        <h1>Fun Retrospectives - {{boardId}}</h1>
+        <h1>Fun Retro</h1>
         <span>
-            <span class="prime"><i class="fa fa-star"></i>Prime Directive
+            <span class="prime">
+              <i class="fa fa-star"></i>
+              Prime Directive
               <span>
-              <blockquote>
-<p>Regardless of what we discover, we understand and truly believe that everyone did the best job he or she could, given what was known at the time, his or her skills and abilities, the resources available and the situation at hand</p>
-<footer>In Project Retrospectives, Norm Kerth</footer></blockquote></span>
+                <blockquote>
+                  <p>Regardless of what we discover, we understand and truly believe that everyone did the best job he or she could, given what was known at the time, his or her skills and abilities, the resources available and the situation at hand</p>
+                  <footer>In Project Retrospectives, Norm Kerth</footer>
+                </blockquote>
+              </span>
             </span>
-            <label>Sort by</label>
-            <select ng-model="sortField">
-              <option value="$id">Created date</option>
-              <option value="votes">Votes</option>
-            </select>
-            <button class="delete-button" ng-click="utils.openDialogDeleteCards(this)">Delete cards</button>
             <button id="copy-board" ng-click="utils.openDialogCopyBoard(this)">Export board</button>
-            <button ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
             <button class="first" ng-click="utils.openDialogBoard(this)">New board</button>
-            <iframe src="https://ghbtns.com/github-btn.html?user=funretro&repo=distributed&type=star&count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
         </span>
     </header>
+    <div class="menu">
+      <h2>{{boardId}}</h2>
+      <label>Sort by</label>
+      <select ng-model="sortField">
+        <option value="$id">Created date</option>
+        <option value="votes">Votes</option>
+      </select>
+      <button class="pull-right" ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
+      <button class="pull-right delete-button" ng-click="utils.openDialogDeleteCards(this)">Delete cards</button>
+    </div>
     <input ng-show="userId !== ''" id="board-context" ng-model="boardContext" ng-change="changeBoardContext()" placeholder="Set the context of the retrospective here..." />
     <span class="container">
         <span ng-show="boardId !== ''" class="message-list" ng-repeat="type in board.columns">
@@ -162,6 +168,10 @@ It is time to gather data, talk about the positive stuff, recognize people and s
       <button class="alone" ng-click="utils.openDialogBoard(this)">NEW BOARD</button>
     </section>
     </div>
+    <footer>
+      Fun Retro
+      <iframe src="https://ghbtns.com/github-btn.html?user=funretro&repo=distributed&type=star&count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
+    </footer>
   </body>
   <script type="text/ng-template" id="deleteCards">
     <p class="header">Danger Zone</p>
