@@ -29,7 +29,12 @@ body {
   color: $grey;
 }
 
+.pull-right {
+  align-self: flex-end;
+}
+
 iframe {
+  width: 100px;
   margin-top: 2px;
   margin-left: 10px;
   vertical-align: top;
@@ -89,6 +94,7 @@ h2 {
   display: -webkit-flex;
   display:         flex;
   width: 100%;
+  padding-bottom: 35px;
 
   -ms-box-orient: horizontal;
 }
@@ -192,7 +198,6 @@ ul {
 }
 
 a {
-  font-size: 1.2em;
   color: white;
   text-decoration: none;
   cursor: pointer;
