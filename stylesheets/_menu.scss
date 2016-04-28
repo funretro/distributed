@@ -1,13 +1,14 @@
 .menu {
-  display: flex;
-  width: 100%;
   padding: 10px 15px;
-  align-items: center;
   background: #eee;
   border-top: 2px solid #aaa;
 
   h2 {
     margin-top: 0;
     margin-right: 10px;
+  }
+
+  h2, label {
+    line-height: 1.3em;
   }
 }
