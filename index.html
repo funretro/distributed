@@ -1,4 +1,5 @@
 <html ng-app="fireideaz">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,17 +13,16 @@
 </head>
 
 <body ng-controller="MainCtrl">
-  <div ng-include="'components/header.html'"></div>
-  <div ng-include="'components/menu.html'"></div>
-  <div ng-include="'components/boardContext.html'"></div>
-  <div ng-include="'components/mainContent.html'"></div>
-  <div ng-include="'components/spinner.html'"></div>
-  <div ng-include="'components/newFeatureNotification.html'"></div>
-  <div ng-include="'components/mainPage.html'"></div>
-  <div ng-include="'components/footer.html'"></div>
-  <div ng-include="'components/dialogs.html'"></div>
-  <div ng-include="'components/userVoice.html'"></div>
-  <div ng-include="'components/analytics.html'"></div>
+  <div page-header></div>
+  <div menu></div>
+  <div board-context></div>
+  <div main-content></div>
+  <div spinner></div>
+  <div new-feature-notification></div>
+  <div main-page></div>
+  <div page-footer></div>
+  <div dialogs></div>
+  <div user-voice></div>
+  <div analytics></div>
 </body>
-
 </html>

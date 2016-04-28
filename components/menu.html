@@ -1,0 +1,10 @@
+<div ng-show="userId !== ''" class="menu">
+  <h2>{{boardId}}</h2>
+  <label>Sort by</label>
+  <select ng-model="sortField">
+    <option value="$id">Created date</option>
+    <option value="votes">Votes</option>
+  </select>
+  <button class="pull-right" ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
+  <button class="pull-right delete-button" ng-click="utils.openDialogDeleteCards(this)">Delete cards</button>
+</div>
