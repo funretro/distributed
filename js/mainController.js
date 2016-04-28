@@ -163,8 +163,8 @@ angular
               clipboard += '<br /><strong>' + column.value + '</strong><br />';
             }
 
-	    var filteredArray = $filter('orderBy')($scope.messages, $scope.sortField, $scope.getSortOrder());
-	    $(filteredArray).each(function(index2, message) {
+            var filteredArray = $filter('orderBy')($scope.messages, $scope.sortField, $scope.getSortOrder());
+            $(filteredArray).each(function(index2, message) {
               if(message.type.id === column.id) {
                 clipboard += '- ' + message.text + ' (' + message.votes + ' votes) <br />';
               }
@@ -183,11 +183,11 @@ angular
         auth.logUser($scope.userId, getBoardAndMessages);
       });
     }]
-  ).config( ['$provide', function ($provide){
-	//necessary in order to use ng-include because avoid issue of adding back slash to the url after hash
-	$provide.decorator('$browser', ['$delegate', function ($delegate) {
-	    $delegate.onUrlChange = function () {};
-	    $delegate.url = function () { return ""};
-	    return $delegate;
-	}]);
+  ).config(['$provide', function ($provide){
+        //necessary in order to use ng-include because avoid issue of adding back slash to the url after hash
+        $provide.decorator('$browser', ['$delegate', function ($delegate) {
+            $delegate.onUrlChange = function () {};
+            $delegate.url = function () { return ""};
+            return $delegate;
+        }]);
     }]);;
