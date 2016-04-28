@@ -1,5 +1,12 @@
+<div class="filter-mobile">
+  Select Column:
+  <select
+    ng-model="selectedType"
+    ng-options="column.id as column.value for column in board.columns">
+  </select>
+</div>
 <span class="container">
-    <span ng-show="boardId !== ''" class="message-list" ng-repeat="type in board.columns">
+    <span ng-show="boardId !== '' && shouldShowColumn(type.id)" class="message-list" ng-repeat="type in board.columns">
         <ul class="column column_{{ type.id }}">
           <div class="column-header">
             <a class="controls delete" ng-show="utils.showRemoveColumn(type.id, board.columns) && !editing" href="javascript:void(0)" ng-click="utils.openDialogDeleteColumn(this)"><i class="fa fa-times"></i></a>

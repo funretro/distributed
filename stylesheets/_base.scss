@@ -403,3 +403,17 @@ blockquote {
   border: 1px solid #ddd;
   border-radius: 2px;
 }
+
+.filter-mobile {
+  display: none;
+
+  @media (max-width: 500px) {
+    display: flex;
+    padding: 0 15px;
+    align-items: center;
+  }
+
+  select {
+    flex-grow: 2;
+  }
+}

@@ -15,6 +15,10 @@
 
   flex-grow: 1;
 
+  @media (max-width: 500px) {
+    margin: 0 15px;
+  }
+
   &:last-child {
     margin-right: 15px;
   }

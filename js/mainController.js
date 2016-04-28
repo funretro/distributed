@@ -8,6 +8,7 @@ angular
       $scope.newBoard = { name: '' };
       $scope.userId = $window.location.hash.substring(1) || '';
       $scope.sortField = '$id';
+      $scope.selectedType = 1;
 
       function getBoardAndMessages(userData) {
         $scope.userId = $window.location.hash.substring(1) || '499sm';
@@ -33,6 +34,21 @@ angular
       } else {
         $scope.loading = false;
       }
+
+      $scope.shouldShowColumn = function(type) {
+        var isMobile = $('.prime').css('display') === 'none';
+        var isSelected = parseInt($scope.selectedType) === parseInt(type);
+
+        if (isMobile) {
+          if(isSelected) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      };
 
       $scope.seeNotification = function() {
         localStorage.setItem('funretro1', true);
