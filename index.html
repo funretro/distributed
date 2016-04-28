@@ -10,25 +10,16 @@
     <script src="dist/main.js"></script>
   </head>
   <body ng-controller="MainCtrl">
-    <div ng-include="'components/header.html'"></div>
-    <div ng-show="userId !== ''" class="menu">
-      <h2>{{boardId}}</h2>
-      <label>Sort by</label>
-      <select ng-model="sortField">
-        <option value="$id">Created date</option>
-        <option value="votes">Votes</option>
-      </select>
-      <button class="pull-right" ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
-      <button class="pull-right delete-button" ng-click="utils.openDialogDeleteCards(this)">Delete cards</button>
-    </div>
-    <input ng-show="userId !== ''" id="board-context" ng-model="boardContext" ng-change="changeBoardContext()" placeholder="Set the context of the retrospective here..." />
-    <div ng-include="'components/mainContent.html'"></div>
-    <div ng-include="'components/spinner.html'"></div>
-    <div ng-include="'components/newFeatureNotification.html'"></div>
-    <div ng-include="'components/mainPage.html'"></div>
-    <div ng-include="'components/footer.html'"></div>
+    <div page-header></div>
+    <div menu></div>
+    <div board-context></div>
+    <div main-content></div>
+    <div spinner></div>
+    <div new-feature-notification></div>
+    <div main-page></div>
+    <div page-footer></div>
   </body>
-  <div ng-include="'components/dialogs.html'"></div>
-  <div ng-include="'components/userVoice.html'"></div>
-  <div ng-include="'components/analytics.html'"></div>
+  <div dialogs></div>
+  <div user-voice></div>
+  <div analytics></div>
 </html>

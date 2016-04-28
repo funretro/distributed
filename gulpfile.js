@@ -52,7 +52,7 @@ gulp.task('watch', function (cb) {
   });
 
   watch('js/**/*.js', function () {
-    gulp.src(['!js/vendor/angular-mocks.js','js/vendor/*.js', 'js/*.js'])
+    gulp.src(['!js/vendor/angular-mocks.js','js/vendor/*.js', 'js/*.js', 'js/directives/*.js'])
     .pipe(gp_concat('main.js'))
     .pipe(gulp.dest('dist'))
     .pipe(gp_rename('main.js'))
