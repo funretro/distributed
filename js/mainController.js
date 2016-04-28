@@ -183,4 +183,11 @@ angular
         auth.logUser($scope.userId, getBoardAndMessages);
       });
     }]
-  );
+  ).config( ['$provide', function ($provide){
+        //necessary in order to use ng-include because avoid issue of adding back slash to the url after hash
+        $provide.decorator('$browser', ['$delegate', function ($delegate) {
+            $delegate.onUrlChange = function () {};
+            $delegate.url = function () { return ""};
+            return $delegate;
+        }]);
+    }]);;

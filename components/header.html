@@ -1,0 +1,17 @@
+<header ng-show="userId !== ''">
+    <h1>Fun Retro</h1>
+    <span>
+        <span class="prime">
+          <i class="fa fa-star"></i>
+          Prime Directive
+          <span>
+            <blockquote>
+              <p>Regardless of what we discover, we understand and truly believe that everyone did the best job he or she could, given what was known at the time, his or her skills and abilities, the resources available and the situation at hand</p>
+              <footer>In Project Retrospectives, Norm Kerth</footer>
+            </blockquote>
+          </span>
+        </span>
+        <button id="copy-board" ng-click="utils.openDialogCopyBoard(this)">Export board</button>
+        <button class="first" ng-click="utils.openDialogBoard(this)">New board</button>
+    </span>
+</header>

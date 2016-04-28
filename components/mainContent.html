@@ -1,0 +1,48 @@
+<span class="container">
+    <span ng-show="boardId !== ''" class="message-list" ng-repeat="type in board.columns">
+        <ul class="column column_{{ type.id }}">
+          <div class="column-header">
+            <a class="controls delete" ng-show="utils.showRemoveColumn(type.id, board.columns) && !editing" href="javascript:void(0)" ng-click="utils.openDialogDeleteColumn(this)"><i class="fa fa-times"></i></a>
+            <h2 ng-show="!editing" ng-click="editing = true; newName=type.value;">
+              {{type.value}}
+            </h2>
+            <a ng-show="!editing" class="add" ng-click="addNewMessage(type)" href="javascript:void(0)"><i class="fa fa-plus"></i></a>
+          </div>
+          <div class="editing-column" ng-show="editing">
+              <input id="new_name_{{ type.id }}" ng-model="newName"></input>
+              <div>
+                <button ng-click="changeColumnName(type.id, newName)" class="success-button">Save</button>
+                <a class="blue" ng-click="editing=false;">Cancel</a>
+              </div>
+          </div>
+          <li ng-controller="MessageCtrl" id="{{ message.$id }}" enter-click class="message" ng-class="{'flip': isEditing}" ng-repeat="message in messages | filter: {type: {id: type.id}} | orderBy: sortField:getSortOrder()">
+            <div messageId="{{ message.$id }}" x-lvl-draggable="true" x-lvl-drop-target="true" x-on-drop="droppedEvent(dragEl, dropEl)">
+              <div class="front">
+                  <div class="message-body">
+                      <div class="text">{{message.text}}</div>
+                      <a href="javascript:void(0)" class="pencil" ng-click="isEditing = true; utils.focusElement(message.$id);"><i class="fa fa-pencil"></i></a>
+                  </div>
+                  <div class="votes">
+                      <a ng-hide="utils.alreadyVoted(message.$id)" href="javascript:void(0)" ng-click="toggleVote(message.$id, message.votes)">
+                          <i class="fa fa-thumbs-o-up"></i>
+                      </a>
+                      <strong><a ng-show="utils.alreadyVoted(message.$id)" href="javascript:void(0)" ng-click="toggleVote(message.$id, message.votes)"><i class="fa fa-thumbs-o-down"></i> </a>+ {{ message.votes }}</strong>
+                  </div>
+              </div>
+              <div class="back">
+                  <div class="message-body">
+                      <div class="editing">
+                          <textarea ng-model="message.text" ng-change="messages.$save(message)"></textarea>
+                          <a class="delete-link" href="javascript:void(0)" ng-click="utils.openDialogDeleteCard(this)"><i class="fa fa-trash"></i></a>
+                          <button ng-click="isEditing = false;">DONE</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="placeholder">
+                {{ message.text }}
+              </div>
+            </div>
+          </li>
+        </ul>
+    </span>
+</span>
