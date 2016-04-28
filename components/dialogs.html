@@ -1,0 +1,42 @@
+<script type="text/ng-template" id="deleteCards">
+  <p class="header">Danger Zone</p>
+  <p>Are you sure you want to delete all cards?</p>
+  <p>Once you delete all cards, there is no going back. Please be certain.</p>
+  <button class="delete-button" ng-click="deleteCards()">Delete</button>
+  <a ng-click="utils.closeAll()">Cancel</a>
+</script>
+<script type="text/ng-template" id="copyBoard">
+  <h1>Export Board</h1>
+  <p>Select cards text with mouse and copy it</p>
+  <p class="copy-text" ng-bind-html="getBoardText()"></p>
+  <button ng-click="utils.closeAll()">Close</button>
+</script>
+<script type="text/ng-template" id="addNewColumn">
+  <h1>New column</h1>
+  <input ng-model="newColumn" type="text"></input>
+  <button ng-click="addNewColumn(newColumn); newColumn='';">Add</button>
+</script>
+<script type="text/ng-template" id="addNewBoard">
+  <h1>New board</h1>
+  <p>Board name example: <strong>team-board-123</strong></p>
+  <input ng-model="newBoard.name" ng-change="boardNameChanged()" type="text" placeholder="Board name"></input>
+  <button ng-click="createNewBoard()">Create</button>
+</script>
+<script type="text/ng-template" id="deleteCard">
+  <h1>Delete note</h1>
+  <p>Are you sure you want to delete this note?</strong></p>
+  <button class="delete-button" ng-click="deleteMessage(message)">Delete</button>
+  <a ng-click="utils.closeAll()">Cancel</a>
+</script>
+<script type="text/ng-template" id="deleteColumn">
+  <h1>Delete column</h1>
+  <p>Are you sure you want to delete this column?</strong></p>
+  <button class="delete-button" ng-click="deleteLastColumn()">Delete</button>
+  <a ng-click="utils.closeAll()">Cancel</a>
+</script>
+<script type="text/ng-template" id="mergeCards">
+  <h1>Merge cards</h1>
+  <p>Are you sure you want to merge these two cards?</strong></p>
+  <button ng-controller="MessageCtrl" class="delete-button" ng-click="dropped(dragEl, dropEl)">Merge</button>
+  <a ng-click="utils.closeAll()">Cancel</a>
+</script>

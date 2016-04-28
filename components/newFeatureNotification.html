@@ -1,0 +1,18 @@
+<div ng-show="showNotification()" class="overlay" ng-cloak></div>
+<div ng-show="showNotification()" class="feature-notification" ng-cloak>
+  <i class="fa fa-times" ng-click="seeNotification()"></i>
+  <span class="title">We're happy to announce new features!</span>
+  <span class='feature'>
+    <h3>Merge cards</h3>
+    <img src="img/merge.png" />
+  </span>
+  <span class='feature'>
+    <h3>Set the context</h3>
+    <img src="img/image1.png" />
+  </span>
+  <span class='feature'>
+    <h3>Prime Directive</h3>
+    <img src="img/image2.png" />
+  </span>
+  <button ng-click="seeNotification()">Got it!</button>
+</div>
