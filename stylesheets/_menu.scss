@@ -8,6 +8,10 @@
     margin-right: 10px;
   }
 
+  @media (max-width: 500px) {
+    display: block;
+  }
+
   h2, label {
     line-height: 1.3em;
   }

@@ -36,6 +36,10 @@ header {
     margin-right: 10px;
     font-size: 14px;
 
+    @media (max-width: 500px) {
+      display: none;
+    }
+
     span {
       position: absolute;
       z-index: 999;
