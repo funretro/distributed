@@ -1,9 +1,10 @@
 <div class="filter-mobile">
-  Select Column:
+  <label>Filter by</label>
   <select
     ng-model="selectedType"
     ng-options="column.id as column.value for column in board.columns">
   </select>
+  <button class="pull-right new-column" ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
 </div>
 <span class="container">
     <span ng-show="boardId !== '' && shouldShowColumn(type.id)" class="message-list" ng-repeat="type in board.columns">

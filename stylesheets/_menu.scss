@@ -1,15 +1,35 @@
 .menu {
+  width: 100%;
+  box-sizing: border-box;
   padding: 10px 15px;
+  overflow: hidden;
   background: #eee;
   border-top: 2px solid #aaa;
 
   h2 {
     margin-top: 0;
     margin-right: 10px;
+
+    @media (max-width: 500px) {
+      display: block;
+      margin-bottom: 10px;
+    }
   }
 
   @media (max-width: 500px) {
     display: block;
+
+    .menu-controls {
+      display: flex;
+    }
+
+    select {
+      flex-grow: 2;
+    }
+
+    .new-column {
+      display: none;
+    }
   }
 
   h2, label {
