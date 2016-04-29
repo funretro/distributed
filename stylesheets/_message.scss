@@ -17,6 +17,10 @@
 
   @media (max-width: 500px) {
     margin: 0 15px;
+
+    &:not(.selected) {
+      display: none;
+    }
   }
 
   &:last-child {
