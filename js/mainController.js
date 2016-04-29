@@ -35,19 +35,8 @@ angular
         $scope.loading = false;
       }
 
-      $scope.shouldShowColumn = function(type) {
-        var isMobile = $('.prime').css('display') === 'none';
-        var isSelected = parseInt($scope.selectedType) === parseInt(type);
-
-        if (isMobile) {
-          if(isSelected) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return true;
-        }
+      $scope.isColumnSelected = function(type) {
+        return parseInt($scope.selectedType) === parseInt(type);
       };
 
       $scope.seeNotification = function() {
