@@ -5,12 +5,14 @@
   "private": false,
   "scripts": {
     "jshint": "jshint js/. --exclude js/vendor",
+    "deploy": "./deploy.sh",
     "test": "karma start karma.conf.js --singleRun=true"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.5",
     "chai": "^3.5.0",
     "connect-livereload": "latest",
+    "gh-pages": "^0.11.0",
     "gulp": "^3.9.0",
     "gulp-concat": "latest",
     "gulp-concat-css": "latest",
