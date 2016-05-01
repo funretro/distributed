@@ -1,3 +1,5 @@
+'use strict';
+
 angular
   .module('fireideaz')
   .service('FirebaseService', ['$firebaseArray', function ($firebaseArray) {

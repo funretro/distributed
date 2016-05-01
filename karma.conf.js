@@ -47,6 +47,7 @@ module.exports = function(config) {
       'karma-coverage',
       'karma-coveralls',
       'karma-nyan-reporter',
+      'karma-mocha-reporter',
       'karma-sinon',
     ]
   })

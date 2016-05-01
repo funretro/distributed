@@ -111,7 +111,8 @@ gulp.task('watch-test', function (done) {
 gulp.task('test-once', function (done) {
   return new Server({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: true
+    singleRun: true,
+    reporters: ['mocha']
   }, done).start();
 });
 
