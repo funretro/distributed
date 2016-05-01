@@ -122,6 +122,8 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
   gulp.src('firebase.json')
   .pipe(gulp.dest('dist'));
+  gulp.src('README.md')
+  .pipe(gulp.dest('dist'));
   gulp.src('CNAME')
   .pipe(gulp.dest('dist'));
   gulp.src('index.html')
