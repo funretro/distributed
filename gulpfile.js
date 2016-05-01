@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+clean = require('gulp-clean'),
 jshint = require('gulp-jshint'),
 Server = require('karma').Server,
 concat = require('gulp-concat'),
@@ -76,7 +77,12 @@ var minifyJS = function () {
       .pipe(gulp.dest('dist'));
 };
 
-gulp.task('build', function() {
+gulp.task('clean-dist', function () {
+  return gulp.src('dist/*', {read: false})
+  .pipe(clean());
+});
+
+gulp.task('bundle', function() {
   bundleVendorCSS();
   bundleVendorJS();
   processSass();
@@ -90,19 +96,19 @@ gulp.task('watch', function (cb) {
 });
 
 gulp.task('lint', function() {
-  return gulp.src('./js/**/*.js')
+  return gulp.src(['!js/vendor/**/*.js','js/**/*.js'])
   .pipe(jshint())
   .pipe(jshint.reporter('default'));
 });
 
-gulp.task('test', function (done) {
+gulp.task('watch-test', function (done) {
   return new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: false
   }, done).start();
 });
 
-gulp.task('testci', function (done) {
+gulp.task('test-once', function (done) {
   return new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
@@ -130,4 +136,7 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['build', 'copy', 'express', 'livereload', 'watch']);
+gulp.task('default', ['bundle', 'copy', 'express', 'livereload', 'watch']);
+gulp.task('test', ['lint', 'watch-test']);
+gulp.task('testci', ['lint', 'test-once']);
+gulp.task('build', ['clean-dist', 'bundle', 'copy']);
