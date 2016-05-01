@@ -1,9 +1,9 @@
 var gulp = require('gulp'),
 jshint = require('gulp-jshint'),
 Server = require('karma').Server,
-gp_concat = require('gulp-concat'),
+concat = require('gulp-concat'),
 gp_rename = require('gulp-rename'),
-gp_uglify = require('gulp-uglify'),
+uglify = require('gulp-uglify'),
 concatCss = require('gulp-concat-css'),
 uglifycss = require('gulp-uglifycss'),
 sass = require('gulp-sass'),
@@ -16,7 +16,10 @@ gulp.task('express', function() {
   var app = express();
   app.use(connectlivereload({ port: 35729 }));
   app.use(express.static('./dist'));
-  app.listen(4000, '0.0.0.0');
+  var port = 4000;
+  app.listen(port, '0.0.0.0', function(){
+    console.log('App running and listening on port', port);
+  });
 });
 
 var tinylr;
@@ -48,18 +51,28 @@ var processSass = function() {
 
 
 var bundleVendorJS = function() {
-  gulp.src(['!js/vendor/angular-mocks.js', 'node_modules/angular*/**/angular*.min.js', 'node_modules/ng-dialog/**/ngDialog*.min.js', 'js/vendor/*.js'])
-  .pipe(gp_concat('vendor.js'))
-  .pipe(gulp.dest('dist'));
+  gulp.src(['node_modules/angular/angular.min.js',
+	   'js/vendor/firebase.js',
+	   'node_modules/angularfire/dist/angularfire.min.js',
+	   'node_modules/angular-*/**/angular-*.min.js',
+	   '!node_modules/**/angular-mocks.js',
+	   'js/vendor/*.js',
+	   'node_modules/ng-dialog/**/ngDialog*.min.js'])
+      .pipe(concat('vendor.js'))
+      .pipe(gulp.dest('dist'))
+      .pipe(uglify())
+      .pipe(gulp.dest('dist'));
+
 };
 
 var minifyJS = function () {
-  gulp.src(['js/*.js'])
-  .pipe(gp_concat('main.js'))
-  .pipe(gulp.dest('dist'))
-  .pipe(gp_rename('main.js'))
-  .pipe(gp_uglify())
-  .pipe(gulp.dest('dist'));
+  gulp.src(['js/*.js',
+	   'js/directives/*.js',
+	   '!js/vendor/*.js'])
+      .pipe(concat('main.js'))
+      .pipe(gulp.dest('dist'))
+      .pipe(uglify())
+      .pipe(gulp.dest('dist'));
 };
 
 gulp.task('build', function() {
@@ -76,9 +89,9 @@ gulp.task('watch', function (cb) {
 });
 
 gulp.task('lint', function() {
-  return gulp.src('./js/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+  return gulp.src('./js/**/*.js')
+  .pipe(jshint())
+  .pipe(jshint.reporter('default'));
 });
 
 gulp.task('test', function (done) {
@@ -100,9 +113,15 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist/fonts'));
   gulp.src('node_modules/font-awesome/fonts/*.{woff,woff2,eot,svg,ttf}')
   .pipe(gulp.dest('dist/fonts'));
+  gulp.src('components/*')
+  .pipe(gulp.dest('dist/components'));
   gulp.src('img/*')
   .pipe(gulp.dest('dist/img'));
   gulp.src('favicon.ico')
+  .pipe(gulp.dest('dist'));
+  gulp.src('firebase.json')
+  .pipe(gulp.dest('dist'));
+  gulp.src('CNAME')
   .pipe(gulp.dest('dist'));
   gulp.src('index.html')
   .pipe(gulp.dest('dist'));
