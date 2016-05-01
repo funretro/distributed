@@ -97,8 +97,8 @@ gulp.task('watch', function (cb) {
 
 gulp.task('lint', function() {
   return gulp.src(['!js/vendor/**/*.js','js/**/*.js'])
-  .pipe(jshint())
-  .pipe(jshint.reporter('default'));
+  .pipe(jshint('.jshintrc'))
+  .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('watch-test', function (done) {

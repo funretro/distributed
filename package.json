@@ -24,6 +24,7 @@
     "gulp-uglifycss": "latest",
     "gulp-watch": "latest",
     "jshint": "2.0.0",
+    "jshint-stylish": "^2.2.0",
     "karma": "^0.13.10",
     "karma-chai": "^0.1.0",
     "karma-coverage": "^0.5.2",

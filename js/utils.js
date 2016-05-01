@@ -1,9 +1,11 @@
+'use strict';
+
 angular
   .module('fireideaz')
   .service('Utils', ['ngDialog', function (ngDialog) {
     function createUserId() {
-      var text = "";
-      var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+      var text = '';
+      var possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
       for( var i=0; i < 5; i++ ) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -22,13 +24,13 @@ angular
 
     var messageTypes = [{
       id: 1,
-      value: "Went well"
+      value: 'Went well'
     }, {
       id: 2,
-      value: "To improve"
+      value: 'To improve'
     }, {
       id: 3,
-      value: "Action items"
+      value: 'Action items'
     }];
 
     function showRemoveColumn(id, columns) {

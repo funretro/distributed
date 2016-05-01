@@ -1,6 +1,9 @@
+'use strict';
+
 angular
   .module('fireideaz')
-  .controller('MessageCtrl', ['$scope', '$filter', '$window', 'Utils', 'Auth', '$rootScope', 'FirebaseService',
+  .controller('MessageCtrl', ['$scope', '$filter',
+              '$window', 'Utils', 'Auth', '$rootScope', 'FirebaseService',
     function($scope, $filter, $window, utils, auth, $rootScope, firebaseService) {
       $scope.utils = utils;
       $scope.userId = $window.location.hash.substring(1);

@@ -1,6 +1,9 @@
+'use strict';
+
 angular
   .module('fireideaz')
-  .controller('MainCtrl', ['$scope', '$filter', '$window', 'Utils', 'Auth', '$rootScope', 'FirebaseService',
+  .controller('MainCtrl', ['$scope', '$filter',
+              '$window', 'Utils', 'Auth', '$rootScope', 'FirebaseService',
     function($scope, $filter, $window, utils, auth, $rootScope, firebaseService) {
       $scope.loading = true;
       $scope.messageTypes = utils.messageTypes;
@@ -16,7 +19,7 @@ angular
         var messagesRef = firebaseService.getMessagesRef($scope.userId);
         var board = firebaseService.getBoardRef($scope.userId);
 
-        board.on("value", function(board) {
+        board.on('value', function(board) {
           $scope.board = board.val();
           $scope.boardId = $rootScope.boardId = board.val().boardId;
           $scope.boardContext = $rootScope.boardContext = board.val().boardContext;
@@ -57,13 +60,26 @@ angular
 
       $scope.toggleVote = function(key, votes) {
         if(!localStorage.getItem(key)) {
-          messagesRef.child(key).update({ votes: votes + 1, date: firebaseService.getServerTimestamp() });
+          messagesRef.child(key).update({
+            votes: votes + 1,
+            date: firebaseService.getServerTimestamp()
+          });
+
           localStorage.setItem(key, 1);
          } else {
-           messagesRef.child(key).update({ votes: votes - 1, date: firebaseService.getServerTimestamp() });
+           messagesRef.child(key).update({
+             votes: votes - 1,
+             date: firebaseService.getServerTimestamp()
+           });
+
            localStorage.removeItem(key);
          }
       };
+
+      function redirectToBoard() {
+        window.location.href = window.location.origin +
+          window.location.pathname + '#' + $scope.userId;
+      }
 
       $scope.createNewBoard = function() {
         $scope.loading = true;
@@ -86,10 +102,6 @@ angular
 
         auth.createUserAndLog($scope.userId, callback);
       };
-
-      function redirectToBoard() {
-        window.location.href = window.location.origin + window.location.pathname + "#" + $scope.userId;
-      }
 
       $scope.changeBoardContext = function() {
         $scope.boardRef.update({
@@ -140,7 +152,7 @@ angular
       }
 
       $scope.addNewMessage = function(type) {
-      	$scope.messages.$add({
+        $scope.messages.$add({
           text: '',
           user_id: $scope.userUid,
           type: { id: type.id },
@@ -158,25 +170,28 @@ angular
       };
 
       $scope.getBoardText = function() {
-	if($scope.board) {
-	  var clipboard = '';
+        if($scope.board) {
+          var clipboard = '';
 
-	  $($scope.board.columns).each(function(index, column) {
-	    if(index === 0) {
-		clipboard += '<strong>' + column.value + '</strong><br />';
-	    } else {
-	      clipboard += '<br /><strong>' + column.value + '</strong><br />';
-	    }
-	    var filteredArray = $filter('orderBy')($scope.messages, $scope.sortField, $scope.getSortOrder());
-	    $(filteredArray).each(function(index2, message) {
-	      if(message.type.id === column.id) {
-		clipboard += '- ' + message.text + ' (' + message.votes + ' votes) <br />';
-	      }
-	    });
-	  });
+          $($scope.board.columns).each(function(index, column) {
+            if(index === 0) {
+              clipboard += '<strong>' + column.value + '</strong><br />';
+            } else {
+              clipboard += '<br /><strong>' + column.value + '</strong><br />';
+            }
+            var filteredArray = $filter('orderBy')($scope.messages,
+                                                   $scope.sortField,
+                                                   $scope.getSortOrder());
 
-	  return clipboard;
-	}
+            $(filteredArray).each(function(index2, message) {
+              if(message.type.id === column.id) {
+                clipboard += '- ' + message.text + ' (' + message.votes + ' votes) <br />';
+              }
+            });
+          });
+
+          return clipboard;
+        }
 
         else return '';
       };
