@@ -34,7 +34,8 @@ gulp.task('livereload', function() {
 });
 
 var bundleVendorCSS = function () {
-  gulp.src(['stylesheets/vendor/*.css'])
+  gulp.src(['node_modules/font-awesome/css/font-awesome.min.css',
+	   'stylesheets/vendor/*.css'])
   .pipe(concatCss('vendor.css'))
   .pipe(gulp.dest('dist'))
   .pipe(uglifycss())
