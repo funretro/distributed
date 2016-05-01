@@ -37,9 +37,9 @@ var bundleVendorCSS = function () {
   gulp.src(['node_modules/font-awesome/css/font-awesome.min.css',
 	   'stylesheets/vendor/*.css'])
   .pipe(concatCss('vendor.css'))
-  .pipe(gulp.dest('dist'))
+  .pipe(gulp.dest('dist/css'))
   .pipe(uglifycss())
-  .pipe(gulp.dest('dist'));
+  .pipe(gulp.dest('dist/css'));
 };
 
 var processSass = function() {
@@ -47,7 +47,7 @@ var processSass = function() {
   .pipe(sass().on('error', sass.logError))
   .pipe(gp_rename('main.css'))
   .pipe(uglifycss())
-  .pipe(gulp.dest('dist'));
+  .pipe(gulp.dest('dist/css'));
 };
 
 
