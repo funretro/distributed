@@ -10,7 +10,6 @@ button, .button {
   border: 0;
   border-bottom: 2px solid $dark-blue;
   border-radius: 2px;
-  outline: none;
   transform: translate3d(0px, 0px, 0px);
 
   &.first {
@@ -70,7 +69,6 @@ header button:hover {
   font-size: .7em;
   line-height: 2em;
   background: $green;
-  outline: none;
 }
 
 .success-button, .message button {
