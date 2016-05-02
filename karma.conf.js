@@ -12,6 +12,7 @@ module.exports = function(config) {
       'js/vendor/lvl-uuid.js',
       'js/vendor/lvl-drag-drop.js',
       'node_modules/ng-dialog/js/ngDialog.min.js',
+      'node_modules/angular-aria/angular-aria.min.js',
       'node_modules/angular-sanitize/angular-sanitize.min.js',
       'js/*.js',
       'test/*Test.js',

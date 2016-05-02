@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "angular": "^1.4.7",
+    "angular-aria": "^1.5.5",
     "angular-sanitize": "^1.5.5",
     "angularfire": "^1.2.0",
     "express": "^4.13.3",
