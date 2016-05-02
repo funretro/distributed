@@ -20,6 +20,7 @@
     "gulp-jshint": "^1.11.2",
     "gulp-rename": "latest",
     "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-uglify": "latest",
     "gulp-uglifycss": "latest",
     "gulp-watch": "latest",

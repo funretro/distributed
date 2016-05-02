@@ -3,6 +3,7 @@ clean = require('gulp-clean'),
 jshint = require('gulp-jshint'),
 Server = require('karma').Server,
 concat = require('gulp-concat'),
+sourcemaps = require('gulp-sourcemaps'),
 gp_rename = require('gulp-rename'),
 uglify = require('gulp-uglify'),
 concatCss = require('gulp-concat-css'),
@@ -68,12 +69,13 @@ var bundleVendorJS = function() {
 };
 
 var minifyJS = function () {
+
   gulp.src(['js/*.js',
 	   'js/directives/*.js',
 	   '!js/vendor/*.js'])
+      .pipe(sourcemaps.init())
       .pipe(concat('main.js'))
-      .pipe(gulp.dest('dist'))
-      .pipe(uglify())
+      .pipe(sourcemaps.write())
       .pipe(gulp.dest('dist'));
 };
 

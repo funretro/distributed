@@ -14,8 +14,8 @@ module.exports = function(config) {
       'node_modules/ng-dialog/js/ngDialog.min.js',
       'node_modules/angular-aria/angular-aria.min.js',
       'node_modules/angular-sanitize/angular-sanitize.min.js',
-      'js/*.js',
-      'test/*Test.js',
+      'js/**/*.js',
+      'test/**/*Test.js',
     ],
 
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
