@@ -6,6 +6,7 @@ angular
     var mainRef = new Firebase('https://blinding-torch-6662.firebaseio.com');
 
     function logUser(user, callback) {
+      mainRef.unauth();
       mainRef.authWithPassword({
         email    : user + '@fireideaz.com',
         password : user
