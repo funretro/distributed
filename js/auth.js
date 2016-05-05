@@ -6,21 +6,18 @@ angular
     var mainRef = new Firebase('https://blinding-torch-6662.firebaseio.com');
 
     function logUser(user, callback) {
-      if(mainRef.getAuth() !== null) {
-        mainRef.unauth();
-        mainRef.authWithPassword({
-          email    : user + '@fireideaz.com',
-          password : user
-        }, function(error, authData) {
-          if (error) {
-            console.log('Log user failed: ', error);
-            window.location.hash = '';
-            location.reload();
-          } else {
-            callback(authData);
-          }
-        });
-      }
+      mainRef.authWithPassword({
+        email    : user + '@fireideaz.com',
+        password : user
+      }, function(error, authData) {
+        if (error) {
+          console.log('Log user failed: ', error);
+          window.location.hash = '';
+          location.reload();
+        } else {
+          callback(authData);
+        }
+      });
     }
 
     function createUserAndLog(newUser, callback) {
