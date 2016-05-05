@@ -3,8 +3,7 @@
 angular.module('fireideaz').directive('pageFooter', [function() {
     return {
       restrict: 'E',
-      templateUrl : 'components/footer.html',
-      controller : 'MainCtrl'
+      templateUrl : 'components/footer.html'
     };
   }]
 );

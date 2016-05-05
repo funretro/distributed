@@ -3,8 +3,7 @@
 angular.module('fireideaz').directive('spinner', [function() {
     return {
       restrict: 'E',
-      templateUrl : 'components/spinner.html',
-      controller : 'MainCtrl'
+      templateUrl : 'components/spinner.html'
     };
   }]
 );

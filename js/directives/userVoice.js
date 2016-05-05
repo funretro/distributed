@@ -3,8 +3,7 @@
 angular.module('fireideaz').directive('userVoice', [function() {
     return {
       restrict: 'E',
-      templateUrl : 'components/userVoice.html',
-      controller : 'MainCtrl'
+      templateUrl : 'components/userVoice.html'
     };
   }]
 );
