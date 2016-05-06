@@ -3,9 +3,9 @@
 angular
   .module('fireideaz')
   .controller('MessageCtrl', ['$scope', '$filter',
-              '$window', 'Utils', 'Auth', '$rootScope', 'FirebaseService',
-    function($scope, $filter, $window, utils, auth, $rootScope, firebaseService) {
-      $scope.utils = utils;
+              '$window', 'Auth', '$rootScope', 'FirebaseService', 'ModalService',
+    function($scope, $filter, $window, auth, $rootScope, firebaseService, modalService) {
+      $scope.modalService = modalService;
       $scope.userId = $window.location.hash.substring(1);
 
       $scope.droppedEvent = function(dragEl, dropEl) {
@@ -13,7 +13,7 @@ angular
           $scope.dragEl = dragEl;
           $scope.dropEl = dropEl;
 
-          utils.openDialogMergeCards($scope);
+          modalService.openMergeCards($scope);
         }
       };
 
@@ -32,7 +32,7 @@ angular
             });
 
             dragMessageRef.remove();
-            utils.closeAll();
+            modalService.closeAll();
           });
         });
       };

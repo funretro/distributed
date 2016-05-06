@@ -2,7 +2,7 @@ describe('MessageCtrl: ', function() {
   var $rootScope,
       $scope,
       $controller,
-      utils,
+      modalService,
       board,
       firebaseService,
       auth
@@ -13,7 +13,7 @@ describe('MessageCtrl: ', function() {
     $rootScope = $injector.get('$rootScope');
     $scope = $rootScope.$new();
     $controller = $injector.get('$controller');
-    utils = $injector.get('Utils');
+    modalService = $injector.get('ModalService');
     firebaseService = $injector.get('FirebaseService');
     auth = $injector.get('Auth');
 
@@ -21,25 +21,25 @@ describe('MessageCtrl: ', function() {
 
     $controller('MessageCtrl', {
       '$scope': $scope,
-      'utils': utils,
+      'modalService': modalService,
       'firebaseService': firebaseService,
       'auth': auth
     });
   }));
 
   it('should open dialog to merge cards when drop an card over another card', function () {
-    sinon.spy(utils, 'openDialogMergeCards');
+    sinon.spy(modalService, 'openMergeCards');
 
     $scope.droppedEvent("<div class='element1'></div>", "<div class='element2'></div>");
 
-    expect(utils.openDialogMergeCards.calledWith($scope)).to.be.true;
+    expect(modalService.openMergeCards.calledWith($scope)).to.be.true;
   });
 
   it('should not open dialog to merge cards when drop an card over the same card', function () {
-    sinon.spy(utils, 'openDialogMergeCards');
+    sinon.spy(modalService, 'openMergeCards');
 
     $scope.droppedEvent("<div class='element1'></div>", "<div class='element1'></div>");
 
-    expect(utils.openDialogMergeCards.calledWith($scope)).to.be.false;
+    expect(modalService.openMergeCards.calledWith($scope)).to.be.false;
   });
 });

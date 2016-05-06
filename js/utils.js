@@ -2,7 +2,7 @@
 
 angular
   .module('fireideaz')
-  .service('Utils', ['ngDialog', function (ngDialog) {
+  .service('Utils', [function () {
     function createUserId() {
       var text = '';
       var possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -41,66 +41,6 @@ angular
       return board.columns[board.columns.length -1].id + 1;
     }
 
-    function openDialogColumn(scope) {
-      ngDialog.open({
-        template: 'addNewColumn',
-        className: 'ngdialog-theme-plain',
-        scope: scope
-      });
-    }
-
-    function openDialogBoard(scope) {
-      ngDialog.open({
-        template: 'addNewBoard',
-        className: 'ngdialog-theme-plain',
-        scope: scope
-      });
-    }
-
-    function openDialogDeleteCard(scope) {
-      ngDialog.open({
-        template: 'deleteCard',
-        className: 'ngdialog-theme-plain',
-        scope: scope
-      });
-    }
-
-    function openDialogDeleteColumn(scope) {
-      ngDialog.open({
-        template: 'deleteColumn',
-        className: 'ngdialog-theme-plain',
-        scope: scope
-      });
-    }
-
-    function openDialogMergeCards(scope) {
-      ngDialog.open({
-        template: 'mergeCards',
-        className: 'ngdialog-theme-plain',
-        scope: scope
-      });
-    }
-
-    function openDialogCopyBoard(scope) {
-      ngDialog.open({
-        template: 'copyBoard',
-        className: 'ngdialog-theme-plain bigDialog',
-        scope: scope
-      });
-    }
-
-    function openDialogDeleteCards(scope) {
-      ngDialog.open({
-        template: 'deleteCards',
-        className: 'ngdialog-theme-plain danger',
-        scope: scope
-      });
-    }
-
-    function closeAll() {
-      ngDialog.closeAll();
-    }
-
     function toObject(array) {
       var object = {};
 
@@ -121,14 +61,6 @@ angular
       messageTypes: messageTypes,
       showRemoveColumn: showRemoveColumn,
       getNextId: getNextId,
-      openDialogColumn: openDialogColumn,
-      openDialogBoard: openDialogBoard,
-      openDialogDeleteCard: openDialogDeleteCard,
-      openDialogDeleteColumn: openDialogDeleteColumn,
-      openDialogMergeCards: openDialogMergeCards,
-      openDialogCopyBoard: openDialogCopyBoard,
-      openDialogDeleteCards: openDialogDeleteCards,
-      closeAll: closeAll,
       toObject: toObject
     };
   }]);

@@ -1,7 +1,7 @@
 <div class="home" ng-show="userId === ''" ng-cloak>
   <section>
     <h1><img src="img/logo.png" />Fun Retrospectives</h1>
-    <button ng-click="utils.openDialogBoard(this)">NEW BOARD</button>
+    <button ng-click="modalService.openAddNewBoard(this)">NEW BOARD</button>
     <style type="text/css">
       #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
     </style>
@@ -50,6 +50,6 @@
     </p>
   </section>
   <section>
-    <button class="alone" ng-click="utils.openDialogBoard(this)">NEW BOARD</button>
+    <button class="alone" ng-click="modalService.openAddNewBoard(this)">NEW BOARD</button>
   </section>
 </div>

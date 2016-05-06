@@ -4,13 +4,13 @@
     ng-model="selectedType"
     ng-options="column.id as column.value for column in board.columns">
   </select>
-  <button class="pull-right new-column" ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
+  <button class="pull-right new-column" ng-show="board.columns.length < 6" ng-click="modalService.openAddNewColumn(this)">New column</button>
 </div>
 <span class="container">
     <span ng-show="boardId !== ''" class="message-list" ng-class="{'selected': isColumnSelected(type.id)}" ng-repeat="type in board.columns">
         <ul class="column column_{{ type.id }}">
           <div class="column-header">
-            <a class="controls delete" ng-show="utils.showRemoveColumn(type.id, board.columns) && !editing" href="javascript:void(0)" ng-click="utils.openDialogDeleteColumn(this)"><i class="fa fa-times"></i></a>
+            <a class="controls delete" ng-show="utils.showRemoveColumn(type.id, board.columns) && !editing" href="javascript:void(0)" ng-click="modalService.openDeleteColumn(this)"><i class="fa fa-times"></i></a>
             <h2 ng-show="!editing" ng-click="editing = true; newName=type.value;">
               {{type.value}}
             </h2>
@@ -41,7 +41,7 @@
                   <div class="message-body">
                       <div class="editing">
                           <textarea ng-model="message.text" ng-change="messages.$save(message)"></textarea>
-                          <a class="delete-link" href="javascript:void(0)" ng-click="utils.openDialogDeleteCard(this)"><i class="fa fa-trash"></i></a>
+                          <a class="delete-link" href="javascript:void(0)" ng-click="modalService.openDeleteCard(this)"><i class="fa fa-trash"></i></a>
                           <button ng-click="isEditing = false;">DONE</button>
                       </div>
                   </div>

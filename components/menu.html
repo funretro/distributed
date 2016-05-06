@@ -6,7 +6,7 @@
       <option value="$id">Created date</option>
       <option value="votes">Votes</option>
     </select>
-    <button class="pull-right new-column" ng-show="board.columns.length < 6" ng-click="utils.openDialogColumn(this)">New column</button>
-    <button class="pull-right delete-button" ng-click="utils.openDialogDeleteCards(this)">Delete cards</button>
+    <button class="pull-right new-column" ng-show="board.columns.length < 6" ng-click="modalService.openAddNewColumn(this)">New column</button>
+    <button class="pull-right delete-button" ng-click="modalService.openDeleteCards(this)">Delete cards</button>
   </span>
 </div>

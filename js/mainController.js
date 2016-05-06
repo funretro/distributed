@@ -3,15 +3,21 @@
 angular
   .module('fireideaz')
   .controller('MainCtrl', ['$scope', '$filter',
-              '$window', 'Utils', 'Auth', '$rootScope', 'FirebaseService',
-    function($scope, $filter, $window, utils, auth, $rootScope, firebaseService) {
+    '$window', 'Utils', 'Auth', '$rootScope', 'FirebaseService', 'ModalService',
+    function($scope, $filter, $window, utils, auth, $rootScope, firebaseService, modalService) {
       $scope.loading = true;
       $scope.messageTypes = utils.messageTypes;
       $scope.utils = utils;
-      $scope.newBoard = { name: '' };
+      $scope.newBoard = {
+        name: ''
+      };
       $scope.userId = $window.location.hash.substring(1) || '';
       $scope.sortField = '$id';
       $scope.selectedType = 1;
+
+      $scope.closeAllModals = function(){
+        modalService.closeAll();
+      };
 
       function getBoardAndMessages(userData) {
         $scope.userId = $window.location.hash.substring(1) || '499sm';
@@ -31,7 +37,7 @@ angular
         $scope.loading = false;
       }
 
-      if($scope.userId !== '') {
+      if ($scope.userId !== '') {
         var messagesRef = firebaseService.getMessagesRef($scope.userId);
         auth.logUser($scope.userId, getBoardAndMessages);
       } else {
@@ -51,7 +57,7 @@ angular
       };
 
       $scope.boardNameChanged = function() {
-        $scope.newBoard.name = $scope.newBoard.name.replace(/\s+/g,'');
+        $scope.newBoard.name = $scope.newBoard.name.replace(/\s+/g, '');
       };
 
       $scope.getSortOrder = function() {
@@ -59,21 +65,21 @@ angular
       };
 
       $scope.toggleVote = function(key, votes) {
-        if(!localStorage.getItem(key)) {
+        if (!localStorage.getItem(key)) {
           messagesRef.child(key).update({
             votes: votes + 1,
             date: firebaseService.getServerTimestamp()
           });
 
           localStorage.setItem(key, 1);
-         } else {
-           messagesRef.child(key).update({
-             votes: votes - 1,
-             date: firebaseService.getServerTimestamp()
-           });
+        } else {
+          messagesRef.child(key).update({
+            votes: votes - 1,
+            date: firebaseService.getServerTimestamp()
+          });
 
-           localStorage.removeItem(key);
-         }
+          localStorage.removeItem(key);
+        }
       };
 
       function redirectToBoard() {
@@ -83,7 +89,7 @@ angular
 
       $scope.createNewBoard = function() {
         $scope.loading = true;
-        utils.closeAll();
+        modalService.closeAll();
         $scope.userId = utils.createUserId();
 
         var callback = function(userData) {
@@ -118,7 +124,7 @@ angular
         var boardColumns = firebaseService.getBoardColumns($scope.userId);
         boardColumns.set(utils.toObject($scope.board.columns));
 
-        utils.closeAll();
+        modalService.closeAll();
       };
 
       $scope.changeColumnName = function(id, newName) {
@@ -130,19 +136,19 @@ angular
         var boardColumns = firebaseService.getBoardColumns($scope.userId);
         boardColumns.set(utils.toObject($scope.board.columns));
 
-        utils.closeAll();
+        modalService.closeAll();
       };
 
       $scope.deleteLastColumn = function() {
-          $scope.board.columns.pop();
-          var boardColumns = firebaseService.getBoardColumns($scope.userId);
-          boardColumns.set(utils.toObject($scope.board.columns));
-          utils.closeAll();
+        $scope.board.columns.pop();
+        var boardColumns = firebaseService.getBoardColumns($scope.userId);
+        boardColumns.set(utils.toObject($scope.board.columns));
+        modalService.closeAll();
       };
 
       $scope.deleteMessage = function(message) {
-      		$scope.messages.$remove(message);
-          utils.closeAll();
+        $scope.messages.$remove(message);
+        modalService.closeAll();
       };
 
       function addMessageCallback(message) {
@@ -155,7 +161,9 @@ angular
         $scope.messages.$add({
           text: '',
           user_id: $scope.userUid,
-          type: { id: type.id },
+          type: {
+            id: type.id
+          },
           date: firebaseService.getServerTimestamp(),
           votes: 0
         }).then(addMessageCallback);
@@ -166,40 +174,38 @@ angular
           $scope.messages.$remove(message);
         });
 
-        utils.closeAll();
+        modalService.closeAll();
       };
 
       $scope.getBoardText = function() {
-        if($scope.board) {
+        if ($scope.board) {
           var clipboard = '';
 
           $($scope.board.columns).each(function(index, column) {
-            if(index === 0) {
+            if (index === 0) {
               clipboard += '<strong>' + column.value + '</strong><br />';
             } else {
               clipboard += '<br /><strong>' + column.value + '</strong><br />';
             }
             var filteredArray = $filter('orderBy')($scope.messages,
-                                                   $scope.sortField,
-                                                   $scope.getSortOrder());
+              $scope.sortField,
+              $scope.getSortOrder());
 
             $(filteredArray).each(function(index2, message) {
-              if(message.type.id === column.id) {
+              if (message.type.id === column.id) {
                 clipboard += '- ' + message.text + ' (' + message.votes + ' votes) <br />';
               }
             });
           });
 
           return clipboard;
-        }
-
-        else return '';
+        } else return '';
       };
 
-      angular.element($window).bind('hashchange', function () {
+      angular.element($window).bind('hashchange', function() {
         $scope.loading = true;
         $scope.userId = $window.location.hash.substring(1) || '';
         auth.logUser($scope.userId, getBoardAndMessages);
       });
-    }]
-  );
+    }
+  ]);

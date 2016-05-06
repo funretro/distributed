@@ -71,7 +71,7 @@ var bundleVendorJS = function() {
 var minifyJS = function () {
 
   gulp.src(['js/*.js',
-	   'js/directives/*.js',
+	   'js/**/*.js',
 	   '!js/vendor/*.js'])
       .pipe(sourcemaps.init())
       .pipe(concat('main.js'))

@@ -5,7 +5,8 @@ describe('MainCtrl: ', function() {
       utils,
       board,
       firebaseService,
-      auth
+      auth,
+      modalService;
 
   beforeEach(angular.mock.module('fireideaz'));
 
@@ -14,6 +15,7 @@ describe('MainCtrl: ', function() {
     $scope = $rootScope.$new();
     $controller = $injector.get('$controller');
     utils = $injector.get('Utils');
+    modalService = $injector.get('ModalService');
     firebaseService = $injector.get('FirebaseService');
     auth = $injector.get('Auth');
 
@@ -22,6 +24,7 @@ describe('MainCtrl: ', function() {
     $controller('MainCtrl', {
       '$scope': $scope,
       'utils': utils,
+      'modalService': modalService,
       'firebaseService': firebaseService,
       'auth': auth
     });
@@ -96,19 +99,20 @@ describe('MainCtrl: ', function() {
     it('should create a new board', function () {
       sinon.stub(utils, 'createUserId', function () { return 'userId'; });
       var createUserSpy = sinon.spy(auth, 'createUserAndLog');
+      var closeAllSpy = sinon.spy(modalService, 'closeAll');
 
       $scope.createNewBoard();
 
       expect(createUserSpy.calledWith($scope.userId)).to.be.true;
+      expect(closeAllSpy.called).to.be.true;
     });
 
   });
 
   describe('Messages', function () {
-
     it('should delete a message', function() {
-      closeAllSpy = sinon.spy(utils, 'closeAll');
       var removeSpy = sinon.spy();
+      var closeAllSpy = sinon.spy(modalService, 'closeAll');
 
       var message = {
         text: 'text of message',
@@ -121,12 +125,11 @@ describe('MainCtrl: ', function() {
 
       $scope.deleteMessage(message);
 
-      expect(utils.closeAll.called).to.be.true;
+      expect(closeAllSpy.called).to.be.true;
       expect(removeSpy.calledWith(message)).to.be.true;
     });
 
     it('should add a new message', function() {
-      closeAllSpy = sinon.spy(utils, 'closeAll');
       sinon.stub(firebaseService, 'getServerTimestamp', function() { return '00:00:00' });
 
       var addMessagePromise = { then: sinon.spy() };
@@ -154,7 +157,7 @@ describe('MainCtrl: ', function() {
         closeAllSpy;
 
     beforeEach(function() {
-      closeAllSpy = sinon.spy(utils, 'closeAll');
+      closeAllSpy = sinon.spy(modalService, 'closeAll');
 
       setSpy = sinon.spy();
 
