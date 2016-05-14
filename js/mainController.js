@@ -57,7 +57,7 @@ angular
       };
 
       $scope.boardNameChanged = function() {
-        $scope.newBoard.name = $scope.newBoard.name.replace(/\s+/g, '');
+        $scope.newBoard.name = $scope.newBoard.name;
       };
 
       $scope.getSortOrder = function() {
