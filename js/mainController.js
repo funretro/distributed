@@ -82,6 +82,15 @@ angular
         }
       }
 
+      $scope.voteAnimation = function (messageId, value){
+        var el = $("#vote-placeholder" + messageId);
+        el.text ((value > 0) ? "+" + value :  "- " + value * -1);
+        newone = el.clone(true);          
+        el.before(newone);
+        el.remove();
+        newone.addClass("vote-up-animation");
+      }
+
       function redirectToBoard() {
         window.location.href = window.location.origin +
           window.location.pathname + '#' + $scope.userId;

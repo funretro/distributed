@@ -31,15 +31,17 @@
                       <a href="javascript:void(0)" class="pencil" ng-click="isEditing = true; utils.focusElement(message.$id);"><i class="fa fa-pencil"></i></a>
                   </div>
                   <div class="votes">
-                      <a ng-show="voteService.haveVotedOnMessage(message.$id)" href="javascript:void(0)" ng-click="unvote(message.$id, message.votes)">
-                        <i class="fa fa-times"></i>
+                    <strong class="vote-area">
+                      <a ng-class="{'disabled': !voteService.isAbleToVote(userId, board.max_votes)}" href="javascript:void(0)" ng-click="voteAnimation(message.$id, 1); vote(message.$id, message.votes);">
+                          <i class="fa fa-thumbs-o-up"></i>
                       </a>
-                      <strong class="vote-area">
-                        <a ng-class="{'disabled': !voteService.isAbleToVote(userId, board.max_votes)}" href="javascript:void(0)" ng-click="vote(message.$id, message.votes)">
-                            <i class="fa fa-thumbs-o-up"></i>
-                        </a>
-                        {{ message.votes }}
-                      </strong>
+                      {{ message.votes - voteService.messageVotesByCurrentUser (message.$id) }}
+                    <span ng-show="voteService.messageVotesByCurrentUser (message.$id) > 0"> +{{voteService.messageVotesByCurrentUser (message.$id) }}
+                    <div id="vote-placeholder{{ message.$id }}" class="vote-up-placeholder">+1</div></span>
+                      <a ng-class="{'disabled': !voteService.haveVotedOnMessage(message.$id)}" href="javascript:void(0)" ng-click="voteAnimation(message.$id, -1); unvote(message.$id, message.votes)">
+                        <i class="fa fa-thumbs-o-down"></i>
+                      </a>
+                    </strong>
                   </div>
               </div>
               <div class="back">

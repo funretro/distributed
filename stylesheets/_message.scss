@@ -71,6 +71,44 @@
   }
 }
 
+.vote-up-placeholder
+{
+    position: relative;
+    display: inline;
+    opacity:0;
+    margin-left: -1.4em;
+    top: 0px;
+}
+.vote-up-animation
+{
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+
+@keyframes fadein {
+    0% { opacity:0; top: 0px; }
+    50% { opacity:1;  }
+    100% { opacity:0; top: -30px; }
+}
+@-moz-keyframes fadein { /* Firefox */
+    0% { opacity:0; top: 0px; }
+    50% { opacity:1;  }
+    100% { opacity:0; top: -30px; }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    0% { opacity:0; top: 0px; }
+    50% { opacity:1;  }
+    100% { opacity:0; top: -30px; }
+}
+@-o-keyframes fadein { /* Opera */
+    0% { opacity:0; top: 0px; }
+    50% { opacity:1;  }
+    100% { opacity:0; top: -30px; }
+}
+
+
 .placeholder {
   width: 90%;
   color: white;

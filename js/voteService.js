@@ -49,6 +49,11 @@ angular
       return localStorage.getItem(userId) < maxVotes;
     }
 
+    function messageVotesByCurrentUser (key)
+    {
+      return (localStorage.getItem(key)) ? localStorage.getItem(key) : 0 ;
+    }
+
     return {
       returnNumberOfVotes: returnNumberOfVotes,
       increaseMessageVotes: increaseMessageVotes,
@@ -58,6 +63,7 @@ angular
       remainingVotes: remainingVotes,
       canUnvoteMessage: canUnvoteMessage,
       haveVotedOnMessage: haveVotedOnMessage,
-      isAbleToVote: isAbleToVote
+      isAbleToVote: isAbleToVote,
+      messageVotesByCurrentUser: messageVotesByCurrentUser
     };
   }]);
