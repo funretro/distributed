@@ -68,6 +68,18 @@ describe('VoteService: ', function() {
       localStorage.getItem.restore();
       localStorage.setItem.restore();
     });
+
+    it('should increase user message votes to 5', function() {
+      sinon.stub(localStorage, 'getItem', function () { return '{"abc":4,"abd":3}'; });
+      sinon.spy(localStorage, 'setItem');
+
+      voteService.increaseMessageVotes('userId', 'abc')
+
+      expect(localStorage.setItem.calledWith('userId', '{"abc":5,"abd":3}')).to.be.true;
+
+      localStorage.getItem.restore();
+      localStorage.setItem.restore();
+    });
   })
 
   describe('decrease messages', function() {
@@ -92,6 +104,18 @@ describe('VoteService: ', function() {
       console.log(localStorage.setItem.getCall(0).args[1])
 
       expect(localStorage.setItem.calledWith('userId', '{"abc":2}')).to.be.true;
+
+      localStorage.getItem.restore();
+      localStorage.setItem.restore();
+    });
+
+    it('should decrease user message votes to 4', function() {
+      sinon.stub(localStorage, 'getItem', function () { return '{"abc":5,"abd":3}'; });
+      sinon.spy(localStorage, 'setItem');
+
+      voteService.decreaseMessageVotes('userId', 'abc')
+
+      expect(localStorage.setItem.calledWith('userId', '{"abc":4,"abd":3}')).to.be.true;
 
       localStorage.getItem.restore();
       localStorage.setItem.restore();
