@@ -49,33 +49,21 @@ describe('VoteService: ', function() {
       sinon.stub(localStorage, 'getItem', function () { return null; });
       sinon.spy(localStorage, 'setItem');
 
-      voteService.increaseMessageVotes('abc')
+      voteService.increaseMessageVotes('userId', 'abc')
 
-      expect(localStorage.setItem.calledWith('abc', 1)).to.be.true;
+      expect(localStorage.setItem.calledWith('userId', '{"abc":1}')).to.be.true;
 
       localStorage.getItem.restore();
       localStorage.setItem.restore();
     });
 
     it('should increase user message votes to 2', function() {
-      sinon.stub(localStorage, 'getItem', function () { return '1'; });
+      sinon.stub(localStorage, 'getItem', function () { return '{"abc":1}'; });
       sinon.spy(localStorage, 'setItem');
 
-      voteService.increaseMessageVotes('abc')
+      voteService.increaseMessageVotes('userId', 'abc')
 
-      expect(localStorage.setItem.calledWith('abc', 2)).to.be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
-    });
-
-    it('should increase user votes to 2', function() {
-      sinon.stub(localStorage, 'getItem', function () { return '1'; });
-      sinon.spy(localStorage, 'setItem');
-
-      voteService.increaseUserVotes('userId')
-
-      expect(localStorage.setItem.calledWith('userId', 2)).to.be.true;
+      expect(localStorage.setItem.calledWith('userId', '{"abc":2}')).to.be.true;
 
       localStorage.getItem.restore();
       localStorage.setItem.restore();
@@ -84,36 +72,26 @@ describe('VoteService: ', function() {
 
   describe('decrease messages', function() {
     it('should remove from localStorage if votes equal to 1', function() {
-      sinon.stub(localStorage, 'getItem', function () { return 1; });
-      sinon.spy(localStorage, 'removeItem');
-
-      voteService.decreaseMessageVotes('abc')
-
-      expect(localStorage.removeItem.called).to.be.true;
-
-      localStorage.getItem.restore();
-      localStorage.removeItem.restore();
-    });
-
-    it('should decrease votes', function() {
-      sinon.stub(localStorage, 'getItem', function () { return 3; });
+      sinon.stub(localStorage, 'getItem', function () { return '{"abc":1}'; });
       sinon.spy(localStorage, 'setItem');
 
-      voteService.decreaseMessageVotes('abc')
+      voteService.decreaseMessageVotes('userId', 'abc')
 
-      expect(localStorage.setItem.calledWith('abc', 2)).to.be.true;
+      expect(localStorage.setItem.calledWith('userId', "{}")).to.be.true;
 
       localStorage.getItem.restore();
       localStorage.setItem.restore();
     });
 
-    it('should decrease user votes to 2', function() {
-      sinon.stub(localStorage, 'getItem', function () { return '4'; });
+    it('should decrease votes', function() {
+      sinon.stub(localStorage, 'getItem', function () { return '{"abc":3}'; });
       sinon.spy(localStorage, 'setItem');
 
-      voteService.decreaseUserVotes('userId')
+      voteService.decreaseMessageVotes('userId', 'abc')
 
-      expect(localStorage.setItem.calledWith('userId', 3)).to.be.true;
+      console.log(localStorage.setItem.getCall(0).args[1])
+
+      expect(localStorage.setItem.calledWith('userId', '{"abc":2}')).to.be.true;
 
       localStorage.getItem.restore();
       localStorage.setItem.restore();

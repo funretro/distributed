@@ -66,7 +66,6 @@ angular
           });
 
           voteService.increaseMessageVotes(key);
-          voteService.increaseUserVotes($scope.userId);
         }
       }
 
@@ -78,7 +77,6 @@ angular
           });
 
           voteService.decreaseMessageVotes(key);
-          voteService.decreaseUserVotes($scope.userId);
         }
       }
 

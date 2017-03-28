@@ -13,28 +13,36 @@ angular
         : 0;
     }
 
-    function increaseMessageVotes(key) {
-      if (localStorage.getItem(key)) {
-        localStorage.setItem(key, parseInt(localStorage.getItem(key)) + 1);
+    function increaseMessageVotes(userId, messageKey) {
+      if (localStorage.getItem(userId)) {
+        var boardVotes = JSON.parse(localStorage.getItem(userId));
+
+        if (boardVotes[messageKey]) {
+          boardVotes[messageKey] = parseInt(boardVotes[messageKey] + 1);
+          localStorage.setItem(userId, JSON.stringify(boardVotes));
+        } else {
+          boardVotes[messageKey] = 1
+          localStorage.setItem(userId, JSON.stringify(boardVotes));
+        }
       } else {
-        localStorage.setItem(key, 1);
+        var newObject = {};
+        newObject[messageKey] = 1;
+        localStorage.setItem(userId, JSON.stringify(newObject));
       }
     }
 
-    function increaseUserVotes(userId) {
-      localStorage.setItem(userId, this.returnNumberOfVotes(userId) + 1);
-    }
+    function decreaseMessageVotes(userId, messageKey) {
+      if (localStorage.getItem(userId)) {
+        var boardVotes = JSON.parse(localStorage.getItem(userId));
 
-    function decreaseMessageVotes(key) {
-      if (localStorage.getItem(key) === 1) {
-        localStorage.removeItem(key);
-      } else {
-        localStorage.setItem(key, parseInt(localStorage.getItem(key)) - 1);
+        if (boardVotes[messageKey] === 1) {
+            delete boardVotes[messageKey];
+        } else {
+          boardVotes[messageKey] = boardVotes[messageKey] - 1;
+        }
+
+        localStorage.setItem(userId, JSON.stringify(boardVotes));
       }
-    }
-
-    function decreaseUserVotes(userId) {
-      localStorage.setItem(userId, this.returnNumberOfVotes(userId) - 1);
     }
 
     function canUnvoteMessage(key, votes) {
@@ -52,9 +60,7 @@ angular
     return {
       returnNumberOfVotes: returnNumberOfVotes,
       increaseMessageVotes: increaseMessageVotes,
-      increaseUserVotes: increaseUserVotes,
       decreaseMessageVotes: decreaseMessageVotes,
-      decreaseUserVotes: decreaseUserVotes,
       remainingVotes: remainingVotes,
       canUnvoteMessage: canUnvoteMessage,
       haveVotedOnMessage: haveVotedOnMessage,
