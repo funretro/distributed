@@ -15,5 +15,11 @@
   <span class="pull-right menu-controls">
     <button class="pull-right new-column" ng-show="board.columns.length < 6" ng-click="modalService.openAddNewColumn(this)">New column</button>
     <button class="pull-right delete-button" ng-click="modalService.openDeleteCards(this)">Delete cards</button>
+    <div id="timerContainer" class="pull-right">
+      <div class="pull-right" id="timer">6 minutes left</div>
+      <button class="pull-right delete-button">Start</button>
+      <button class="pull-right new-column">Stop</button>
+      <input id="timerValue" type="number" class="pull-right">
+    </div>
   </span>
 </div>
