@@ -44,8 +44,11 @@
     "angular-aria": "^1.5.5",
     "angular-sanitize": "^1.5.5",
     "angularfire": "^1.2.0",
+    "ng-file-upload":"12.2.13",
     "express": "^4.13.3",
     "font-awesome": "^4.6.1",
-    "ng-dialog": "^0.6.0"
+    "ng-dialog": "^0.6.0",
+    "multer": "1.1.0",
+    "csv-parse": "1.2.0"
   }
 }

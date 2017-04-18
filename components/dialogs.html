@@ -43,3 +43,18 @@
   <button ng-controller="MessageCtrl" class="delete-button" ng-click="dropped(dragEl, dropEl)">Merge</button>
   <a ng-click="closeAllModals()">Cancel</a>
 </script>
+<script type="text/ng-template" id="importCards">
+  <h1>Import cards</h1>
+  <span >
+    <p>1.<a type="file" ngf-select="submitImportFile($file)" ngf-pattern="text/csv" accept="text/csv" ngf-max-size="10KB">Submit</a> a csv file </p>
+    <p>2.  Setup fields mapping</button></p>
+    <p ng-repeat="column in importMapping track by $index">{{column.name}} 
+      <select ng-model="column.map_from">
+        <option select="selected" value="">[Select csv column]</option>
+        <option ng-repeat="importColumn in importData[0]" value="{{$index}}">{{importColumn}}</option>
+      </select>
+    </p>
+    <button ng-click="importMessages()">Import</button>
+    <a ng-click="closeAllModals()">Cancel</a>
+    </span>
+</script>

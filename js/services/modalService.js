@@ -40,6 +40,13 @@ angular
           scope: scope
         });
       },
+       openImportBoard: function(scope) {
+        ngDialog.open({
+          template: 'importCards',
+          className: 'ngdialog-theme-plain bigDialog',
+          scope: scope
+        });
+      },
       openCopyBoard: function(scope) {
         ngDialog.open({
           template: 'copyBoard',

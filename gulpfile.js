@@ -11,12 +11,14 @@ var gulp = require('gulp'),
   connectlivereload = require('connect-livereload'),
   express = require('express'),
   path = require('path'),
-  watch = require('gulp-watch');
+  watch = require('gulp-watch'),
+  csvParser = require ('./serverjs/csvParserService.js');
 
 gulp.task('express', function() {
   var app = express();
   app.use(connectlivereload({ port: 35729 }));
   app.use(express.static('./dist'));
+  app.post('/upload', csvParser);
   var port = 4000;
   app.listen(port, '0.0.0.0', function(){
     console.log('App running and listening on port', port);
@@ -66,7 +68,8 @@ var bundleVendorJS = function() {
 	   'node_modules/angular-*/**/angular-*.min.js',
 	   '!node_modules/**/angular-mocks.js',
 	   'js/vendor/*.js',
-	   'node_modules/ng-dialog/**/ngDialog*.min.js'])
+	   'node_modules/ng-dialog/**/ngDialog*.min.js',
+     'node_modules/ng-file-upload/**/ng-file-upload-all.min.js'])
       .pipe(concat('vendor.js'))
       .pipe(gulp.dest('dist'))
       .pipe(uglify())
