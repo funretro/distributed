@@ -28,7 +28,7 @@
           <li ng-controller="MessageCtrl" id="{{ message.$id }}" enter-click class="message" ng-class="{'flip': isEditing}" ng-repeat="message in messages | filter: {type: {id: type.id}, text: filterMessage} | orderBy: getSortFields()">
             <div messageId="{{ message.$id }}" x-lvl-draggable x-lvl-drop-target="true" x-on-drop="dropCardOnCard(dragEl, dropEl)" draggable="{{ !isEditing }}">
 
-              <div class="front" ng-class="{'filter': message.creating}">
+              <div class="front" ng-class="{'filter': isCensored(message, privateWritingOn)}">
                   <div class="message-body">
                       <div class="text">{{message.text}}</div>
                       <a href="javascript:void(0)" class="pencil" ng-click="isEditing = true; utils.focusElement(message.$id);" aria-label="Edit message"><i class="fa fa-pencil"></i></a>

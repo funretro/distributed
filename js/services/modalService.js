@@ -69,6 +69,13 @@ angular
           scope: scope
         });
       },
+      openCardSettings: function(scope) {
+        ngDialog.open({
+          template: 'cardSettings',
+          className: 'ngdialog-theme-plain',
+          scope: scope
+        });
+      },
       closeAll: function() {
         ngDialog.closeAll();
       }

@@ -11,7 +11,8 @@ angular
       $scope.messageTypes = utils.messageTypes;
       $scope.utils = utils;
       $scope.newBoard = {
-        name: ''
+        name: '', 
+        text_editing_is_private: true
       };
       $scope.userId = $window.location.hash.substring(1) || '';
       $scope.searchParams = {};
@@ -54,6 +55,7 @@ angular
 
           $scope.board = board.val();
           $scope.maxVotes = board.val().max_votes ? board.val().max_votes : 6;
+          $scope.privateWritingOn = board.val().text_editing_is_private;
           $scope.boardId = $rootScope.boardId = board.val().boardId;
           $scope.boardContext = $rootScope.boardContext = board.val().boardContext;
           $scope.loading = false;
@@ -74,6 +76,16 @@ angular
 
       $scope.isColumnSelected = function(type) {
         return parseInt($scope.selectedType) === parseInt(type);
+      };
+
+      $scope.isCensored = function(message, privateWritingOn) {
+        return message.creating && privateWritingOn;
+      };
+
+      $scope.updatePrivateWritingToggle = function(privateWritingOn) {
+        $scope.boardRef.update({
+          text_editing_is_private: privateWritingOn
+        });
       };
 
       $scope.getSortFields = function() {
@@ -110,7 +122,8 @@ angular
             date_created: new Date().toString(),
             columns: $scope.messageTypes,
             user_id: userData.uid,
-            max_votes: $scope.newBoard.max_votes || 6
+            max_votes: $scope.newBoard.max_votes || 6,
+            text_editing_is_private : $scope.newBoard.text_editing_is_private
           }, function(error) {
              if (error) {
                 $scope.loading = false;

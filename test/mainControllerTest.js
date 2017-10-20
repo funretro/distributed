@@ -80,6 +80,18 @@ describe('MainCtrl: ', function() {
       expect(updateSpy.called).to.be.true;
     });
 
+    it('should toggle the private writing feature', function() {
+      var updateSpy = sinon.spy();
+
+      $scope.boardRef = {
+        update: updateSpy
+      }
+
+      $scope.updatePrivateWritingToggle(false);
+
+      expect(updateSpy.calledWith({text_editing_is_private: false})).to.be.true;
+    });
+
     it('should create a new board', function () {
       sinon.stub(utils, 'createUserId', function () { return 'userId'; });
       var createUserSpy = sinon.spy(auth, 'createUserAndLog');

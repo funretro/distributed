@@ -1,0 +1,6 @@
+.ngdialog-content .labeled-checkbox input.toggle-checkbox {
+  width: 20px;
+  height: 60px;
+  display: inline;
+  vertical-align: middle;
+}
