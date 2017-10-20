@@ -71,6 +71,13 @@ angular
       },
       closeAll: function() {
         ngDialog.closeAll();
+      },
+      warnBoardDeleted: function(scope) {
+        ngDialog.open({
+          template: 'warnBoardDeleted',
+          className: 'ngdialog-theme-plain',
+          scope: scope
+        });
       }
     };
   }]);

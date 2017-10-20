@@ -48,8 +48,13 @@ angular
 
         board.on('value', function(board) {
           if (board.val() === null) {
-            window.location.hash = '';
-            location.reload();
+            console.log('no such board');
+            modalService.warnBoardDeleted();
+            setTimeout(function() {
+              //window.location.hash = '';
+              //location.reload();
+              window.location.href = window.location.origin;
+            }, 1000);
           }
 
           $scope.board = board.val();
