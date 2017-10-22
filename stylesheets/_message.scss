@@ -53,24 +53,6 @@
   white-space: pre-line;
 }
 
-.message-body {
-  padding: 0.5em;
-
-  a {
-    position: absolute;
-    top: 0.4em;
-    right: 0.5em;
-
-    &.delete-link {
-      top: auto;
-      right: 12px;
-      bottom: 12px;
-      left: auto;
-      font-size: 1em;
-    }
-  }
-}
-
 .votes {
   @include position(absolute, null 0 0 null);
   display: flex;
@@ -103,6 +85,18 @@
   background: transparent;
   border-radius: 2px;
 
+
+  &-body {
+    padding: 0.5em;
+  }
+
+  .editing,
+  .editing > div {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
   textarea {
     @include size(100% 100%);
     padding: 0.3em 0.5em;
@@ -111,6 +105,17 @@
     font-size: 14px;
     resize: none;
     border: none;
+  }
+
+  &-votes {
+    li {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 4px;
+      list-style: none;
+      border-radius: 10px;
+    }
   }
 }
 
@@ -141,23 +146,4 @@
 
 .message.flip .back {
   z-index: 10;
-}
-
-.back a {
-  color: $danger;
-
-  &:hover {
-    color: darken($danger, 15%);
-  }
-}
-
-.message-votes {
-  li {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 4px;
-    list-style: none;
-    border-radius: 10px;
-  }
 }

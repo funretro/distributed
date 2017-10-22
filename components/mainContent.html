@@ -22,17 +22,22 @@
               <input id="new_name_{{ type.id }}" ng-model="newName" focus></input>
               <div>
                 <button ng-click="changeColumnName(type.id, newName);editing=false" class="success-button">Save</button>
-                <a class="blue" ng-click="editing=false;">Cancel</a>
+                <button class="blue"
+                        type="button"
+                        ng-click="editing=false;">Cancel</button>
               </div>
           </div>
           <li ng-controller="MessageCtrl" id="{{ message.$id }}" enter-click class="message" ng-class="{'flip': isEditing}" ng-repeat="message in messages | filter: {type: {id: type.id}, text: filterMessage} | orderBy: getSortFields()">
             <div messageId="{{ message.$id }}" x-lvl-draggable x-lvl-drop-target="true" x-on-drop="dropCardOnCard(dragEl, dropEl)" draggable="{{ !isEditing }}">
 
               <div class="front" ng-class="{'filter': isCensored(message, boardObject.text_editing_is_private)}">
-                  <div class="message-body">
-                      <div class="text">{{message.text}}</div>
-                      <a href="javascript:void(0)" class="pencil" ng-click="isEditing = true; utils.focusElement(message.$id); updateEditingMessage(message, true);" aria-label="Edit message"><i class="fa fa-pencil"></i></a>
-                  </div>
+                <div class="message-body">
+                  <div class="text" ng-bind-html="message.text | linky:'_blank'"></div>
+                  <button type="button"
+                          class="message-action -edit"
+                          ng-click="isEditing = true; utils.focusElement(message.$id); updateEditingMessage(message, true);"
+                          aria-label="Edit message"><i class="fa fa-pencil"></i></button>
+                </div>
                   <div class="votes">
                       <a ng-show="voteService.canUnvoteMessage(userId, message.$id)" href="javascript:void(0)" ng-click="voteService.unvote(userId, message.$id, message.votes)" aria-label="Unvote">
                         <i class="fa fa-times"></i>
@@ -50,16 +55,23 @@
               </div>
               <div class="back">
                   <div class="message-body">
-                      <div class="editing">
-                          <textarea data-emoji-picker="true" ng-model="message.text" ng-change="messages.$save(message)" aria-label="Message text entry"></textarea>
-                          <button ng-click="isEditing = false;saveMessage(message); updateEditingMessage(message, false);">DONE</button>
-                          <a class="delete-link" href="javascript:void(0)" ng-click="modalService.openDeleteCard(this)" aria-label="Delete message"><i class="fa fa-trash"></i></a>
-                      </div>
+                    <div class="editing">
+                      <textarea data-emoji-picker="true"
+                                ng-model="message.text"
+                                ng-change="messages.$save(message)"
+                                aria-label="Message text entry"></textarea>
+
+                      <button ng-click="isEditing = false;saveMessage(message); updateEditingMessage(message, false);"
+                              type="button"
+                              class="message-action -done">DONE</button>
+                      <button class="message-action -delete"
+                              type="button"
+                              ng-click="modalService.openDeleteCard(this)"
+                              aria-label="Delete message"><i class="fa fa-trash"></i></button>
+                    </div>
                   </div>
               </div>
-              <div class="placeholder">
-                {{ message.text }}
-              </div>
+              <div class="placeholder">{{message.text}}</div>
             </div>
           </li>
         </ul>

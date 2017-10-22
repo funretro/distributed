@@ -63,25 +63,49 @@ header button:hover {
   border-bottom: 0;
 }
 
-.message button:hover {
-  bottom: 13px;
-  border-bottom: 0;
-}
-
-.message button {
+.message-action {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
-  width: 43px;
-  height: 20px;
+  border: 0;
+  background: transparent;
   padding: 0;
-  margin-left: 0;
-  font-size: 0.7em;
   line-height: 2em;
-  background: $green;
+  font-size: 0.7em;
+
+  &.-delete, &.-edit {
+    right: 10px;
+    font-size: 1em;
+  }
+
+  &.-delete {
+    bottom: 10px;
+    color: $danger;
+
+    &:hover {
+      color: darken($danger, 15%);
+    }
+  }
+
+  &.-edit {
+    top: 10px;
+  }
+
+  &.-done {
+    bottom: 14px;
+    left: 14px;
+    width: 43px;
+    height: 20px;
+    padding: 0;
+    margin-left: 0;
+    background: $green;
+
+    &:hover {
+      bottom: 13px;
+      border-bottom: 0;
+    }
+  }
 }
 
 .success-button,
-.message button {
+.message-action.-done {
   border-bottom: 2px solid $light-green;
 }
