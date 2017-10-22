@@ -71,7 +71,8 @@ header button:hover {
   line-height: 2em;
   font-size: 0.7em;
 
-  &.-delete, &.-edit {
+  &.-delete,
+  &.-edit {
     right: 10px;
     font-size: 1em;
   }
