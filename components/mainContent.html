@@ -34,7 +34,7 @@
                 <div class="message-body">
                   <div class="text" ng-bind-html="message.text | linky:'_blank'"></div>
                   <button type="button"
-                          class="message-action -edit"
+                          class="message-action message-action-edit"
                           ng-click="isEditing = true; utils.focusElement(message.$id); updateEditingMessage(message, true);"
                           aria-label="Edit message"><i class="fa fa-pencil"></i></button>
                 </div>
@@ -61,10 +61,10 @@
                                 ng-change="messages.$save(message)"
                                 aria-label="Message text entry"></textarea>
 
-                      <button ng-click="isEditing = false;saveMessage(message); updateEditingMessage(message, false);"
-                              type="button"
-                              class="message-action -done">DONE</button>
-                      <button class="message-action -delete"
+                      <button ng-click="isEditing = false; saveMessage(message); updateEditingMessage(message, false);"
+                              type="submit"
+                              class="message-action message-action-done">DONE</button>
+                      <button class="message-action message-action-delete"
                               type="button"
                               ng-click="modalService.openDeleteCard(this)"
                               aria-label="Delete message"><i class="fa fa-trash"></i></button>

@@ -71,13 +71,13 @@ header button:hover {
   line-height: 2em;
   font-size: 0.7em;
 
-  &.-delete,
-  &.-edit {
+  &-delete,
+  &-edit {
     right: 10px;
     font-size: 1em;
   }
 
-  &.-delete {
+  &-delete {
     bottom: 10px;
     color: $danger;
 
@@ -86,11 +86,11 @@ header button:hover {
     }
   }
 
-  &.-edit {
+  &-edit {
     top: 10px;
   }
 
-  &.-done {
+  &-done {
     bottom: 14px;
     left: 14px;
     width: 43px;
@@ -107,6 +107,6 @@ header button:hover {
 }
 
 .success-button,
-.message-action.-done {
+.message-action-done {
   border-bottom: 2px solid $light-green;
 }
