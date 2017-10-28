@@ -43,11 +43,8 @@ angular
 
         board.on('value', function(board) {
           if (board.val() === null) {
-            console.log('no such board');
             modalService.warnBoardDeleted();
             setTimeout(function() {
-              //window.location.hash = '';
-              //location.reload();
               window.location.href = window.location.origin;
             }, 1000);
           }
