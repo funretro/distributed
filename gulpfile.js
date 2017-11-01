@@ -13,6 +13,8 @@ var gulp = require('gulp'),
   path = require('path'),
   watch = require('gulp-watch'),
   autoprefixer = require('gulp-autoprefixer');
+  eslint = require("gulp-eslint");
+  src = './js/';
 
 gulp.task('express', function() {
   var app = express();
@@ -154,6 +156,12 @@ gulp.task('copy', function(){
   .pipe(gulp.dest('dist'));
 
   buildHTML();
+});
+
+gulp.task('eslint', function () {
+    return gulp.src(src + '**/*.js')
+        .pipe(eslint())
+        .pipe(eslint.format('stylish'));
 });
 
 gulp.task('default', ['bundle', 'copy', 'express', 'livereload', 'watch']);
