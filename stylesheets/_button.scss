@@ -64,7 +64,6 @@ header button:hover {
 }
 
 .message-action {
-  position: absolute;
   border: 0;
   background: transparent;
   padding: 0;
@@ -73,12 +72,10 @@ header button:hover {
 
   &-delete,
   &-edit {
-    right: 10px;
     font-size: 1em;
   }
 
   &-delete {
-    bottom: 10px;
     color: $danger;
 
     &:hover {
@@ -86,13 +83,7 @@ header button:hover {
     }
   }
 
-  &-edit {
-    top: 10px;
-  }
-
   &-done {
-    bottom: 14px;
-    left: 14px;
     width: 43px;
     height: 20px;
     padding: 0;
