@@ -6,6 +6,8 @@
   }
 
   ul.column_#{$i} {
+    list-style: none;
+
     .votes {
       .vote-area {
         padding: 2px 7px;
@@ -21,6 +23,7 @@
   }
 
   ul.column_#{$i} .message-votes li {
+    list-style: none;
     background: nth($column-colors-votes, $i);
   }
 }
@@ -42,6 +45,14 @@
   &:last-child {
     margin-right: 15px;
   }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+  }
 }
 
 .text {
@@ -53,26 +64,7 @@
   white-space: pre-line;
 }
 
-.message-body {
-  padding: 0.5em;
-
-  a {
-    position: absolute;
-    top: 0.4em;
-    right: 0.5em;
-
-    &.delete-link {
-      top: auto;
-      right: 12px;
-      bottom: 12px;
-      left: auto;
-      font-size: 1em;
-    }
-  }
-}
-
 .votes {
-  @include position(absolute, null 0 0 null);
   display: flex;
   height: 22px;
   font-size: 0.89em;
@@ -91,26 +83,45 @@
   color: white;
   word-break: break-word;
   white-space: pre-line;
-  visibility: hidden;
 }
 
 .message {
-  position: relative;
-  display: block;
-  height: auto;
-  padding-bottom: 20px;
-  margin-bottom: 29px;
+  width: 100%;
   background: transparent;
-  border-radius: 2px;
+  margin-bottom: 1em;
+
+  &-body {
+    padding: 0.5em;
+    min-height: 60px;
+  }
+
+  .editing {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+  }
 
   textarea {
-    @include size(100% 100%);
     padding: 0.3em 0.5em;
     padding-bottom: 0;
+    margin-bottom: .5em;
+    min-height: 120px;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     resize: none;
     border: none;
+  }
+
+  &-votes {
+    li {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 4px;
+      list-style: none;
+      border-radius: 10px;
+    }
   }
 }
 
@@ -118,46 +129,19 @@
   filter: blur(4px);
 }
 
+.message .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .message .front {
-  @include position(absolute, 0 null null 0);
-  @include size(100% 100%);
-  z-index: 9;
-  padding-bottom: 1em;
+  display: flex;
+  flex-direction: column;
   color: white;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .message .back {
-  @include position(absolute, 0 null null 0);
-  @include size(100% 100%);
-  z-index: 8;
-  padding-bottom: 1em;
   color: white;
-}
-
-.message.flip .front {
-  z-index: 9;
-}
-
-.message.flip .back {
-  z-index: 10;
-}
-
-.back a {
-  color: $danger;
-
-  &:hover {
-    color: darken($danger, 15%);
-  }
-}
-
-.message-votes {
-  li {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 4px;
-    list-style: none;
-    border-radius: 10px;
-  }
 }
