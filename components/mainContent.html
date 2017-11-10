@@ -33,6 +33,7 @@
                       <div class="text">{{message.text}}</div>
                       <a href="javascript:void(0)" class="pencil" ng-click="isEditing = true; utils.focusElement(message.$id); updateEditingMessage(message, true);" aria-label="Edit message"><i class="fa fa-pencil"></i></a>
                   </div>
+                  <div style="position: absolute;bottom: 0;padding: 4px;"><i>{{message.author}}</i></div>
                   <div class="votes">
                       <a ng-show="voteService.canUnvoteMessage(userId, message.$id)" href="javascript:void(0)" ng-click="voteService.unvote(userId, message.$id, message.votes)" aria-label="Unvote">
                         <i class="fa fa-times"></i>

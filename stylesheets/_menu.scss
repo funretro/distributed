@@ -99,3 +99,17 @@
     margin-left: 5px;
   }
 }
+
+.author-name {
+  width: 140px;
+  height: 25px;
+  margin-left: 15px;
+  font-size: 0.85em;
+  vertical-align: top;
+  border-radius: 3px;
+
+  @media (max-width: 500px) {
+    width: 170px;
+    margin-left: 5px;
+  }
+}

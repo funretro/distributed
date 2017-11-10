@@ -28,7 +28,8 @@ angular
           dragMessageRef.once('value', function(dragMessage) {
             dropMessageRef.update({
               text: dropMessage.val().text + '\n' + dragMessage.val().text,
-              votes: dropMessage.val().votes + dragMessage.val().votes
+              votes: dropMessage.val().votes + dragMessage.val().votes,
+              author: dragMessage.val().author
             });
 
             voteService.mergeMessages($scope.userId, drag.attr('messageId'), drop.attr('messageId'));

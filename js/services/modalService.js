@@ -76,6 +76,13 @@ angular
           scope: scope
         });
       },
+      openAuthorSettings: function(scope) {
+        ngDialog.open({
+          template: 'authorSettings',
+          className: 'ngdialog-theme-plain',
+          scope: scope
+        });
+      },
       closeAll: function() {
         ngDialog.closeAll();
       }

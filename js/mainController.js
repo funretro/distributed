@@ -67,6 +67,11 @@ angular
         $scope.messagesRef = messagesRef;
         $scope.userUid = userData.uid;
         $scope.messages = firebaseService.newFirebaseArray(messagesRef);
+        
+        var author = localStorage.getItem('author');
+        if(!author) {
+          modalService.openAuthorSettings($scope);
+        }
       }
 
       if ($scope.userId !== '') {
@@ -100,7 +105,20 @@ angular
 
       $scope.saveMessage = function(message) {
         message.creating = false;
+        var author = localStorage.getItem('author');
+
+        if(author) {
+          message.author = author;
+        }
+
         $scope.messages.$save(message);
+      };
+
+       $scope.saveAuthor = function(author) {
+        if(author) {
+          localStorage.setItem('author', author);
+          modalService.closeAll();
+        }
       };
 
       function redirectToBoard() {

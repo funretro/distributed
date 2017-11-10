@@ -8,6 +8,7 @@
   <div class="sidebar-body">
     <button class="normal-button import-btn" ng-attr-data-clipboard-text="{{importExportService.getBoardPureText(board, messages, sortField)}}"><i class="fa fa-clipboard"></i>Copy board to clipboard</button>
     <button class="normal-button" ng-click="importExportService.generatePdf(board, messages, sortField)"><i class="fa fa-download"></i>Export board to PDF</button>
+    <button class="normal-button" ng-click="modalService.openAuthorSettings(this)"><i class="fa fa-edit"></i>Change Name</button>
     <button class="normal-button" ng-click="modalService.openImportBoard(this)"><i class="fa fa-upload"></i>Import CSV</button>
     <button class="normal-button" ng-click="modalService.openVoteSettings(this)"><i class="fa fa-thumbs-up"></i>Vote settings</button>
     <button class="normal-button" ng-click="modalService.openCardSettings(this)"><i class="fa fa-sticky-note"></i>Private writing</button>

@@ -91,3 +91,9 @@
       <label for="toggle-private">Private writing during card editing</label>
     </div>
 </script>
+<script type="text/ng-template" id="authorSettings">
+  <h1>Name</h1>
+    <label for="authorName">What`s your name?</label>
+    <input id="authorName" ng-model="author.name" type="text"></input>
+    <button class="increment-button" ng-click="saveAuthor(author.name)">Save</button>
+</script>
