@@ -1,3 +1,5 @@
 js/vendor/firebaseInitialization.js
 js/vendor/firebase.js
 js/vendor/jquery-3.2.1.min.js
+js/vendor/lvl-drag-drop.js
+js/vendor/lvl-uuid.js
