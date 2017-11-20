@@ -1,83 +1,83 @@
-'use strict';
+
 
 angular
   .module('fireideaz')
-  .service('ModalService', ['ngDialog', function(ngDialog) {
+  .service('ModalService', ['ngDialog', function (ngDialog) {
     return {
-      openAddNewColumn: function(scope) {
+      openAddNewColumn(scope) {
         ngDialog.open({
           template: 'addNewColumn',
           className: 'ngdialog-theme-plain',
-          scope: scope
+          scope,
         });
       },
-      openAddNewBoard: function(scope) {
+      openAddNewBoard(scope) {
         ngDialog.open({
           template: 'addNewBoard',
           className: 'ngdialog-theme-plain',
-          scope: scope
+          scope,
         });
       },
-      openDeleteCard: function(scope) {
+      openDeleteCard(scope) {
         ngDialog.open({
           template: 'deleteCard',
           className: 'ngdialog-theme-plain',
-          scope: scope
+          scope,
         });
       },
-      openDeleteColumn: function(scope) {
+      openDeleteColumn(scope) {
         ngDialog.open({
           template: 'deleteColumn',
           className: 'ngdialog-theme-plain',
-          scope: scope
+          scope,
         });
       },
 
-      openMergeCards: function(scope) {
+      openMergeCards(scope) {
         ngDialog.open({
           template: 'mergeCards',
           className: 'ngdialog-theme-plain',
-          scope: scope
+          scope,
         });
       },
-       openImportBoard: function(scope) {
+      openImportBoard(scope) {
         scope.cleanImportData();
         ngDialog.open({
           template: 'importCards',
           className: 'ngdialog-theme-plain bigDialog',
-          scope: scope
+          scope,
         });
       },
-      openDeleteBoard: function(scope) {
+      openDeleteBoard(scope) {
         ngDialog.open({
           template: 'deleteBoard',
           className: 'ngdialog-theme-plain danger',
-          scope: scope
+          scope,
         });
       },
-      openDeleteCards: function(scope) {
+      openDeleteCards(scope) {
         ngDialog.open({
           template: 'deleteCards',
           className: 'ngdialog-theme-plain danger',
-          scope: scope
+          scope,
         });
       },
-      openVoteSettings: function(scope) {
+      openVoteSettings(scope) {
         ngDialog.open({
           template: 'voteSettings',
           className: 'ngdialog-theme-plain',
-          scope: scope
+          scope,
         });
       },
-      openCardSettings: function(scope) {
+      openCardSettings(scope) {
         ngDialog.open({
           template: 'cardSettings',
           className: 'ngdialog-theme-plain',
-          scope: scope
+          scope,
         });
       },
-      closeAll: function() {
+      closeAll() {
         ngDialog.closeAll();
-      }
+      },
     };
   }]);
