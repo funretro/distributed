@@ -1,0 +1,6 @@
+{
+  "extends": ["airbnb-base", "angular"],
+  "env": {
+    "browser": 1
+  },
+}
