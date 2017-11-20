@@ -1,16 +1,16 @@
-describe('MessageCtrl: ', function() {
-  var $rootScope,
-      $scope,
-      $controller,
-      modalService,
-      board,
-      firebaseService,
-      auth
+describe('MessageCtrl: ', () => {
+  let $rootScope,
+    $scope,
+    $controller,
+    modalService,
+    board,
+    firebaseService,
+    auth;
 
-  beforeEach(function() {
+  beforeEach(() => {
     angular.mock.module('fireideaz');
 
-    inject(function($injector){
+    inject(($injector) => {
       $rootScope = $injector.get('$rootScope');
       $scope = $rootScope.$new();
       $controller = $injector.get('$controller');
@@ -21,15 +21,15 @@ describe('MessageCtrl: ', function() {
       $scope.userId = 'userId';
 
       $controller('MessageCtrl', {
-        '$scope': $scope,
-        'modalService': modalService,
-        'firebaseService': firebaseService,
-        'auth': auth
+        $scope,
+        modalService,
+        firebaseService,
+        auth,
       });
     });
   });
 
-  it('should open dialog to merge cards when drop an card over another card', function () {
+  it('should open dialog to merge cards when drop an card over another card', () => {
     sinon.spy(modalService, 'openMergeCards');
 
     $scope.dropCardOnCard("<div class='element1'></div>", "<div class='element2'></div>");
@@ -37,7 +37,7 @@ describe('MessageCtrl: ', function() {
     expect(modalService.openMergeCards.calledWith($scope)).to.be.true;
   });
 
-  it('should not open dialog to merge cards when drop an card over the same card', function () {
+  it('should not open dialog to merge cards when drop an card over the same card', () => {
     sinon.spy(modalService, 'openMergeCards');
 
     $scope.dropCardOnCard("<div class='element1'></div>", "<div class='element1'></div>");
