@@ -61,7 +61,7 @@ angular
           $scope.boardContext = $rootScope.boardContext = board.val().boardContext;
           $scope.loading = false;
           $scope.hideVote = board.val().hide_vote;
-          setTimeout(function() {new EmojiPicker();}, 100);
+          setTimeout(() => { new EmojiPicker(); }, 100);
         });
 
         $scope.boardRef = board;
