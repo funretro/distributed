@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "jshint": "jshint js/. --exclude js/vendor && stylelint stylesheets/*.scss",
+    "lint": "npx eslint . && stylelint stylesheets/*.scss",
     "deploy": "./deploy.sh",
     "test": "karma start karma.conf.js --singleRun=true",
     "postinstall": "opencollective postinstall"
