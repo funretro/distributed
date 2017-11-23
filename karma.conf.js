@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     basePath: '',
@@ -21,12 +21,12 @@ module.exports = function(config) {
 
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'js/*.js': ['coverage']
+      'js/*.js': ['coverage'],
     },
     coverageReporter: {
       repoToken: 'QVdqIxSZvbUFLmSiYZ3uINtguZxhuBgy7',
       type: 'lcov',
-      dir: 'coverage/'
+      dir: 'coverage/',
     },
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -50,6 +50,6 @@ module.exports = function(config) {
       'karma-nyan-reporter',
       'karma-mocha-reporter',
       'karma-sinon',
-    ]
-  })
-}
+    ],
+  });
+};
