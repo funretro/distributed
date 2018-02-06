@@ -27,15 +27,16 @@ var config = {
 
 firebase.initializeApp(config);
 ```
-5. If you don't want to file to be tracked by git just run this command on the project home folder:
+5. The app uses firebase auth and creates a new user when you attempt to create a new board. So, once the app is running, head over to your firebase console `Authentication` section and enable auth using email & password. After change it should look like this [screenshot](https://drive.google.com/file/d/1u5qzuXeyERstqK0i6zR02uyP8ZdLK8ob/view?usp=sharing)
+6. If you don't want to file to be tracked by git just run this command on the project home folder:
 ```
 git update-index --assume-unchanged js/vendor/firebaseInitialization.js
 ```
-6. Install [Node.js](https://nodejs.org/en/)
-7. Run ```npm install``` (inside the project folder)
-8. Install [Gulp](http://gulpjs.com/)
-9. Run ```gulp```
-10. Now you can open the app on [http://localhost:4000/](http://localhost:4000/) and start creating your boards.
+7. Install [Node.js](https://nodejs.org/en/)
+8. Run ```npm install``` (inside the project folder)
+9. Install [Gulp](http://gulpjs.com/)
+10. Run ```gulp```
+11. Now you can open the app on [http://localhost:4000/](http://localhost:4000/) and start creating your boards.
 
 ## Contribute to Fun Retro
 
