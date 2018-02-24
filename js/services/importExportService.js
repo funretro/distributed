@@ -1,10 +1,10 @@
 'use strict';
 
 angular
-  .module('fireideaz')
-  .service('ImportExportService', 
-          ['FirebaseService', 'ModalService', 'CsvService', '$filter', 
-          function (firebaseService, modalService, CsvService, $filter) {
+  .module('fireideaz', ['toastr'])
+  .service('ImportExportService',
+          ['FirebaseService', 'ModalService', 'CsvService', 'toastr', '$filter',
+          function (firebaseService, modalService, CsvService, toastr, $filter) {
     var importExportService = {};
 
     importExportService.importMessages = function (userUid, importObject, messages) {
@@ -88,6 +88,7 @@ angular
           });
         });
 
+        toastr.success('Copied To Clipboard');
         return clipboard;
       }
 
@@ -175,7 +176,7 @@ angular
       var downloadLink = document.createElement('a');
       downloadLink.href = window.URL.createObjectURL(blob, {type: 'text/csv'});
       downloadLink.download = fileName;
-      
+
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
@@ -187,8 +188,8 @@ angular
         // Using index + 1 because column IDs start from 1
         var columnMessages = $filter('filter')(messages, getColumnFieldObject(columnIndex + 1));
         var sortedColumnMessages = $filter('orderBy')(columnMessages, importExportService.getSortFields(sortField));
-        
-        var messagesText = sortedColumnMessages.map(function(message) { 
+
+        var messagesText = sortedColumnMessages.map(function(message) {
           return message.text;
         });
 

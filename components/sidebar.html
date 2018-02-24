@@ -6,6 +6,8 @@
     </a>
   </div>
   <div class="sidebar-body">
+    <link rel="stylesheet" type="text/css" href="angular-toastr.css" />
+    <script type="text/javascript" src="angular-toastr.tpls.js"></script>
     <button class="normal-button import-btn" ng-attr-data-clipboard-text="{{importExportService.getBoardPureText(board, messages, sortField)}}"><i class="fa fa-clipboard"></i>Copy board to clipboard</button>
     <button class="normal-button" ng-click="importExportService.generatePdf(board, messages, sortField)"><i class="fa fa-download"></i>Export board to PDF</button>
     <button class="normal-button" ng-click="importExportService.generateCsv(board, messages, sortField)"><i class="fa fa-download"></i>Export board to CSV</button>
