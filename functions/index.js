@@ -36,27 +36,24 @@ exports.newboard = functions.https.onRequest(function(req, res) {
 
   function createNewBoard(userId) {
     var board = admin.database().ref('/boards/' + userId);
-
+    var columns = (req.query.columns || 'Went well,To improve,Action items').split(",");
+    var maxVotes = req.query.maxVotes || 6;
+    var textEditingIsPrivate = true;
+    if (typeof req.query.textEditingIsPrivate !== "undefined") {
+      textEditingIsPrivate = req.query.textEditingIsPrivate;
+    }
     board.set({
       boardId: req.query.name,
       date_created: new Date().toString(),
-      columns: messageTypes = [
-        {
-          id: 1,
-          value: 'Went well'
-        },
-        {
-          id: 2,
-          value: 'To improve'
-        },
-        {
-          id: 3,
-          value: 'Action items'
+      columns: messageTypes = columns.map(function(value, id) {
+        return {
+          id: id,
+          value: value
         }
-      ],
+      }),
       user_id: userId,
-      max_votes: 6,
-      text_editing_is_private : true
+      max_votes: maxVotes,
+      text_editing_is_private: textEditingIsPrivate
     }, function(error) {
       if (error) {
         return error;
