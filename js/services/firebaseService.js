@@ -1,8 +1,10 @@
 'use strict';
 
-angular
-  .module('fireideaz')
-  .service('FirebaseService', ['firebase', '$firebaseArray', '$firebaseObject', function (firebase, $firebaseArray, $firebaseObject) {
+angular.module('fireideaz').service('FirebaseService', [
+  'firebase',
+  '$firebaseArray',
+  '$firebaseObject',
+  function(firebase, $firebaseArray, $firebaseObject) {
     function newFirebaseArray(messagesRef) {
       return $firebaseArray(messagesRef);
     }
@@ -38,6 +40,7 @@ angular
       getMessageRef: getMessageRef,
       getBoardRef: getBoardRef,
       getBoardObjectRef: getBoardObjectRef,
-      getBoardColumns: getBoardColumns
+      getBoardColumns: getBoardColumns,
     };
-  }]);
+  },
+]);

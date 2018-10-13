@@ -8,10 +8,10 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
-    semi: ['error', 'always'],
-    'angular/di': ['error', '$inject'],
+    'angular/di': ['warn', '$inject'],
+    'angular/controller-as': ['warn'],
+    'angular/file-name': ['warn'],
+    'angular/no-service-method': ['warn'],
   },
 };

@@ -1,23 +1,27 @@
-<script type="text/ng-template" id="deleteCards">
+<script type="text/ng-template"
+        id="deleteCards">
   <p class="header">Danger Zone</p>
   <p>Are you sure you want to delete all cards?</p>
   <p>Once you delete all cards, there is no going back. Please be certain.</p>
   <button class="delete-button" ng-click="deleteCards()">Delete</button>
   <a ng-click="modalService.closeAll();">Cancel</a>
 </script>
-<script type="text/ng-template" id="deleteBoard">
+<script type="text/ng-template"
+        id="deleteBoard">
   <p class="header">Danger Zone</p>
   <p>Are you sure you want to delete the board?</p>
   <p>Once you delete the board, there is no going back. Please be certain.</p>
   <button class="delete-button" ng-click="deleteBoard()">Delete</button>
   <a ng-click="modalService.closeAll();">Cancel</a>
 </script>
-<script type="text/ng-template" id="addNewColumn">
+<script type="text/ng-template"
+        id="addNewColumn">
   <h1>New column</h1>
   <input ng-model="newColumn" type="text" ng-keyup="submitOnEnter($event, 'addNewColumn', newColumn)" aria-label="New column name"></input>
   <button ng-click="addNewColumn(newColumn); newColumn='';">Add</button>
 </script>
-<script type="text/ng-template" id="addNewBoard">
+<script type="text/ng-template"
+        id="addNewBoard">
   <h1>New board</h1>
   <label for="newBoardName">Board name</label>
   <input id="newBoardName" ng-model="newBoard.name" type="text" ng-keyup="submitOnEnter($event, 'createNewBoard')"></input>
@@ -29,25 +33,29 @@
   <div>
   <button ng-disabled="isBoardNameInvalid() || !isMaxVotesValid()" ng-click="createNewBoard()">Create</button>
 </script>
-<script type="text/ng-template" id="deleteCard">
+<script type="text/ng-template"
+        id="deleteCard">
   <h1>Delete note</h1>
   <p>Are you sure you want to delete this note?</strong></p>
   <button class="delete-button" ng-click="deleteMessage(message)">Delete</button>
   <a ng-click="modalService.closeAll();">Cancel</a>
 </script>
-<script type="text/ng-template" id="deleteColumn">
+<script type="text/ng-template"
+        id="deleteColumn">
   <h1>Delete column</h1>
   <p>Are you sure you want to delete this column?</strong></p>
   <button class="delete-button" ng-click="deleteColumn(type)">Delete</button>
   <a ng-click="modalService.closeAll();">Cancel</a>
 </script>
-<script type="text/ng-template" id="mergeCards">
+<script type="text/ng-template"
+        id="mergeCards">
   <h1>Merge cards</h1>
   <p>Are you sure you want to merge these two cards?</strong></p>
-  <button ng-controller="MessageCtrl" class="delete-button" ng-click="dropped(dragEl, dropEl)">Merge</button>
+  <button ng-controller="MessageController" class="delete-button" ng-click="dropped(dragEl, dropEl)">Merge</button>
   <a ng-click="modalService.closeAll();">Cancel</a>
 </script>
-<script type="text/ng-template" id="importCards">
+<script type="text/ng-template"
+        id="importCards">
   <h1>Import CSV</h1>
   <span>
     <p>1. <a class="inline-link" type="file" ngf-select="importExportService.submitImportFile($file, import, board, this)" ngf-pattern="text/csv" accept="text/csv" ngf-max-size="10KB"> Upload</a> a CSV file </p>
@@ -74,7 +82,8 @@
     <a ng-click="modalService.closeAll();">Cancel</a>
     </span>
 </script>
-<script type="text/ng-template" id="voteSettings">
+<script type="text/ng-template"
+        id="voteSettings">
   <div class='vote-settings'>
     <h1>Vote Settings</h1>
     <p>Define max number of votes per participant</p>
@@ -87,7 +96,8 @@
     <button class="hide-vote" ng-click="hideVote = !hideVote; voteService.hideVote(userId, hideVote)"><span ng-if="!hideVote">Hide vote counts</span><span ng-if="hideVote">Show vote counts</span></button>
   </div>
 </script>
-<script type="text/ng-template" id="cardSettings">
+<script type="text/ng-template"
+        id="cardSettings">
   <h1>Private writing</h1>
     <div class="labeled-checkbox">
       <input class="toggle-checkbox" id="toggle-private" type="checkbox" ng-model="boardObject.text_editing_is_private" ng-change="updatePrivateWritingToggle(boardObject.text_editing_is_private)"></input>

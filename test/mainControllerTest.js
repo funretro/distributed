@@ -1,16 +1,16 @@
 var Clipboard = function() {};
 
-describe('MainCtrl: ', function() {
+describe('MainController: ', function() {
   var $rootScope,
-      $scope,
-      $controller,
-      $window,
-      utils,
-      board,
-      firebaseService,
-      auth,
-      modalService,
-      voteService;
+    $scope,
+    $controller,
+    $window,
+    utils,
+    board,
+    firebaseService,
+    auth,
+    modalService,
+    voteService;
 
   beforeEach(function() {
     angular.mock.module('fireideaz');
@@ -29,20 +29,19 @@ describe('MainCtrl: ', function() {
       $scope.userId = 'userId';
       $scope.board = { max_votes: 6 };
 
-      $controller('MainCtrl', {
-        '$scope': $scope,
-        'utils': utils,
-        'modalService': modalService,
-        'firebaseService': firebaseService,
-        'auth': auth,
-        'voteService': voteService,
-        '$window': $window
+      $controller('MainController', {
+        $scope: $scope,
+        utils: utils,
+        modalService: modalService,
+        firebaseService: firebaseService,
+        auth: auth,
+        voteService: voteService,
+        $window: $window,
       });
     });
   });
 
-  describe('Board', function () {
-
+  describe('Board', function() {
     it('should return multiple fields when sort board order by votes', function() {
       $scope.sortField = 'votes';
 
@@ -60,8 +59,8 @@ describe('MainCtrl: ', function() {
       var updateSpy = sinon.spy();
 
       $scope.boardRef = {
-        update: updateSpy
-      }
+        update: updateSpy,
+      };
 
       $scope.changeBoardContext();
 
@@ -72,8 +71,8 @@ describe('MainCtrl: ', function() {
       var updateSpy = sinon.spy();
 
       $scope.boardRef = {
-        update: updateSpy
-      }
+        update: updateSpy,
+      };
 
       $scope.changeBoardName();
 
@@ -84,16 +83,19 @@ describe('MainCtrl: ', function() {
       var updateSpy = sinon.spy();
 
       $scope.boardRef = {
-        update: updateSpy
-      }
+        update: updateSpy,
+      };
 
       $scope.updatePrivateWritingToggle(false);
 
-      expect(updateSpy.calledWith({text_editing_is_private: false})).to.be.true;
+      expect(updateSpy.calledWith({ text_editing_is_private: false })).to.be
+        .true;
     });
 
-    it('should create a new board', function () {
-      sinon.stub(utils, 'createUserId', function () { return 'userId'; });
+    it('should create a new board', function() {
+      sinon.stub(utils, 'createUserId', function() {
+        return 'userId';
+      });
       var createUserSpy = sinon.spy(auth, 'createUserAndLog');
       var closeAllSpy = sinon.spy(modalService, 'closeAll');
 
@@ -103,12 +105,14 @@ describe('MainCtrl: ', function() {
       expect(closeAllSpy.called).to.be.true;
     });
 
-    it('should create a new board with submitOnEnter fn', function () {
-      sinon.stub(utils, 'createUserId', function () { return 'userId'; });
+    it('should create a new board with submitOnEnter fn', function() {
+      sinon.stub(utils, 'createUserId', function() {
+        return 'userId';
+      });
       var createUserSpy = sinon.spy(auth, 'createUserAndLog');
       var closeAllSpy = sinon.spy(modalService, 'closeAll');
 
-      $scope.newBoard.name = "any_name_but_not_null";
+      $scope.newBoard.name = 'any_name_but_not_null';
       var event = {};
       event.keyCode = 13;
       $scope.submitOnEnter(event, 'createNewBoard');
@@ -130,22 +134,21 @@ describe('MainCtrl: ', function() {
       $scope.updateSortOrder();
       expect($window.location.search).to.equal('?sort=date_created');
     });
-
   });
 
-  describe('Messages', function () {
+  describe('Messages', function() {
     it('should delete a message', function() {
       var removeSpy = sinon.spy();
       var closeAllSpy = sinon.spy(modalService, 'closeAll');
 
       var message = {
         text: 'text of message',
-        user_id: '139021'
-      }
+        user_id: '139021',
+      };
 
       $scope.messages = {
-        $remove: removeSpy
-      }
+        $remove: removeSpy,
+      };
 
       $scope.deleteMessage(message);
 
@@ -154,31 +157,30 @@ describe('MainCtrl: ', function() {
     });
 
     it('should add a new message', function() {
-      sinon.stub(firebaseService, 'getServerTimestamp', function() { return '00:00:00' });
+      sinon.stub(firebaseService, 'getServerTimestamp', function() {
+        return '00:00:00';
+      });
 
       var addMessagePromise = { then: sinon.spy() };
       var addStub = sinon.stub().returns(addMessagePromise);
 
       var message = {
         text: 'text of message',
-        user_id: '139021'
-      }
+        user_id: '139021',
+      };
 
       $scope.messages = {
-        $add: addStub
-      }
+        $add: addStub,
+      };
 
-      $scope.addNewMessage({id: 1});
+      $scope.addNewMessage({ id: 1 });
 
       expect(addStub.called).to.be.true;
     });
   });
 
   describe('Columns', function() {
-    var setSpy,
-        boardColumns,
-        expectedColumns,
-        closeAllSpy;
+    var setSpy, boardColumns, expectedColumns, closeAllSpy;
 
     beforeEach(function() {
       closeAllSpy = sinon.spy(modalService, 'closeAll');
@@ -186,10 +188,10 @@ describe('MainCtrl: ', function() {
       setSpy = sinon.spy();
 
       boardColumns = {
-        set: setSpy
-      }
+        set: setSpy,
+      };
 
-      sinon.stub(utils, 'toObject', function () {
+      sinon.stub(utils, 'toObject', function() {
         return { column: 'column' };
       });
 
@@ -197,16 +199,16 @@ describe('MainCtrl: ', function() {
         columns: [
           {
             value: 'columnName',
-            id: 1
+            id: 1,
           },
           {
             value: 'otherColumnName',
-            id: 2
-          }
-        ]
-      }
+            id: 2,
+          },
+        ],
+      };
 
-      sinon.stub(firebaseService, 'getBoardColumns', function () {
+      sinon.stub(firebaseService, 'getBoardColumns', function() {
         return boardColumns;
       });
     });
@@ -215,19 +217,21 @@ describe('MainCtrl: ', function() {
       var expectedColumns = [
         {
           value: 'columnName',
-          id: 1
+          id: 1,
         },
         {
           value: 'otherColumnName',
-          id: 2
+          id: 2,
         },
         {
           value: 'anotherColumnName',
-          id: 3
-        }
-      ]
+          id: 3,
+        },
+      ];
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId', function() {
+        return 3;
+      });
 
       $scope.addNewColumn('anotherColumnName');
 
@@ -240,19 +244,21 @@ describe('MainCtrl: ', function() {
       var expectedColumns = [
         {
           value: 'columnName',
-          id: 1
+          id: 1,
         },
         {
           value: 'otherColumnName',
-          id: 2
+          id: 2,
         },
         {
           value: 'anotherColumnName',
-          id: 3
-        }
-      ]
+          id: 3,
+        },
+      ];
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId', function() {
+        return 3;
+      });
 
       var event = {};
       event.keyCode = 13;
@@ -267,15 +273,17 @@ describe('MainCtrl: ', function() {
       var expectedColumns = [
         {
           value: 'columnName',
-          id: 1
+          id: 1,
         },
         {
           value: 'otherColumnName',
-          id: 2
-        }
-      ]
+          id: 2,
+        },
+      ];
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId', function() {
+        return 3;
+      });
 
       $scope.addNewColumn('');
 
@@ -288,15 +296,17 @@ describe('MainCtrl: ', function() {
       var expectedColumns = [
         {
           value: 'columnName',
-          id: 1
+          id: 1,
         },
         {
           value: 'otherColumnName',
-          id: 2
-        }
-      ]
+          id: 2,
+        },
+      ];
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId', function() {
+        return 3;
+      });
 
       $scope.addNewColumn(undefined);
 
@@ -334,16 +344,16 @@ describe('MainCtrl: ', function() {
         columns: [
           {
             value: 'columnName',
-            id: 1
+            id: 1,
           },
           {
             value: 'otherColumnName',
-            id: 2
-          }
-        ]
+            id: 2,
+          },
+        ],
       };
 
-      $scope.deleteColumn({id: 3});
+      $scope.deleteColumn({ id: 3 });
 
       expect($scope.board.columns).to.deep.equal(expectedBoard.columns);
       expect(setSpy.called).to.be.true;
@@ -354,11 +364,11 @@ describe('MainCtrl: ', function() {
       var expectedColumns = [
         {
           value: 'otherColumnName',
-          id: 2
-        }
+          id: 2,
+        },
       ];
 
-      $scope.deleteColumn({id: 1});
+      $scope.deleteColumn({ id: 1 });
 
       expect($scope.board.columns).to.deep.equal(expectedColumns);
       expect(setSpy.called).to.be.true;

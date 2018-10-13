@@ -1,22 +1,22 @@
 'use strict';
 
 angular.module('fireideaz').service('CsvService', [
-  function() {
-    var csvService = {};
+  () => {
+    const csvService = {};
 
-    var arrayExists = function(array) {
+    const arrayExists = array => {
       return array !== undefined;
     };
 
-    var isEmptyCell = function(nextValue) {
+    const isEmptyCell = nextValue => {
       return nextValue === undefined;
     };
 
-    var isString = function(stringValue) {
+    const isString = stringValue => {
       return typeof stringValue === 'string' || stringValue instanceof String;
     };
 
-    var endodeForCsv = function(stringToEncode) {
+    const endodeForCsv = stringToEncode => {
       // Enocde " characters
       stringToEncode = stringToEncode.replace(/"/g, '""');
 
@@ -28,20 +28,24 @@ angular.module('fireideaz').service('CsvService', [
       return stringToEncode;
     };
 
-    csvService.buildCsvText = function(doubleArray) {
-      var csvText = '';
+    csvService.buildCsvText = doubleArray => {
+      const csvText = '';
 
-      var longestColumn = csvService.determineLongestColumn(doubleArray);
+      const longestColumn = csvService.determineLongestColumn(doubleArray);
 
       // Going by row because CSVs are ordered by rows
-      for (var rowIndex = 0; rowIndex < longestColumn; rowIndex++) {
-        for (var columnIndex = 0; columnIndex < longestColumn; columnIndex++) {
-          var column = doubleArray[columnIndex];
+      for (const rowIndex = 0; rowIndex < longestColumn; rowIndex++) {
+        for (
+          const columnIndex = 0;
+          columnIndex < longestColumn;
+          columnIndex++
+        ) {
+          const column = doubleArray[columnIndex];
           if (!arrayExists(column)) {
             break;
           }
 
-          var nextValue = column[rowIndex];
+          const nextValue = column[rowIndex];
           if (isEmptyCell(nextValue)) {
             nextValue = '';
           }
@@ -59,12 +63,12 @@ angular.module('fireideaz').service('CsvService', [
       return csvText;
     };
 
-    csvService.determineLongestColumn = function(doubleArray) {
-      return doubleArray.reduce(function(prev, next) {
+    csvService.determineLongestColumn = doubleArray => {
+      return doubleArray.reduce((prev, next) => {
         return next.length > prev ? next.length : prev;
       }, doubleArray.length);
     };
 
     return csvService;
-  }
+  },
 ]);

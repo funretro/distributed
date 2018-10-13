@@ -10,6 +10,7 @@
         "lint": "eslint .",
         "postinstall": "opencollective postinstall",
         "precommit": "lint-staged",
+        "prettier": "prettier --config .prettierrc.js",
         "test": "karma start karma.conf.js --singleRun=true"
     },
     "husky": {
@@ -20,10 +21,14 @@
     },
     "lint-staged": {
         "*.js": [
+            "npm run prettier -- --write",
             "npm run eslint",
             "git add"
         ],
-        "*.scss": "stylelint --syntax=scss"
+        "*.scss": [
+            "stylelint --syntax=scss",
+            "npm run prettier -- --write"
+        ]
     },
     "devDependencies": {
         "angular-mocks": "^1.5.5",

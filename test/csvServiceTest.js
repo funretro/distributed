@@ -1,40 +1,26 @@
 describe('CsvService: ', function() {
-  var $rootScope, 
-      $scope, 
-      csvService;
+  var $rootScope, $scope, csvService;
 
-  var square = [
-    [1, 2],
-    [3, 4]
-  ];
+  var square = [[1, 2], [3, 4]];
 
-  var fewColumnsManyRows = [
-    [1, 2, 3, 4],
-    [5, 6]
-  ];
+  var fewColumnsManyRows = [[1, 2, 3, 4], [5, 6]];
 
-  var fewRowsManyColumns = [
-    [1, 2],
-    [3, 4],
-    [5],
-    [6]
-  ];
+  var fewRowsManyColumns = [[1, 2], [3, 4], [5], [6]];
 
   var specialCharacters = [
-    ['"Quotes"', 'Wait, a comma?', 'Newline\nCinema', '"Hey",\nall together']
+    ['"Quotes"', 'Wait, a comma?', 'Newline\nCinema', '"Hey",\nall together'],
   ];
 
   beforeEach(angular.mock.module('fireideaz'));
 
-  beforeEach(inject(function($injector){
-
+  beforeEach(inject(function($injector) {
     $rootScope = $injector.get('$rootScope');
     $scope = $rootScope.$new();
     inject(function($injector) {
       csvService = $injector.get('CsvService');
     });
   }));
-  
+
   describe('BuildCsvText', function() {
     it('should output a comma and a new line when empty', function() {
       var csvText = csvService.buildCsvText([[]]);
@@ -63,15 +49,17 @@ describe('CsvService: ', function() {
 
     it('should encode special characters', function() {
       var csvText = csvService.buildCsvText(specialCharacters);
-      expect(csvText).to.equal('"""Quotes""",\r\n"Wait, a comma?",\r\n"Newline\nCinema",\r\n"""Hey"",\nall together",\r\n');
+      expect(csvText).to.equal(
+        '"""Quotes""",\r\n"Wait, a comma?",\r\n"Newline\nCinema",\r\n"""Hey"",\nall together",\r\n'
+      );
     });
   });
 
   describe('DetermineLongestLength', function() {
     it('should find the highest length for a square', function() {
-        var longestLength = csvService.determineLongestColumn(square);
-        expect(longestLength).to.equal(2);
-      });
+      var longestLength = csvService.determineLongestColumn(square);
+      expect(longestLength).to.equal(2);
+    });
 
     it('should find the highest length for few columns and many rows', function() {
       var longestLength = csvService.determineLongestColumn(fewColumnsManyRows);

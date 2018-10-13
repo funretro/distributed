@@ -4,5 +4,5 @@ angular.module('fireideaz', [
   'lvl.directives.dragdrop',
   'ngSanitize',
   'ngAria',
-  'ngFileUpload'
+  'ngFileUpload',
 ]);

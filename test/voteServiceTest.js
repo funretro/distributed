@@ -363,9 +363,9 @@ describe('VoteService: ', function() {
       return {
         child: function() {
           return {
-            update: updateSpy
+            update: updateSpy,
           };
-        }
+        },
       };
     });
 
@@ -391,9 +391,9 @@ describe('VoteService: ', function() {
       return {
         child: function() {
           return {
-            update: updateSpy
+            update: updateSpy,
           };
-        }
+        },
       };
     });
 
@@ -417,9 +417,9 @@ describe('VoteService: ', function() {
       return {
         child: function() {
           return {
-            update: updateSpy
+            update: updateSpy,
           };
-        }
+        },
       };
     });
 
@@ -443,9 +443,9 @@ describe('VoteService: ', function() {
       return {
         child: function() {
           return {
-            update: updateSpy
+            update: updateSpy,
           };
-        }
+        },
       };
     });
 
