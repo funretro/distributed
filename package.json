@@ -4,17 +4,18 @@
     "version": "0.0.1",
     "private": false,
     "scripts": {
-        "lint": "eslint {js,test}/**/*.js",
+        "ci": "npm run lint && npm test",
+        "deploy": "./deploy.sh",
         "eslint": "eslint --fix",
         "lint": "eslint .",
         "postinstall": "opencollective postinstall",
         "precommit": "lint-staged",
-        "deploy": "./deploy.sh",
         "test": "karma start karma.conf.js --singleRun=true"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-commit": "lint-staged",
+            "pre-push": "npm run ci"
         }
     },
     "lint-staged": {
