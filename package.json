@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "private": false,
     "scripts": {
+        "lint": "eslint {js,test}/**/*.js",
         "eslint": "eslint --fix",
         "lint": "eslint .",
         "postinstall": "opencollective postinstall",
