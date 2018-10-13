@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('fireideaz').controller('MessageController', [
   '$scope',
   '$window',

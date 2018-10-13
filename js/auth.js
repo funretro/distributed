@@ -1,45 +1,43 @@
-'use strict';
-
 angular.module('fireideaz').service('Auth', [
   '$firebaseAuth',
-  '$window',
-  function($firebaseAuth, $window) {
-    var mainAuthRef = $firebaseAuth();
+  '$location',
+  ($firebaseAuth, $location) => {
+    const mainAuthRef = $firebaseAuth();
 
     function logUser(user, callback) {
-      var email = user + '@fireideaz.com';
-      var password = user;
+      const email = `${user}@fireideaz.com`;
+      const password = user;
 
       mainAuthRef.$signOut();
       mainAuthRef.$signInWithEmailAndPassword(email, password).then(
-        function(userData) {
+        userData => {
           callback(userData);
         },
-        function(error) {
+        error => {
           console.log('Logged user failed: ', error);
-          $window.location.hash = '';
-          location.reload();
+          $location.hash('');
+          $location.reload();
         }
       );
     }
 
     function createUserAndLog(newUser, callback) {
-      var email = newUser + '@fireideaz.com';
-      var password = newUser;
+      const email = `${newUser}@fireideaz.com`;
+      const password = newUser;
 
       mainAuthRef.$createUserWithEmailAndPassword(email, password).then(
-        function() {
+        () => {
           logUser(newUser, callback);
         },
-        function(error) {
+        error => {
           console.log('Create user failed: ', error);
         }
       );
     }
 
     return {
-      createUserAndLog: createUserAndLog,
-      logUser: logUser,
+      createUserAndLog,
+      logUser,
     };
   },
 ]);

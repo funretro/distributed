@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('fireideaz').service('ImportExportService', [
   'FirebaseService',
   'ModalService',
@@ -15,41 +13,36 @@ angular.module('fireideaz').service('ImportExportService', [
     $window,
     $document
   ) {
-    var importExportService = {};
+    const importExportService = {};
 
     importExportService.importMessages = function(
       userUid,
-      importObject,
+      { data, mapping: messageMappings },
       messages
     ) {
-      var data = importObject.data;
-      var mapping = importObject.mapping;
-
-      for (var importIndex = 1; importIndex < data.length; importIndex++) {
+      for (let importIndex = 1; importIndex < data.length; importIndex += 1) {
         for (
-          var mappingIndex = 0;
-          mappingIndex < mapping.length;
-          mappingIndex++
+          let mappingIndex = 0;
+          mappingIndex < messageMappings.length;
+          mappingIndex += 1
         ) {
-          var mapFrom = mapping[mappingIndex].mapFrom;
-          var mapTo = mapping[mappingIndex].mapTo;
+          const mapping = messageMappings[mappingIndex];
+          const { mapFrom, mapTo } = mapping;
 
-          if (mapFrom === -1) {
-            continue;
-          }
+          if (mapFrom !== -1) {
+            const cardText = data[importIndex][mapFrom];
 
-          var cardText = data[importIndex][mapFrom];
-
-          if (cardText) {
-            messages.$add({
-              text: cardText,
-              user_id: userUid,
-              type: {
-                id: mapTo,
-              },
-              date: firebaseService.getServerTimestamp(),
-              votes: 0,
-            });
+            if (cardText) {
+              messages.$add({
+                text: cardText,
+                user_id: userUid,
+                type: {
+                  id: mapTo,
+                },
+                date: firebaseService.getServerTimestamp(),
+                votes: 0,
+              });
+            }
           }
         }
       }
@@ -57,32 +50,28 @@ angular.module('fireideaz').service('ImportExportService', [
       modalService.closeAll();
     };
 
-    importExportService.getSortFields = function(sortField) {
-      return sortField === 'votes'
-        ? ['-votes', 'date_created']
-        : 'date_created';
-    };
+    importExportService.getSortFields = sortField =>
+      sortField === 'votes' ? ['-votes', 'date_created'] : 'date_created';
 
-    importExportService.getBoardText = function(board, messages, sortField) {
+    importExportService.getBoardText = (board, messages, sortField) => {
       if (board) {
-        var clipboard = '';
+        let clipboard = '';
 
-        $(board.columns).each(function(index, column) {
+        $(board.columns).each((index, column) => {
           if (index === 0) {
-            clipboard += '<strong>' + column.value + '</strong><br />';
+            clipboard += `<strong>${column.value}</strong><br />`;
           } else {
-            clipboard += '<br /><strong>' + column.value + '</strong><br />';
+            clipboard += `<br /><strong>${column.value}</strong><br />`;
           }
 
-          var filteredArray = $filter('orderBy')(
+          const filteredArray = $filter('orderBy')(
             messages,
             importExportService.getSortFields(sortField)
           );
 
-          $(filteredArray).each(function(index2, message) {
+          $(filteredArray).each((index2, message) => {
             if (message.type.id === column.id) {
-              clipboard +=
-                '- ' + message.text + ' (' + message.votes + ' votes) <br />';
+              clipboard += `- ${message.text} (${message.votes} votes) <br />`;
             }
           });
         });
@@ -99,24 +88,23 @@ angular.module('fireideaz').service('ImportExportService', [
       sortField
     ) {
       if (board) {
-        var clipboard = '';
+        let clipboard = '';
 
-        $(board.columns).each(function(index, column) {
+        $(board.columns).each((index, column) => {
           if (index === 0) {
-            clipboard += column.value + '\n';
+            clipboard += `${column.value}\n`;
           } else {
-            clipboard += '\n' + column.value + '\n';
+            clipboard += `\n${column.value}\n`;
           }
 
-          var filteredArray = $filter('orderBy')(
+          const filteredArray = $filter('orderBy')(
             messages,
             importExportService.getSortFields(sortField)
           );
 
-          $(filteredArray).each(function(index2, message) {
+          $(filteredArray).each((index2, message) => {
             if (message.type.id === column.id) {
-              clipboard +=
-                '- ' + message.text + ' (' + message.votes + ' votes) \n';
+              clipboard += `- ${message.text} (${message.votes} votes) \n`;
             }
           });
         });
@@ -133,24 +121,25 @@ angular.module('fireideaz').service('ImportExportService', [
       board,
       scope
     ) {
-      importObject.mapping = [];
-      importObject.data = [];
-
+      const mapping = { importObject };
+      let data = { importObject };
+      let error;
       if (file) {
         if (file.size === 0) {
-          importObject.error =
-            'The file you are trying to import seems to be empty';
+          error = 'The file you are trying to import seems to be empty';
+          /* eslint-disable no-param-reassign */
+          importObject = { ...importObject, ...{ error } };
           return;
         }
 
         /* globals Papa */
         Papa.parse(file, {
-          complete: function(results) {
+          complete(results) {
             if (results.data.length > 0) {
-              importObject.data = results.data;
+              data = { results };
 
-              board.columns.forEach(function(column) {
-                importObject.mapping.push({
+              board.columns.forEach(column => {
+                mapping.push({
                   mapFrom: '-1',
                   mapTo: column.id,
                   name: column.value,
@@ -158,9 +147,11 @@ angular.module('fireideaz').service('ImportExportService', [
               });
 
               if (results.errors.length > 0) {
-                importObject.error = results.errors[0].message;
+                error = results.errors[0].message;
               }
 
+              /* eslint-disable no-param-reassign */
+              importObject = { ...importObject, ...{ mapping, data, error } };
               scope.$apply();
             }
           },
@@ -168,37 +159,37 @@ angular.module('fireideaz').service('ImportExportService', [
       }
     };
 
-    importExportService.generatePdf = function(board, messages, sortField) {
-      /* globals jsPDF */
-      var pdf = new jsPDF();
-      var currentHeight = 10;
+    importExportService.generatePdf = (board, messages, sortField) => {
+      /* eslint-disable new-cap */
+      const pdf = new jsPDF();
+      let currentHeight = 10;
 
-      $(board.columns).each(function(index, column) {
+      $(board.columns).each((index, column) => {
         if (currentHeight > pdf.internal.pageSize.height - 10) {
           pdf.addPage();
           currentHeight = 10;
         }
 
         pdf.setFontType('bold');
-        currentHeight = currentHeight + 5;
+        currentHeight += 5;
         pdf.text(column.value, 10, currentHeight);
-        currentHeight = currentHeight + 10;
+        currentHeight += 10;
         pdf.setFontType('normal');
 
-        var filteredArray = $filter('orderBy')(
+        const filteredArray = $filter('orderBy')(
           messages,
           importExportService.getSortFields(sortField)
         );
 
-        $(filteredArray).each(function(index2, message) {
+        $(filteredArray).each((index2, message) => {
           if (message.type.id === column.id) {
-            var parsedText = pdf.splitTextToSize(
-              '- ' + message.text + ' (' + message.votes + ' votes)',
+            const parsedText = pdf.splitTextToSize(
+              `- ${message.text} (${message.votes} votes)`,
               180
             );
-            var parsedHeight = pdf.getTextDimensions(parsedText).h;
+            const parsedHeight = pdf.getTextDimensions(parsedText).h;
             pdf.text(parsedText, 10, currentHeight);
-            currentHeight = currentHeight + parsedHeight;
+            currentHeight += parsedHeight;
 
             if (currentHeight > pdf.internal.pageSize.height - 10) {
               pdf.addPage();
@@ -208,20 +199,18 @@ angular.module('fireideaz').service('ImportExportService', [
         });
       });
 
-      pdf.save(board.boardId + '.pdf');
+      pdf.save(`${board.boardId}.pdf`);
     };
 
-    var getColumnFieldObject = function(columnId) {
-      return {
-        type: {
-          id: columnId,
-        },
-      };
-    };
+    const getColumnFieldObject = columnId => ({
+      type: {
+        id: columnId,
+      },
+    });
 
-    var showCsvFileDownload = function(csvText, fileName) {
-      var blob = new Blob([csvText]);
-      var downloadLink = $document.createElement('a');
+    const showCsvFileDownload = (csvText, fileName) => {
+      const blob = new Blob([csvText]);
+      const downloadLink = $document.createElement('a');
       downloadLink.href = $window.URL.createObjectURL(blob, {
         type: 'text/csv',
       });
@@ -232,29 +221,27 @@ angular.module('fireideaz').service('ImportExportService', [
       $document.body.removeChild(downloadLink);
     };
 
-    importExportService.generateCsv = function(board, messages, sortField) {
-      var columns = board.columns.map(function(column) {
+    importExportService.generateCsv = (board, messages, sortField) => {
+      const columns = board.columns.map(column => {
         // Updated to use column.id, as columns could be any number when changed.
-        var columnMessages = $filter('filter')(
+        const columnMessages = $filter('filter')(
           messages,
           getColumnFieldObject(column.id)
         );
-        var sortedColumnMessages = $filter('orderBy')(
+        const sortedColumnMessages = $filter('orderBy')(
           columnMessages,
           importExportService.getSortFields(sortField)
         );
 
-        var messagesText = sortedColumnMessages.map(function(message) {
-          return message.text;
-        });
+        const messagesText = sortedColumnMessages.map(message => message.text);
 
-        var columnArray = [column.value].concat(messagesText);
+        const columnArray = [column.value].concat(messagesText);
 
         return columnArray;
       });
 
-      var csvText = CsvService.buildCsvText(columns);
-      showCsvFileDownload(csvText, board.boardId + '.csv');
+      const csvText = CsvService.buildCsvText(columns);
+      showCsvFileDownload(csvText, `${board.boardId}.csv`);
     };
 
     return importExportService;

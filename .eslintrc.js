@@ -2,16 +2,30 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    mocha: true,
+    jquery: true,
   },
-  extends: ['plugin:prettier/recommended', 'plugin:angular/johnpapa'],
+  globals: {
+    angular: true,
+    Papa: true,
+    Clipboard: true,
+    jsPDF: true,
+    EmojiPicker: true,
+  },
+  extends: [
+    'airbnb-base',
+    'plugin:prettier/recommended',
+    'plugin:angular/johnpapa',
+  ],
   parserOptions: {
     sourceType: 'module',
   },
   rules: {
-    'linebreak-style': ['error', 'unix'],
     'angular/di': ['warn', '$inject'],
     'angular/controller-as': ['warn'],
     'angular/file-name': ['warn'],
     'angular/no-service-method': ['warn'],
+    'no-unused-expressions': [0],
+    semi: [2, 'always'],
   },
 };

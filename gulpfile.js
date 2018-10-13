@@ -1,45 +1,58 @@
-var gulp = require('gulp'),
-  clean = require('gulp-clean'),
-  Server = require('karma').Server,
-  concat = require('gulp-concat'),
-  gp_rename = require('gulp-rename'),
-  uglify = require('gulp-uglify'),
-  concatCss = require('gulp-concat-css'),
-  uglifycss = require('gulp-uglifycss'),
-  sass = require('gulp-sass'),
-  connectlivereload = require('connect-livereload'),
-  express = require('express'),
-  path = require('path'),
-  watch = require('gulp-watch'),
-  autoprefixer = require('gulp-autoprefixer');
+const gulp = require('gulp');
 
-gulp.task('express', function() {
-  var app = express();
+const clean = require('gulp-clean');
+
+const Server = require('karma').Server;
+
+const concat = require('gulp-concat');
+
+const gp_rename = require('gulp-rename');
+
+const uglify = require('gulp-uglify');
+
+const concatCss = require('gulp-concat-css');
+
+const uglifycss = require('gulp-uglifycss');
+
+const sass = require('gulp-sass');
+
+const connectlivereload = require('connect-livereload');
+
+const express = require('express');
+
+const path = require('path');
+
+const watch = require('gulp-watch');
+
+const autoprefixer = require('gulp-autoprefixer');
+
+gulp.task('express', () => {
+  const app = express();
   app.use(connectlivereload({ port: 35729 }));
   app.use(express.static('./dist'));
-  var port = 4000;
-  app.listen(port, '0.0.0.0', function() {
+  const port = 4000;
+  app.listen(port, '0.0.0.0', () => {
     console.log('App running and listening on port', port);
   });
 });
 
-var tinylr;
+let tinylr;
 
 function notifyLiveReload(event) {
   tinylr.changed({ body: { files: [path.relative(__dirname, event.path)] } });
 }
 
-gulp.task('livereload', function() {
+gulp.task('livereload', () => {
   tinylr = require('tiny-lr')();
   tinylr.listen(35729);
 });
 
-var buildHTML = function() {
+const buildHTML = function() {
   gulp.src('index.html').pipe(gulp.dest('dist'));
   gulp.src('components/*').pipe(gulp.dest('dist/components'));
 };
 
-var bundleVendorCSS = function() {
+const bundleVendorCSS = function() {
   gulp
     .src([
       'node_modules/font-awesome/css/font-awesome.min.css',
@@ -51,7 +64,7 @@ var bundleVendorCSS = function() {
     .pipe(gulp.dest('dist/css'));
 };
 
-var processSass = function() {
+const processSass = function() {
   gulp
     .src(['stylesheets/main.scss'])
     .pipe(sass().on('error', sass.logError))
@@ -61,7 +74,7 @@ var processSass = function() {
     .pipe(gulp.dest('dist/css'));
 };
 
-var bundleVendorJS = function() {
+const bundleVendorJS = function() {
   gulp
     .src([
       'js/vendor/jquery-3.2.1.min.js',
@@ -86,25 +99,25 @@ var bundleVendorJS = function() {
     .pipe(gulp.dest('dist'));
 };
 
-var minifyJS = function() {
+const minifyJS = function() {
   gulp
     .src(['js/*.js', 'js/**/*.js', '!js/vendor/*.js'])
     .pipe(concat('main.js'))
     .pipe(gulp.dest('dist'));
 };
 
-gulp.task('clean-dist', function() {
-  return gulp.src('dist/*', { read: false }).pipe(clean());
-});
+gulp.task('clean-dist', () =>
+  gulp.src('dist/*', { read: false }).pipe(clean())
+);
 
-gulp.task('bundle', function() {
+gulp.task('bundle', () => {
   bundleVendorCSS();
   bundleVendorJS();
   processSass();
   minifyJS();
 });
 
-gulp.task('watch', function(cb) {
+gulp.task('watch', cb => {
   watch('dist/*', notifyLiveReload);
   watch('**/*.html', notifyLiveReload);
   watch('components/*', buildHTML);
@@ -112,30 +125,30 @@ gulp.task('watch', function(cb) {
   watch('**/*.scss', notifyLiveReload);
   watch('js/**/*.js', minifyJS);
 });
-gulp.task('watch-test', function(done) {
-  return new Server(
+gulp.task('watch-test', done =>
+  new Server(
     {
-      configFile: __dirname + '/karma.conf.js',
+      configFile: `${__dirname}/karma.conf.js`,
       singleRun: false,
     },
     done
-  ).start();
-});
+  ).start()
+);
 
-gulp.task('test-once', function(done) {
+gulp.task('test-once', done => {
   Server.start(
     {
-      configFile: __dirname + '/karma.conf.js',
+      configFile: `${__dirname}/karma.conf.js`,
       singleRun: true,
       reporters: ['mocha'],
     },
-    function(error) {
+    error => {
       done(error);
     }
   );
 });
 
-gulp.task('copy', function() {
+gulp.task('copy', () => {
   gulp
     .src('node_modules/roboto-fontface/fonts/*{Regular,Bold}.*')
     .pipe(gulp.dest('dist/fonts'));

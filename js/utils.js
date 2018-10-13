@@ -1,24 +1,21 @@
-'use strict';
-
 angular.module('fireideaz').service('Utils', [
-  function() {
+  () => {
     function createUserId() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(
-        c
-      ) {
-        var r = (Math.random() * 16) | 0,
-          v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = (Math.random() * 16) | 0; // eslint-disable-line no-bitwise
+
+        const v = c === 'x' ? r : (r & 0x3) | 0x8; // eslint-disable-line no-bitwise
         return v.toString(16);
       });
     }
 
     function focusElement(id) {
-      $('#' + id)
+      $(`#${id}`)
         .find('textarea')
         .focus();
     }
 
-    var messageTypes = [
+    const messageTypes = [
       {
         id: 1,
         value: 'Went well',
@@ -38,9 +35,9 @@ angular.module('fireideaz').service('Utils', [
     }
 
     function toObject(array) {
-      var object = {};
+      const object = {};
 
-      for (var i = 0; i < array.length; i++) {
+      for (let i = 0; i < array.length; i += 1) {
         object[i] = {
           id: array[i].id,
           value: array[i].value,
@@ -51,16 +48,16 @@ angular.module('fireideaz').service('Utils', [
     }
 
     function columnClass(id) {
-      return 'column_' + (id % 6 || 6);
+      return `column_${id % 6 || 6}`;
     }
 
     return {
-      createUserId: createUserId,
-      focusElement: focusElement,
-      messageTypes: messageTypes,
-      getNextId: getNextId,
-      toObject: toObject,
-      columnClass: columnClass,
+      createUserId,
+      focusElement,
+      messageTypes,
+      getNextId,
+      toObject,
+      columnClass,
     };
   },
 ]);

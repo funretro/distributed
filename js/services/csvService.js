@@ -1,51 +1,40 @@
-'use strict';
-
 angular.module('fireideaz').service('CsvService', [
   () => {
     const csvService = {};
-
-    const arrayExists = array => {
-      return array !== undefined;
-    };
-
-    const isEmptyCell = nextValue => {
-      return nextValue === undefined;
-    };
-
-    const isString = stringValue => {
-      return typeof stringValue === 'string' || stringValue instanceof String;
-    };
+    const arrayExists = array => array !== undefined;
+    const isEmptyCell = nextValue => nextValue === undefined;
+    const isString = stringValue =>
+      typeof stringValue === 'string' || stringValue instanceof String;
 
     const endodeForCsv = stringToEncode => {
       // Enocde " characters
-      stringToEncode = stringToEncode.replace(/"/g, '""');
+      let encoded = stringToEncode.replace(/"/g, '""');
 
       // Surround string with " characters if " , or \n are present
-      if (stringToEncode.search(/("|,|\n)/g) >= 0) {
-        stringToEncode = '"' + stringToEncode + '"';
+      if (encoded.search(/("|,|\n)/g) >= 0) {
+        encoded = `"${encoded}"`;
       }
 
-      return stringToEncode;
+      return encoded;
     };
 
     csvService.buildCsvText = doubleArray => {
-      const csvText = '';
-
       const longestColumn = csvService.determineLongestColumn(doubleArray);
+      let csvText = '';
 
-      // Going by row because CSVs are ordered by rows
-      for (const rowIndex = 0; rowIndex < longestColumn; rowIndex++) {
+      // Going by row because CVS are ordered by rows
+      for (let rowIndex = 0; rowIndex < longestColumn; rowIndex += 1) {
         for (
-          const columnIndex = 0;
+          let columnIndex = 0;
           columnIndex < longestColumn;
-          columnIndex++
+          columnIndex += 1
         ) {
           const column = doubleArray[columnIndex];
           if (!arrayExists(column)) {
             break;
           }
 
-          const nextValue = column[rowIndex];
+          let nextValue = column[rowIndex];
           if (isEmptyCell(nextValue)) {
             nextValue = '';
           }
@@ -54,7 +43,7 @@ angular.module('fireideaz').service('CsvService', [
             nextValue = endodeForCsv(nextValue);
           }
 
-          csvText += nextValue + ',';
+          csvText += `${nextValue},`;
         }
 
         csvText += '\r\n';
@@ -63,11 +52,11 @@ angular.module('fireideaz').service('CsvService', [
       return csvText;
     };
 
-    csvService.determineLongestColumn = doubleArray => {
-      return doubleArray.reduce((prev, next) => {
-        return next.length > prev ? next.length : prev;
-      }, doubleArray.length);
-    };
+    csvService.determineLongestColumn = doubleArray =>
+      doubleArray.reduce(
+        (prev, next) => (next.length > prev ? next.length : prev),
+        doubleArray.length
+      );
 
     return csvService;
   },
