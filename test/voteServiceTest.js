@@ -6,8 +6,18 @@ describe('VoteService: ', () => {
   beforeEach(inject((_VoteService_, _FirebaseService_) => {
     VoteService = _VoteService_;
     FirebaseService = _FirebaseService_;
+    sinon.spy(localStorage, 'setItem');
     sinon.stub(localStorage, 'getItem');
+    sinon.stub(VoteService, 'returnNumberOfVotes');
+    sinon.stub(VoteService, 'returnNumberOfVotesOnMessage');
+    sinon.stub(VoteService, 'remainingVotes');
   }));
+  afterEach(() => {
+    localStorage.getItem.restore();
+    localStorage.setItem.restore();
+    VoteService.returnNumberOfVotes.restore();
+    VoteService.returnNumberOfVotesOnMessage.restore();
+  });
 
   describe('returnNumberOfVotes', () => {
     it('should return number of votes', () => {
@@ -15,13 +25,11 @@ describe('VoteService: ', () => {
       expect(
         VoteService.returnNumberOfVotes('userId', ['abc', 'abd', 'sef'])
       ).to.equal(6);
-      localStorage.getItem.restore();
     });
 
     it('should return number of votes of 3', () => {
       localStorage.getItem.returns('{"abc":3}');
       expect(VoteService.returnNumberOfVotes('userId', ['abc'])).to.equal(3);
-      localStorage.getItem.restore();
     });
 
     it('should return number of votes of 5 when message was deleted', () => {
@@ -29,19 +37,17 @@ describe('VoteService: ', () => {
       expect(
         VoteService.returnNumberOfVotes('userId', ['abc', 'avc'])
       ).to.equal(5);
-      localStorage.getItem.restore();
     });
 
     it('should return zero if there is no board', () => {
       localStorage.getItem.returns(null);
       expect(VoteService.returnNumberOfVotes('userId')).to.equal(0);
-      localStorage.getItem.restore();
     });
   });
 
   describe('returnNumberOfVotesOnMessage', () => {
     it('should return array containing 1 element for each vote on a message', () => {
-      sinon.stub(VoteService, 'returnNumberOfVotesOnMessage').returns(3);
+      VoteService.returnNumberOfVotesOnMessage.returns(3);
 
       const array = VoteService.getNumberOfVotesOnMessage('userId', 'abc');
 
@@ -49,7 +55,7 @@ describe('VoteService: ', () => {
     });
 
     it('should return empty array', () => {
-      sinon.stub(VoteService, 'returnNumberOfVotesOnMessage').returns(0);
+      VoteService.returnNumberOfVotesOnMessage.returns(0);
 
       const array = VoteService.getNumberOfVotesOnMessage('userId', 'abc');
 
@@ -61,7 +67,6 @@ describe('VoteService: ', () => {
       expect(
         VoteService.returnNumberOfVotesOnMessage('userId', 'abc')
       ).to.equal(1);
-      localStorage.getItem.restore();
     });
 
     it('should return number of votes of 3', () => {
@@ -69,7 +74,6 @@ describe('VoteService: ', () => {
       expect(
         VoteService.returnNumberOfVotesOnMessage('userId', 'abc')
       ).to.equal(3);
-      localStorage.getItem.restore();
     });
 
     it('should return zero if there is no board', () => {
@@ -77,178 +81,130 @@ describe('VoteService: ', () => {
       expect(
         VoteService.returnNumberOfVotesOnMessage('userId', 'abc')
       ).to.equal(0);
-      localStorage.getItem.restore();
     });
   });
 
   describe('remainingVotes', () => {
     it('should return remaining votes 3', () => {
-      sinon.stub(VoteService, 'returnNumberOfVotes').returns(2);
+      VoteService.returnNumberOfVotes.returns(2);
       expect(VoteService.remainingVotes('userId', 5, [])).to.equal(3);
-      VoteService.returnNumberOfVotes.restore();
     });
 
     it('should return remaining votes 0', () => {
-      sinon.stub(VoteService, 'returnNumberOfVotes').returns(5);
+      VoteService.returnNumberOfVotes.returns(5);
       expect(VoteService.remainingVotes('userId', 5)).to.equal(0);
-      VoteService.returnNumberOfVotes.restore();
     });
   });
 
   describe('increase messages', () => {
     it('should set user message votes to 1', () => {
       localStorage.getItem.returns(null);
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.increaseMessageVotes('userId', 'abc');
 
       expect(localStorage.setItem.calledWith('userId', '{"abc":1}')).to.be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
 
     it('should increase user message votes to 2', () => {
       localStorage.getItem.returns('{"abc":1}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.increaseMessageVotes('userId', 'abc');
 
       expect(localStorage.setItem.calledWith('userId', '{"abc":2}')).to.be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
 
     it('should increase user message votes to 5', () => {
       localStorage.getItem.returns('{"abc":4,"abd":3}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.increaseMessageVotes('userId', 'abc');
 
       expect(localStorage.setItem.calledWith('userId', '{"abc":5,"abd":3}')).to
         .be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
   });
 
   describe('decrease messages', () => {
     it('should remove from localStorage if votes equal to 1', () => {
       localStorage.getItem.returns('{"abc":1}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.decreaseMessageVotes('userId', 'abc');
 
       expect(localStorage.setItem.calledWith('userId', '{}')).to.be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
 
     it('should remove from localStorage if votes equal to -1', () => {
       localStorage.getItem.returns('{"abc":-1}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.decreaseMessageVotes('userId', 'abc');
 
       expect(localStorage.setItem.calledWith('userId', '{}')).to.be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
 
     it('should decrease votes', () => {
       localStorage.getItem.returns('{"abc":3}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.decreaseMessageVotes('userId', 'abc');
 
       expect(localStorage.setItem.calledWith('userId', '{"abc":2}')).to.be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
 
     it('should decrease user message votes to 4', () => {
       localStorage.getItem.returns('{"abc":5,"abd":3}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.decreaseMessageVotes('userId', 'abc');
 
       expect(localStorage.setItem.calledWith('userId', '{"abc":4,"abd":3}')).to
         .be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
   });
 
   describe('merge messages', () => {
     it('should merge messages votes', () => {
       localStorage.getItem.returns('{"abc":5,"abf":3,"abd":2}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.mergeMessages('userId', 'abc', 'abf');
 
       expect(localStorage.setItem.calledWith('userId', '{"abf":8,"abd":2}')).to
         .be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
 
     it('should not merge messages votes if drag is zero', () => {
       localStorage.getItem.returns('{"abf":3,"abd":2}');
-      sinon.spy(localStorage, 'setItem');
 
       VoteService.mergeMessages('userId', 'abc', 'abf');
 
       expect(localStorage.setItem.called).to.be.false;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
 
     it('should merge messages votes if drop is zero', () => {
-      localStorage.getItem.returns('{"abc":3,"abd":2}');
-      sinon.stub(localStorage, 'getItem', () => '');
-      sinon.spy(localStorage, 'setItem');
+      localStorage.getItem.returns('');
 
       VoteService.mergeMessages('userId', 'abc', 'abf');
 
       expect(localStorage.setItem.calledWith('userId', '{"abd":2,"abf":3}')).to
         .be.true;
-
-      localStorage.getItem.restore();
-      localStorage.setItem.restore();
     });
   });
 
   describe('control votes', () => {
     it('should be able to unvote if votes equal to 3', () => {
-      sinon.stub(localStorage, 'getItem', () => '{"abc":2,"afe":1}');
+      localStorage.getItem.returns('{"abc":2,"afe":1}');
       expect(VoteService.canUnvoteMessage('userId', 'abc')).to.be.true;
-      localStorage.getItem.restore();
     });
 
     it('should not be able to unvote if votes equal to 0', () => {
-      sinon.stub(localStorage, 'getItem', () => null);
+      localStorage.getItem.returns(null);
       expect(VoteService.canUnvoteMessage('userId', 'abc')).to.be.false;
-      localStorage.getItem.restore();
     });
 
     it('should return true if still has votes', () => {
-      sinon.stub(localStorage, 'getItem', () => '{"abc":2,"abd":2}');
+      localStorage.getItem.returns('{"abc":2,"abd":2}');
       expect(VoteService.isAbleToVote('abc', 5)).to.be.true;
-      localStorage.getItem.restore();
     });
 
     it('should return false if does not have votes', () => {
-      sinon.stub(VoteService, 'remainingVotes', () => 0);
+      VoteService.remainingVotes.returns(0);
       expect(VoteService.isAbleToVote('abc', 5)).to.be.false;
-      VoteService.remainingVotes.restore();
     });
   });
 

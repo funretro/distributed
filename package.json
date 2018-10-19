@@ -1,98 +1,103 @@
 {
-    "name": "Fireideaz",
-    "description": "Retrospective tool",
-    "version": "0.0.1",
-    "private": false,
-    "scripts": {
-        "ci": "npm run lint && npm test",
-        "deploy": "./deploy.sh",
-        "eslint": "eslint --fix -c .eslintrc.js",
-        "lint": "eslint -c .eslintrc.js ./js ./test",
-        "postinstall": "opencollective postinstall",
-        "precommit": "lint-staged",
-        "prettier": "prettier --config .prettierrc.js",
-        "test": "karma start karma.conf.js --singleRun=true"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged",
-            "pre-push": "npm run ci"
-        }
-    },
-    "lint-staged": {
-        "*.js": [
-            "npm run prettier -- --write",
-            "npm run eslint",
-            "git add"
-        ],
-        "*.scss": [
-            "stylelint --syntax=scss",
-            "npm run prettier -- --write"
-        ]
-    },
-    "devDependencies": {
-        "angular-mocks": "^1.5.5",
-        "chai": "^3.5.0",
-        "connect-livereload": "latest",
-        "eslint": "^5.7.0",
-        "eslint-config-airbnb-base": "^13.1.0",
-        "eslint-config-angular": "^0.5.0",
-        "eslint-config-prettier": "^3.1.0",
-        "eslint-plugin-angular": "^3.3.0",
-        "eslint-plugin-import": "^2.14.0",
-        "eslint-plugin-mocha": "^5.2.0",
-        "eslint-plugin-prettier": "^3.0.0",
-        "gh-pages": "^0.12.0",
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "latest",
-        "gulp-clean": "^0.3.2",
-        "gulp-concat": "latest",
-        "gulp-concat-css": "latest",
-        "gulp-rename": "latest",
-        "gulp-sass": "^2.0.4",
-        "gulp-uglify": "latest",
-        "gulp-uglifycss": "latest",
-        "gulp-watch": "latest",
-        "husky": "^1.1.2",
-        "karma": "^1.3.0",
-        "karma-chai": "^0.1.0",
-        "karma-coverage": "^1.1.1",
-        "karma-mocha": "^1.3.0",
-        "karma-mocha-reporter": "^2.0.2",
-        "karma-nyan-reporter": "^0.2.3",
-        "karma-phantomjs-launcher": "latest",
-        "karma-sinon": "^1.0.4",
-        "lint-staged": "^7.3.0",
-        "mocha": "^3.2.0",
-        "phantomjs-prebuilt": "^2.1.4",
-        "prettier": "^1.14.3",
-        "roboto-fontface": "^0.4.2",
-        "sinon": "1.17.6",
-        "stylelint": "latest",
-        "tiny-lr": "latest"
-    },
-    "dependencies": {
-        "angular": "^1.4.9",
-        "angular-aria": "^1.5.5",
-        "angular-sanitize": "^1.5.5",
-        "angularfire": "^2.3.0",
-        "clipboard": "^1.7.1",
-        "core-js": "^2.4.1",
-        "express": "^4.13.3",
-        "font-awesome": "^4.6.1",
-        "jspdf": "^1.3.3",
-        "ng-dialog": "^0.6.0",
-        "ng-file-upload": "12.2.13",
-        "opencollective": "^1.0.3",
-        "papaparse": "^4.2.0",
-        "vanilla-emoji-picker": "^0.2.0"
-    },
-    "collective": {
-        "type": "opencollective",
-        "url": "https://opencollective.com/distributed",
-        "logo": "https://opencollective.com/opencollective/logo.txt"
-    },
-    "engines": {
-        "node": ">=8.6.0"
+  "name": "Fireideaz",
+  "description": "Retrospective tool",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "ci": "npm run lint && npm test",
+    "deploy": "./deploy.sh",
+    "eslint": "npx eslint --fix -c .eslintrc.js",
+    "lint": "npx eslint -c .eslintrc.js ./js ./test",
+    "postinstall": "opencollective postinstall",
+    "precommit": "lint-staged",
+    "prettier": "prettier --config .prettierrc.js",
+    "test": "karma start karma.conf.js --singleRun=true"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run ci"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run prettier -- --write",
+      "npm run eslint",
+      "git add"
+    ],
+    "*.scss": [
+      "stylelint --syntax=scss",
+      "npm run prettier -- --write"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "angular-mocks": "^1.5.5",
+    "chai": "^3.5.0",
+    "connect-livereload": "latest",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-angular": "^0.5.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-angular": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-mocha": "^5.2.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "gh-pages": "^0.12.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "latest",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "latest",
+    "gulp-concat-css": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "^2.0.4",
+    "gulp-uglify": "latest",
+    "gulp-uglifycss": "latest",
+    "gulp-watch": "latest",
+    "husky": "^1.1.2",
+    "karma": "^1.3.0",
+    "karma-babel-preprocessor": "^8.0.0-beta.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.0.2",
+    "karma-nyan-reporter": "^0.2.3",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sinon": "^1.0.4",
+    "lint-staged": "^7.3.0",
+    "mocha": "^3.2.0",
+    "phantomjs-prebuilt": "^2.1.4",
+    "prettier": "^1.14.3",
+    "roboto-fontface": "^0.4.2",
+    "sinon": "1.17.6",
+    "stylelint": "latest",
+    "tiny-lr": "latest"
+  },
+  "dependencies": {
+    "angular": "^1.4.9",
+    "angular-aria": "^1.5.5",
+    "angular-sanitize": "^1.5.5",
+    "angularfire": "^2.3.0",
+    "clipboard": "^1.7.1",
+    "core-js": "^2.4.1",
+    "express": "^4.13.3",
+    "font-awesome": "^4.6.1",
+    "jspdf": "^1.3.3",
+    "ng-dialog": "^0.6.0",
+    "ng-file-upload": "12.2.13",
+    "opencollective": "^1.0.3",
+    "papaparse": "^4.2.0",
+    "vanilla-emoji-picker": "^0.2.0"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/distributed",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
+  },
+  "engines": {
+    "node": ">=8.6.0"
+  }
 }
