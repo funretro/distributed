@@ -7,8 +7,8 @@ module.exports = function(config) {
       'node_modules/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/angularfire/dist/angularfire.min.js',
-      'js/vendor/lvl-uuid.js',
-      'js/vendor/lvl-drag-drop.js',
+      'vendor/lvl-uuid.js',
+      'vendor/lvl-drag-drop.js',
       'node_modules/ng-dialog/js/ngDialog.min.js',
       'node_modules/angular-aria/angular-aria.min.js',
       'node_modules/angular-sanitize/angular-sanitize.min.js',
@@ -43,7 +43,7 @@ module.exports = function(config) {
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['nyan', 'coverage'],
-    browsers: ['Chrome', 'PhantomJS'],
+    browsers: ['PhantomJS'],
     client: {
       mocha: {
         reporter: 'html',

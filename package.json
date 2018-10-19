@@ -72,7 +72,7 @@
     "phantomjs-prebuilt": "^2.1.4",
     "prettier": "^1.14.3",
     "roboto-fontface": "^0.4.2",
-    "sinon": "1.17.6",
+    "sinon": "^7.0.0",
     "stylelint": "latest",
     "tiny-lr": "latest"
   },

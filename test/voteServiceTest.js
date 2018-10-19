@@ -1,17 +1,30 @@
 describe('VoteService: ', () => {
   let FirebaseService;
   let VoteService;
+  let updateStub;
 
   beforeEach(angular.mock.module('fireideaz'));
   beforeEach(inject((_VoteService_, _FirebaseService_) => {
     VoteService = _VoteService_;
     FirebaseService = _FirebaseService_;
-    sinon.spy(localStorage, 'setItem');
+    updateStub = sinon.stub();
+
+    sinon.stub(localStorage, 'setItem');
     sinon.stub(localStorage, 'getItem');
     sinon.stub(VoteService, 'returnNumberOfVotes');
     sinon.stub(VoteService, 'returnNumberOfVotesOnMessage');
     sinon.stub(VoteService, 'remainingVotes');
+
+    sinon.stub(FirebaseService, 'getServerTimestamp').returns('00:00:00');
+
+    sinon.stub(FirebaseService, 'getMessageRef').returns({
+      update: updateStub,
+    });
+    sinon.stub(FirebaseService, 'getBoardRef').returns({
+      update: updateStub,
+    });
   }));
+
   afterEach(() => {
     localStorage.getItem.restore();
     localStorage.setItem.restore();
@@ -177,12 +190,15 @@ describe('VoteService: ', () => {
     });
 
     it('should merge messages votes if drop is zero', () => {
-      localStorage.getItem.returns('');
-
+      localStorage.getItem.returns('{"abc":3,"abd":2}');
       VoteService.mergeMessages('userId', 'abc', 'abf');
 
-      expect(localStorage.setItem.calledWith('userId', '{"abd":2,"abf":3}')).to
-        .be.true;
+      expect(
+        localStorage.setItem.calledWith(
+          'userId',
+          JSON.stringify({ abd: 2, abf: 3 })
+        )
+      ).to.be.true;
     });
   });
 
@@ -198,7 +214,7 @@ describe('VoteService: ', () => {
     });
 
     it('should return true if still has votes', () => {
-      localStorage.getItem.returns('{"abc":2,"abd":2}');
+      VoteService.remainingVotes.returns(2);
       expect(VoteService.isAbleToVote('abc', 5)).to.be.true;
     });
 
@@ -220,114 +236,56 @@ describe('VoteService: ', () => {
   });
 
   describe('vote limits', () => {
+    beforeEach(() => {
+      sinon.stub(VoteService, 'isAbleToVote').returns(true);
+      sinon.spy(VoteService, 'increaseMessageVotes');
+      sinon.spy(VoteService, 'decreaseMessageVotes');
+      sinon.stub(VoteService, 'canUnvoteMessage').returns(true);
+    });
     it('is able to increment the maximum number of votes allowed per user', () => {
-      const updateSpy = sinon.spy();
-      sinon.stub(FirebaseService, 'getBoardRef', () => ({
-        update: updateSpy,
-      }));
-
       VoteService.incrementMaxVotes(123, 1);
-      expect(updateSpy.calledWith({ max_votes: 2 })).to.be.true;
+      expect(updateStub.calledWith({ max_votes: 2 })).to.be.true;
     });
 
     it('is not able to increment the maximum number of votes allowed per user if bigger than 99', () => {
-      const updateSpy = sinon.spy();
-      sinon.stub(FirebaseService, 'getBoardRef', () => ({
-        update: updateSpy,
-      }));
-
       VoteService.incrementMaxVotes(123, 99);
-      expect(updateSpy.called).to.be.false;
+      expect(updateStub.called).to.be.false;
     });
 
     it('is able to decrement the maximum number of votes allowed per user', () => {
-      const updateSpy = sinon.spy();
-      sinon.stub(FirebaseService, 'getBoardRef', () => ({
-        update: updateSpy,
-      }));
-
       VoteService.decrementMaxVotes(123, 3);
-      expect(updateSpy.calledWith({ max_votes: 2 })).to.be.true;
+      expect(updateStub.calledWith({ max_votes: 2 })).to.be.true;
     });
   });
 
   it('should vote on a message', () => {
-    sinon.stub(FirebaseService, 'getServerTimestamp', () => '00:00:00');
-    sinon.stub(VoteService, 'isAbleToVote', () => true);
-    const updateSpy = sinon.spy();
-    sinon.stub(FirebaseService, 'getMessagesRef', () => ({
-      child() {
-        return {
-          update: updateSpy,
-        };
-      },
-    }));
-
-    sinon.spy(VoteService, 'increaseMessageVotes');
-
     VoteService.vote('userId', 10, {}, 'abc', 5);
 
-    expect(updateSpy.calledWith({ votes: 6, date: '00:00:00' })).to.be.true;
+    expect(updateStub.calledWith({ votes: 6, date: '00:00:00' })).to.be.true;
     expect(VoteService.increaseMessageVotes.calledWith('userId', 'abc')).to.be
       .true;
   });
 
   it('should unvote a message', () => {
-    sinon.stub(FirebaseService, 'getServerTimestamp', () => '00:00:00');
-    sinon.stub(VoteService, 'canUnvoteMessage', () => true);
-    sinon.spy(VoteService, 'decreaseMessageVotes');
-    const updateSpy = sinon.spy();
-    sinon.stub(FirebaseService, 'getMessagesRef', () => ({
-      child() {
-        return {
-          update: updateSpy,
-        };
-      },
-    }));
-
     VoteService.unvote('userId', 'abc', 5);
 
-    expect(updateSpy.calledWith({ votes: 4, date: '00:00:00' })).to.be.true;
+    expect(updateStub.calledWith({ votes: 4, date: '00:00:00' })).to.be.true;
     expect(VoteService.decreaseMessageVotes.calledWith('userId', 'abc')).to.be
       .true;
   });
 
   it('should not give negative votes to a message with votes -1', () => {
-    sinon.stub(FirebaseService, 'getServerTimestamp', () => '00:00:00');
-    sinon.stub(VoteService, 'canUnvoteMessage', () => true);
-    sinon.spy(VoteService, 'decreaseMessageVotes');
-    const updateSpy = sinon.spy();
-    sinon.stub(FirebaseService, 'getMessagesRef', () => ({
-      child() {
-        return {
-          update: updateSpy,
-        };
-      },
-    }));
-
     VoteService.unvote('userId', 'abc', -1);
 
-    expect(updateSpy.calledWith({ votes: 0, date: '00:00:00' })).to.be.true;
+    expect(updateStub.calledWith({ votes: 0, date: '00:00:00' })).to.be.true;
     expect(VoteService.decreaseMessageVotes.calledWith('userId', 'abc')).to.be
       .true;
   });
 
   it('should not give negative votes to a message with zero votes', () => {
-    sinon.stub(FirebaseService, 'getServerTimestamp', () => '00:00:00');
-    sinon.stub(VoteService, 'canUnvoteMessage', () => true);
-    sinon.spy(VoteService, 'decreaseMessageVotes');
-    const updateSpy = sinon.spy();
-    sinon.stub(FirebaseService, 'getMessagesRef', () => ({
-      child() {
-        return {
-          update: updateSpy,
-        };
-      },
-    }));
-
     VoteService.unvote('userId', 'abc', 0);
 
-    expect(updateSpy.calledWith({ votes: 0, date: '00:00:00' })).to.be.true;
+    expect(updateStub.calledWith({ votes: 0, date: '00:00:00' })).to.be.true;
     expect(VoteService.decreaseMessageVotes.calledWith('userId', 'abc')).to.be
       .true;
   });

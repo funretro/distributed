@@ -3,5 +3,5 @@ languages:
 exclude_paths:
   - 'dist/*'
   - 'test/*'
-  - 'js/vendor/*'
+  - 'vendor/*'
   - 'css/vendor/*'

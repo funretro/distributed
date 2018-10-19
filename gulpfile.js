@@ -1,30 +1,18 @@
 const gulp = require('gulp');
-
 const clean = require('gulp-clean');
-
-const Server = require('karma').Server;
-
+const { Server } = require('karma');
 const concat = require('gulp-concat');
-
-const gp_rename = require('gulp-rename');
-
+const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
-
 const concatCss = require('gulp-concat-css');
-
 const uglifycss = require('gulp-uglifycss');
-
 const sass = require('gulp-sass');
-
 const connectlivereload = require('connect-livereload');
-
 const express = require('express');
-
 const path = require('path');
-
 const watch = require('gulp-watch');
-
 const autoprefixer = require('gulp-autoprefixer');
+const tinyLr = require('tiny-lr')();
 
 gulp.task('express', () => {
   const app = express();
@@ -36,23 +24,20 @@ gulp.task('express', () => {
   });
 });
 
-let tinylr;
-
 function notifyLiveReload(event) {
-  tinylr.changed({ body: { files: [path.relative(__dirname, event.path)] } });
+  tinyLr.changed({ body: { files: [path.relative(__dirname, event.path)] } });
 }
 
 gulp.task('livereload', () => {
-  tinylr = require('tiny-lr')();
-  tinylr.listen(35729);
+  tinyLr.listen(35729);
 });
 
-const buildHTML = function() {
+const buildHTML = () => {
   gulp.src('index.html').pipe(gulp.dest('dist'));
   gulp.src('components/*').pipe(gulp.dest('dist/components'));
 };
 
-const bundleVendorCSS = function() {
+const bundleVendorCSS = () => {
   gulp
     .src([
       'node_modules/font-awesome/css/font-awesome.min.css',
@@ -64,28 +49,28 @@ const bundleVendorCSS = function() {
     .pipe(gulp.dest('dist/css'));
 };
 
-const processSass = function() {
+const processSass = () => {
   gulp
     .src(['stylesheets/main.scss'])
     .pipe(sass().on('error', sass.logError))
-    .pipe(gp_rename('main.css'))
+    .pipe(rename('main.css'))
     .pipe(autoprefixer())
     .pipe(uglifycss())
     .pipe(gulp.dest('dist/css'));
 };
 
-const bundleVendorJS = function() {
+const bundleVendorJS = () => {
   gulp
     .src([
-      'js/vendor/jquery-3.2.1.min.js',
+      'vendor/jquery-3.2.1.min.js',
       'node_modules/angular/angular.min.js',
-      'js/vendor/firebase.js',
-      'js/vendor/firebaseInitialization.js',
+      'vendor/firebase.js',
+      'vendor/firebaseInitialization.js',
       'node_modules/angularfire/dist/angularfire.min.js',
       'node_modules/angular-*/**/angular-*.min.js',
       'node_modules/core-js/client/shim.min.js',
       '!node_modules/**/angular-mocks.js',
-      'js/vendor/*.js',
+      'vendor/*.js',
       'node_modules/ng-dialog/**/ngDialog*.min.js',
       'node_modules/ng-file-upload/**/ng-file-upload-all.min.js',
       'node_modules/papaparse/papaparse.min.js',
@@ -99,7 +84,7 @@ const bundleVendorJS = function() {
     .pipe(gulp.dest('dist'));
 };
 
-const minifyJS = function() {
+const minifyJS = () => {
   gulp
     .src(['js/*.js', 'js/**/*.js', '!js/vendor/*.js'])
     .pipe(concat('main.js'))
@@ -117,7 +102,7 @@ gulp.task('bundle', () => {
   minifyJS();
 });
 
-gulp.task('watch', cb => {
+gulp.task('watch', () => {
   watch('dist/*', notifyLiveReload);
   watch('**/*.html', notifyLiveReload);
   watch('components/*', buildHTML);
@@ -125,6 +110,7 @@ gulp.task('watch', cb => {
   watch('**/*.scss', notifyLiveReload);
   watch('js/**/*.js', minifyJS);
 });
+
 gulp.task('watch-test', done =>
   new Server(
     {
