@@ -1,47 +1,40 @@
-'use strict';
-
 angular.module('fireideaz').service('CsvService', [
-  function() {
-    var csvService = {};
+  () => {
+    const csvService = {};
+    const arrayExists = array => array !== undefined;
+    const isEmptyCell = nextValue => nextValue === undefined;
+    const isString = stringValue =>
+      typeof stringValue === 'string' || stringValue instanceof String;
 
-    var arrayExists = function(array) {
-      return array !== undefined;
-    };
-
-    var isEmptyCell = function(nextValue) {
-      return nextValue === undefined;
-    };
-
-    var isString = function(stringValue) {
-      return typeof stringValue === 'string' || stringValue instanceof String;
-    };
-
-    var endodeForCsv = function(stringToEncode) {
+    const endodeForCsv = stringToEncode => {
       // Enocde " characters
-      stringToEncode = stringToEncode.replace(/"/g, '""');
+      let encoded = stringToEncode.replace(/"/g, '""');
 
       // Surround string with " characters if " , or \n are present
-      if (stringToEncode.search(/("|,|\n)/g) >= 0) {
-        stringToEncode = '"' + stringToEncode + '"';
+      if (encoded.search(/("|,|\n)/g) >= 0) {
+        encoded = `"${encoded}"`;
       }
 
-      return stringToEncode;
+      return encoded;
     };
 
-    csvService.buildCsvText = function(doubleArray) {
-      var csvText = '';
+    csvService.buildCsvText = doubleArray => {
+      const longestColumn = csvService.determineLongestColumn(doubleArray);
+      let csvText = '';
 
-      var longestColumn = csvService.determineLongestColumn(doubleArray);
-
-      // Going by row because CSVs are ordered by rows
-      for (var rowIndex = 0; rowIndex < longestColumn; rowIndex++) {
-        for (var columnIndex = 0; columnIndex < longestColumn; columnIndex++) {
-          var column = doubleArray[columnIndex];
+      // Going by row because CVS are ordered by rows
+      for (let rowIndex = 0; rowIndex < longestColumn; rowIndex += 1) {
+        for (
+          let columnIndex = 0;
+          columnIndex < longestColumn;
+          columnIndex += 1
+        ) {
+          const column = doubleArray[columnIndex];
           if (!arrayExists(column)) {
             break;
           }
 
-          var nextValue = column[rowIndex];
+          let nextValue = column[rowIndex];
           if (isEmptyCell(nextValue)) {
             nextValue = '';
           }
@@ -50,7 +43,7 @@ angular.module('fireideaz').service('CsvService', [
             nextValue = endodeForCsv(nextValue);
           }
 
-          csvText += nextValue + ',';
+          csvText += `${nextValue},`;
         }
 
         csvText += '\r\n';
@@ -59,12 +52,12 @@ angular.module('fireideaz').service('CsvService', [
       return csvText;
     };
 
-    csvService.determineLongestColumn = function(doubleArray) {
-      return doubleArray.reduce(function(prev, next) {
-        return next.length > prev ? next.length : prev;
-      }, doubleArray.length);
-    };
+    csvService.determineLongestColumn = doubleArray =>
+      doubleArray.reduce(
+        (prev, next) => (next.length > prev ? next.length : prev),
+        doubleArray.length
+      );
 
     return csvService;
-  }
+  },
 ]);

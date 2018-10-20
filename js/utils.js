@@ -1,41 +1,46 @@
-'use strict';
-
-angular
-  .module('fireideaz')
-  .service('Utils', [function () {
+angular.module('fireideaz').service('Utils', [
+  () => {
     function createUserId() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
-            return v.toString(16);
-        });
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = (Math.random() * 16) | 0; // eslint-disable-line no-bitwise
+
+        const v = c === 'x' ? r : (r & 0x3) | 0x8; // eslint-disable-line no-bitwise
+        return v.toString(16);
+      });
     }
 
     function focusElement(id) {
-      $('#' + id).find('textarea').focus();
+      $(`#${id}`)
+        .find('textarea')
+        .focus();
     }
 
-    var messageTypes = [{
-      id: 1,
-      value: 'Went well'
-    }, {
-      id: 2,
-      value: 'To improve'
-    }, {
-      id: 3,
-      value: 'Action items'
-    }];
+    const messageTypes = [
+      {
+        id: 1,
+        value: 'Went well',
+      },
+      {
+        id: 2,
+        value: 'To improve',
+      },
+      {
+        id: 3,
+        value: 'Action items',
+      },
+    ];
 
     function getNextId(board) {
       return board.columns.slice(-1).pop().id + 1;
     }
 
     function toObject(array) {
-      var object = {};
+      const object = {};
 
-      for (var i = 0; i < array.length; i++) {
+      for (let i = 0; i < array.length; i += 1) {
         object[i] = {
           id: array[i].id,
-          value: array[i].value
+          value: array[i].value,
         };
       }
 
@@ -43,15 +48,16 @@ angular
     }
 
     function columnClass(id) {
-      return 'column_' + (id % 6 || 6);
+      return `column_${id % 6 || 6}`;
     }
 
     return {
-      createUserId: createUserId,
-      focusElement: focusElement,
-      messageTypes: messageTypes,
-      getNextId: getNextId,
-      toObject: toObject,
-      columnClass: columnClass
+      createUserId,
+      focusElement,
+      messageTypes,
+      getNextId,
+      toObject,
+      columnClass,
     };
-  }]);
+  },
+]);

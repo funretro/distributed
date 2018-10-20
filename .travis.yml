@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "8"
+    - '8'
 before_script:
-  - npm install
+    - npm install
 
-script: npm run jshint && npm run test
+script: npm run ci
