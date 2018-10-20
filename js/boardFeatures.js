@@ -1,6 +1,4 @@
-'use strict';
-
-angular.module('fireideaz').constant('FEATURES', [
+angular.module('fireideaz').constant('BoardFeatures', [
   {
     name: 'Unlimited public boards',
     free: 'X',
