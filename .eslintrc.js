@@ -23,7 +23,7 @@ module.exports = {
   rules: {
     'angular/di': ['warn', '$inject'],
     'angular/controller-as': ['warn'],
-    'angular/file-name': ['warn'],
+    'angular/file-name': [0],
     'angular/no-service-method': ['warn'],
     'no-unused-expressions': [0],
     semi: [2, 'always'],
